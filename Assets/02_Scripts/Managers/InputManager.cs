@@ -13,6 +13,8 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Awake");
+
         if (instance != null)
             Destroy(gameObject);
 

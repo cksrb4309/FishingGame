@@ -243,6 +243,8 @@ public class PlayerMove : MonoBehaviour
     }
     private void OnEnable()
     {
+        Debug.Log("OnEnable");
+
         moveInputActionReference = InputManager.GetInputAction(InputType.PlayerMove);
         boostInputActionReference = InputManager.GetInputAction(InputType.PlayerBoost);
         leftInputActionReference = InputManager.GetInputAction(InputType.PlayerLeft);
