@@ -17,8 +17,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float maxSpeed;
     [SerializeField] float boostMaxSpeed;
 
-    [SerializeField] float dashSpeed;
-    [SerializeField] float doubleClickLimit = 0.2f;
+    [SerializeField] AnimationCurve dashSpeed;
+    [SerializeField] float dashDuration = 0.5f;
     [SerializeField] float dashCooltime = 1f;
 
     [SerializeField] float bounceFactor = 1f;
@@ -29,6 +29,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] Vector2 velocity = Vector2.zero;
     Vector3 applyVelocity = Vector3.zero;
 
+    Vector2 dashVelocity = Vector2.zero;
+    bool isDash = false;
+
     Transform myTransform;
 
     List<Transform>[] dirMarkers = new List<Transform>[4];
@@ -36,8 +39,8 @@ public class PlayerMove : MonoBehaviour
 
     InputActionReference moveInputActionReference;
     InputActionReference boostInputActionReference;
-    InputActionReference leftInputActionReference;
-    InputActionReference rightInputActionReference;
+    InputActionReference dashInputActionReference;
+    InputActionReference mousePointInputActionReference;
 
     public void HandleCollision(Collision2D collision)
     {
@@ -105,20 +108,33 @@ public class PlayerMove : MonoBehaviour
 
         #endregion
 
+        if (isDash) isDash = false;
     }
     void InitWeight()
     {
         for (int i = 0; i < 4; i++) for (int j = 0; j < weightList[i].Count; j++) weightList[i][j] = 0f;
     }
 
-    Dir beforeMoveDir = Dir.Top;
-    Coroutine dashCoroutine = null;
     Coroutine dashCooltimeCoroutine = null;
     IEnumerator DashCoroutine()
     {
-        yield return new WaitForSecondsRealtime(doubleClickLimit);
+        Vector2 mousePosition = mousePointInputActionReference.action.ReadValue<Vector2>();
+        Vector2 dir = (mousePosition - new Vector2(Screen.width * 0.5f, Screen.height * 0.5f)).normalized;
 
-        dashCoroutine = null;
+        float t = 0;
+
+        isDash = true;
+
+        while (t < dashDuration)
+        {
+            t += Time.deltaTime;
+
+            dashVelocity = dir * dashSpeed.Evaluate(t);
+
+            yield return null;
+        }
+
+        isDash = false;
     }
     IEnumerator DashCooltimeCoroutine()
     {
@@ -137,42 +153,13 @@ public class PlayerMove : MonoBehaviour
 
         #region 대쉬 적용 입력
 
-        if (dashCoroutine != null && dashCooltimeCoroutine == null)
+        if (dashCooltimeCoroutine == null)
         {
-            if (leftInputActionReference.action.WasPressedThisFrame())
+            if (dashInputActionReference.action.WasPressedThisFrame())
             {
-                if (beforeMoveDir == Dir.Left)
-                {
-                    StopCoroutine(dashCoroutine);
-                    dashCoroutine = null;
-                    velocity.x = -dashSpeed;
+                StartCoroutine(DashCoroutine());
 
-                    dashCooltimeCoroutine = StartCoroutine(DashCooltimeCoroutine());
-                }
-            }
-            else if (rightInputActionReference.action.WasPressedThisFrame())
-            {
-                if (beforeMoveDir == Dir.Right)
-                {
-                    StopCoroutine(dashCoroutine);
-                    dashCoroutine = null;
-                    velocity.x = dashSpeed;
-
-                    dashCooltimeCoroutine = StartCoroutine(DashCooltimeCoroutine());
-                }
-            }
-        }
-        else
-        {
-            if (leftInputActionReference.action.WasPressedThisFrame())
-            {
-                beforeMoveDir = Dir.Left;
-                dashCoroutine = StartCoroutine(DashCoroutine());
-            }
-            else if (rightInputActionReference.action.WasPressedThisFrame())
-            {
-                beforeMoveDir = Dir.Right;
-                dashCoroutine = StartCoroutine(DashCoroutine());
+                dashCooltimeCoroutine = StartCoroutine(DashCooltimeCoroutine());
             }
         }
 
@@ -213,7 +200,7 @@ public class PlayerMove : MonoBehaviour
 
         velocity = Vector2.Lerp(beforeVelocity, afterVelocity, Time.deltaTime * limitedSpeed);
 
-        applyVelocity = velocity;
+        applyVelocity = isDash ? dashVelocity : velocity;
 
         #endregion
 
@@ -240,25 +227,44 @@ public class PlayerMove : MonoBehaviour
                 weightList[i].Add(0f);
             }
         }
+
+        NormalizeCurve(dashSpeed, dashDuration);
     }
     private void OnEnable()
     {
-        Debug.Log("OnEnable");
-
         moveInputActionReference = InputManager.GetInputAction(InputType.PlayerMove);
         boostInputActionReference = InputManager.GetInputAction(InputType.PlayerBoost);
-        leftInputActionReference = InputManager.GetInputAction(InputType.PlayerLeft);
-        rightInputActionReference = InputManager.GetInputAction(InputType.PlayerRight);
+        dashInputActionReference = InputManager.GetInputAction(InputType.PlayerDash);
+        mousePointInputActionReference = InputManager.GetInputAction(InputType.MousePoint);
     }
     private void OnDisable()
     {
         InputManager.Release(InputType.PlayerMove);
         InputManager.Release(InputType.PlayerBoost);
-        InputManager.Release(InputType.PlayerLeft);
-        InputManager.Release(InputType.PlayerRight);
+        InputManager.Release(InputType.PlayerDash);
+        InputManager.Release(InputType.MousePoint);
     }
     //public void Activate() => canMove = true;
     //public void Deactivate() => canMove = false;
+
+    AnimationCurve NormalizeCurve(AnimationCurve curve, float dashDuration)
+    {
+        if (curve == null || curve.keys.Length == 0)
+            return new AnimationCurve();
+
+        AnimationCurve normalizedCurve = new AnimationCurve();
+
+        Keyframe[] keys = curve.keys;
+        float originalDuration = keys[keys.Length - 1].time; // 원래 커브의 마지막 키프레임 시간
+
+        foreach (Keyframe key in keys)
+        {
+            float normalizedTime = (key.time / originalDuration) * dashDuration;
+            normalizedCurve.AddKey(new Keyframe(normalizedTime, key.value, key.inTangent, key.outTangent));
+        }
+
+        return normalizedCurve;
+    }
 }
 
 public enum Dir
