@@ -14,10 +14,11 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float boostDeceleration;
     [SerializeField] float limitedSpeed = 1f;
 
-    [SerializeField] float defaultMaxSpeed;
-    [SerializeField] float boostMaxSpeed;
+    [SerializeField] float defaultMaxSpeed = 10f;
+    [SerializeField] float boostMaxSpeed = 15f;
 
     [SerializeField] AnimationCurve dashSpeed;
+    [SerializeField] float dashFinishSpeed = 1.5f;
     [SerializeField] float dashDuration = 0.5f;
     [SerializeField] float dashCooltime = 1f;
 
@@ -149,7 +150,9 @@ public class PlayerMove : MonoBehaviour
             if (upInputActionReference.action.IsPressed()) dir.y += 1f;
             if (downInputActionReference.action.IsPressed()) dir.y -= 1f;
 
-            velocity = dir * defaultMaxSpeed;
+            dir = dir.normalized;
+
+            velocity = dir * defaultMaxSpeed * dashFinishSpeed;
         }
 
         isDash = false;
