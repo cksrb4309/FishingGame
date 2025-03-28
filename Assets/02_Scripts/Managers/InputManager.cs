@@ -55,4 +55,8 @@ public enum InputType
     PlayerBoost,
     PlayerDash,
     MousePoint,
+    Left,
+    Right,
+    Up,
+    Down,
 }

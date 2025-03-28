@@ -40,7 +40,11 @@ public class PlayerMove : MonoBehaviour
     InputActionReference moveInputActionReference;
     InputActionReference boostInputActionReference;
     InputActionReference dashInputActionReference;
-    InputActionReference mousePointInputActionReference;
+    //InputActionReference mousePointInputActionReference;
+    InputActionReference leftInputActionReference;
+    InputActionReference rightInputActionReference;
+    InputActionReference upInputActionReference;
+    InputActionReference downInputActionReference;
 
     public void HandleCollision(Collision2D collision)
     {
@@ -116,10 +120,12 @@ public class PlayerMove : MonoBehaviour
     }
 
     Coroutine dashCooltimeCoroutine = null;
-    IEnumerator DashCoroutine()
+    IEnumerator DashCoroutine(Vector2 dir)
     {
-        Vector2 mousePosition = mousePointInputActionReference.action.ReadValue<Vector2>();
-        Vector2 dir = (mousePosition - new Vector2(Screen.width * 0.5f, Screen.height * 0.5f)).normalized;
+        //Vector2 mousePosition = mousePointInputActionReference.action.ReadValue<Vector2>();
+        //Vector2 dir = (mousePosition - new Vector2(Screen.width * 0.5f, Screen.height * 0.5f)).normalized;
+
+        dir = dir.normalized;
 
         float t = 0;
 
@@ -157,9 +163,19 @@ public class PlayerMove : MonoBehaviour
         {
             if (dashInputActionReference.action.WasPressedThisFrame())
             {
-                StartCoroutine(DashCoroutine());
+                Vector2 dir = Vector2.zero;
 
-                dashCooltimeCoroutine = StartCoroutine(DashCooltimeCoroutine());
+                if (leftInputActionReference.action.IsPressed()) dir.x -= 1f;
+                if (rightInputActionReference.action.IsPressed()) dir.x += 1f;
+                if (upInputActionReference.action.IsPressed()) dir.y += 1f;
+                if (downInputActionReference.action.IsPressed()) dir.y -= 1f;
+
+                if (Vector2.zero != dir)
+                {
+                    StartCoroutine(DashCoroutine(dir));
+
+                    dashCooltimeCoroutine = StartCoroutine(DashCooltimeCoroutine());
+                }
             }
         }
 
@@ -235,14 +251,24 @@ public class PlayerMove : MonoBehaviour
         moveInputActionReference = InputManager.GetInputAction(InputType.PlayerMove);
         boostInputActionReference = InputManager.GetInputAction(InputType.PlayerBoost);
         dashInputActionReference = InputManager.GetInputAction(InputType.PlayerDash);
-        mousePointInputActionReference = InputManager.GetInputAction(InputType.MousePoint);
+        //mousePointInputActionReference = InputManager.GetInputAction(InputType.MousePoint);
+
+        leftInputActionReference = InputManager.GetInputAction(InputType.Left);
+        rightInputActionReference = InputManager.GetInputAction(InputType.Right);
+        upInputActionReference = InputManager.GetInputAction(InputType.Up);
+        downInputActionReference = InputManager.GetInputAction(InputType.Down);
     }
     private void OnDisable()
     {
         InputManager.Release(InputType.PlayerMove);
         InputManager.Release(InputType.PlayerBoost);
         InputManager.Release(InputType.PlayerDash);
-        InputManager.Release(InputType.MousePoint);
+        //InputManager.Release(InputType.MousePoint);
+
+        InputManager.Release(InputType.Left);
+        InputManager.Release(InputType.Right);
+        InputManager.Release(InputType.Up);
+        InputManager.Release(InputType.Down);
     }
     //public void Activate() => canMove = true;
     //public void Deactivate() => canMove = false;
