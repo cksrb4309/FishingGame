@@ -34,6 +34,7 @@ public class PlayerMove : MonoBehaviour
     bool isDash = false;
 
     Transform myTransform;
+    Rigidbody2D myRigidbody;
 
     List<Transform>[] dirMarkers = new List<Transform>[4];
     List<float>[] weightList = new List<float>[4];
@@ -75,8 +76,6 @@ public class PlayerMove : MonoBehaviour
 
                     if (maxWeight < weightList[j][k])
                     {
-                        Debug.Log("최대값 갱신 값 : " + weightList[j][k].ToString() + " / 방향 : " + ((Dir)j).ToString());
-
                         selectDir = (Dir)j;
 
                         maxWeight = weightList[j][k];
@@ -91,24 +90,26 @@ public class PlayerMove : MonoBehaviour
 
         float value;
 
+        Vector2 velocity = isDash ? dashVelocity : this.velocity;
+
         switch (selectDir)
         {
             case Dir.Top:
                 value = -velocity.y * bounceFactor;
                 value = value < minBounceForce ? minBounceForce : value;
-                velocity.y = value; break;
+                this.velocity.y = value; break;
             case Dir.Bottom:
                 value = -velocity.y * bounceFactor;
                 value = value > -minBounceForce ? -minBounceForce : value;
-                velocity.y = value; break;
+                this.velocity.y = value; break;
             case Dir.Left:
                 value = -velocity.x * bounceFactor;
                 value = value > -minBounceForce ? -minBounceForce : value;
-                velocity.x = value; break;
+                this.velocity.x = value; break;
             case Dir.Right:
                 value = -velocity.x * bounceFactor;
                 value = value < minBounceForce ? minBounceForce : value;
-                velocity.x = value; break;
+                this.velocity.x = value; break;
         }
 
         #endregion
@@ -237,7 +238,9 @@ public class PlayerMove : MonoBehaviour
 
         #region 적용
 
-        myTransform.position += applyVelocity * Time.deltaTime;
+        myRigidbody.linearVelocity = applyVelocity;
+
+        //myTransform.position += applyVelocity * Time.deltaTime;
 
         #endregion
 
@@ -245,6 +248,7 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         myTransform = GetComponent<Transform>();
+        myRigidbody = GetComponent<Rigidbody2D>();
 
         // 충돌 방향 마커 초기화
         for (int i = 0; i < 4; i++)
