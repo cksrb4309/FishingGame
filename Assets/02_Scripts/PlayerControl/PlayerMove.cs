@@ -14,7 +14,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float boostDeceleration;
     [SerializeField] float limitedSpeed = 1f;
 
-    [SerializeField] float maxSpeed;
+    [SerializeField] float defaultMaxSpeed;
     [SerializeField] float boostMaxSpeed;
 
     [SerializeField] AnimationCurve dashSpeed;
@@ -140,6 +140,18 @@ public class PlayerMove : MonoBehaviour
             yield return null;
         }
 
+        if (isDash)
+        {
+            dir = Vector2.zero;
+
+            if (leftInputActionReference.action.IsPressed()) dir.x -= 1f;
+            if (rightInputActionReference.action.IsPressed()) dir.x += 1f;
+            if (upInputActionReference.action.IsPressed()) dir.y += 1f;
+            if (downInputActionReference.action.IsPressed()) dir.y -= 1f;
+
+            velocity = dir * defaultMaxSpeed;
+        }
+
         isDash = false;
     }
     IEnumerator DashCooltimeCoroutine()
@@ -212,7 +224,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         Vector2 beforeVelocity = velocity;
-        Vector2 afterVelocity = Vector2.ClampMagnitude(velocity, isBoost ? boostMaxSpeed : maxSpeed);
+        Vector2 afterVelocity = Vector2.ClampMagnitude(velocity, isBoost ? boostMaxSpeed : defaultMaxSpeed);
 
         velocity = Vector2.Lerp(beforeVelocity, afterVelocity, Time.deltaTime * limitedSpeed);
 
