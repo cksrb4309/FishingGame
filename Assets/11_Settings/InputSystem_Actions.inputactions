@@ -72,7 +72,7 @@
                     "name": "Next",
                     "type": "Button",
                     "id": "b7230bb6-fc9b-4f52-8b25-f5e19cb2c2ba",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -87,7 +87,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LeftButton",
+                    "name": "Dash",
                     "type": "Button",
                     "id": "39b135a6-d290-4158-b3d7-694739897ac0",
                     "expectedControlType": "",
@@ -96,13 +96,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RightButton",
-                    "type": "Button",
+                    "name": "MousePosition",
+                    "type": "Value",
                     "id": "8224a3d1-93db-4a8d-a2a7-58f181f8c6cf",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -494,22 +494,22 @@
                 {
                     "name": "",
                     "id": "c16d8c6f-e69c-484b-96e0-23613e816c52",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LeftButton",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "944073c6-9a78-4593-898f-7886a841edcf",
-                    "path": "<Keyboard>/d",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RightButton",
+                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

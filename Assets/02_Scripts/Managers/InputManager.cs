@@ -53,6 +53,6 @@ public enum InputType
 {
     PlayerMove,
     PlayerBoost,
-    PlayerLeft,
-    PlayerRight,
+    PlayerDash,
+    MousePoint,
 }
