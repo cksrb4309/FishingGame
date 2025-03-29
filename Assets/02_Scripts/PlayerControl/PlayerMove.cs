@@ -5,39 +5,60 @@ using UnityEngine.InputSystem;
 
 public class PlayerMove : MonoBehaviour
 {
+    [Header("충돌 위치")]
     [SerializeField] Transform collisionMarkers;
 
+    [Header("가속")]
     [SerializeField] float acceleration;
     [SerializeField] float boostAcceleration;
 
-    [SerializeField] float deceleration;
-    [SerializeField] float boostDeceleration;
-    [SerializeField] float limitedSpeed = 1f;
+    [Header("감속")]
+    [SerializeField] float deaceleration;
+    [SerializeField] float boostDeaceleration;
 
+    [Header("최대 속도")]
     [SerializeField] float defaultMaxSpeed = 10f;
     [SerializeField] float boostMaxSpeed = 15f;
 
+    [Header("제한 값 적용 속도")]
+    [SerializeField] float limitedSpeed = 1f;
+
+    [Header("대쉬")]
     [SerializeField] AnimationCurve dashSpeed;
     [SerializeField] float dashFinishSpeed = 1.5f;
     [SerializeField] float dashDuration = 0.5f;
     [SerializeField] float dashCooltime = 1f;
 
+    [Header("탄성")]
     [SerializeField] float bounceFactor = 1f;
     [SerializeField] float minBounceForce = 0.5f;
 
+    [Header("스태미나")]
+    [SerializeField] float staminaRegenRate = 1f;
+    [SerializeField] float staminaDrainRate = 1f;
+    [SerializeField] float staminaRegenDelay = 0.1f;
+
     //bool canMove = true;
 
-    [SerializeField] Vector2 velocity = Vector2.zero;
-    Vector3 applyVelocity = Vector3.zero;
 
-    Vector2 dashVelocity = Vector2.zero;
     bool isDash = false;
 
-    Transform myTransform;
+    float currentStamina = 0f;
+    float staminaRegenTime = 10f;
+
+    Vector3 applyVelocity = Vector3.zero;
+
+    Vector2 velocity = Vector2.zero;
+    Vector2 dashVelocity = Vector2.zero;
+
+    PlayerUIController playerUIController = null;
+
     Rigidbody2D myRigidbody;
 
     List<Transform>[] dirMarkers = new List<Transform>[4];
     List<float>[] weightList = new List<float>[4];
+
+    Coroutine dashCooltimeCoroutine = null;
 
     InputActionReference moveInputActionReference;
     InputActionReference boostInputActionReference;
@@ -120,8 +141,6 @@ public class PlayerMove : MonoBehaviour
     {
         for (int i = 0; i < 4; i++) for (int j = 0; j < weightList[i].Count; j++) weightList[i][j] = 0f;
     }
-
-    Coroutine dashCooltimeCoroutine = null;
     IEnumerator DashCoroutine(Vector2 dir)
     {
         //Vector2 mousePosition = mousePointInputActionReference.action.ReadValue<Vector2>();
@@ -173,6 +192,40 @@ public class PlayerMove : MonoBehaviour
 
         bool isBoost = boostInputActionReference.action.IsPressed();
 
+        if (isBoost) // 대시 입력 시
+        {
+            if (currentStamina > 0f)
+            {
+                currentStamina -= Time.deltaTime * staminaDrainRate;
+
+                if (currentStamina < 0f) currentStamina = 0f;
+
+                playerUIController.SetStaminaAmount(currentStamina);
+
+                staminaRegenTime = 0f;
+            }
+            if (currentStamina <= 0f)
+            {
+                currentStamina = 0f;
+
+                isBoost = false;
+            }
+        }
+
+        staminaRegenTime += Time.deltaTime;
+
+        if (staminaRegenTime >= staminaRegenDelay)
+        {
+            if (currentStamina < 1f)
+            {
+                currentStamina += Time.deltaTime * staminaRegenRate;
+
+                if (currentStamina > 1f) currentStamina = 1f;
+
+                playerUIController.SetStaminaAmount(currentStamina);
+            }
+        }
+
         #region 대쉬 적용 입력
 
         if (dashCooltimeCoroutine == null)
@@ -209,7 +262,7 @@ public class PlayerMove : MonoBehaviour
         {
             isPositive = velocity.x > 0f ? true : false;
 
-            velocity.x += isPositive ? (Time.deltaTime * (isBoost ? boostDeceleration : deceleration) * -1f) : (Time.deltaTime * (isBoost ? boostDeceleration : deceleration));
+            velocity.x += isPositive ? (Time.deltaTime * (isBoost ? boostDeaceleration : deaceleration) * -1f) : (Time.deltaTime * (isBoost ? boostDeaceleration : deaceleration));
 
             if (isPositive) velocity.x = velocity.x > 0f ? velocity.x : 0f;
 
@@ -220,7 +273,7 @@ public class PlayerMove : MonoBehaviour
         {
             isPositive = velocity.y > 0f ? true : false;
 
-            velocity.y += isPositive ? (Time.deltaTime * -(isBoost ? boostDeceleration : deceleration)) : (Time.deltaTime * (isBoost ? boostDeceleration : deceleration));
+            velocity.y += isPositive ? (Time.deltaTime * -(isBoost ? boostDeaceleration : deaceleration)) : (Time.deltaTime * (isBoost ? boostDeaceleration : deaceleration));
 
             if (isPositive) velocity.y = velocity.y < 0f ? 0f : velocity.y;
 
@@ -247,7 +300,6 @@ public class PlayerMove : MonoBehaviour
     }
     private void Awake()
     {
-        myTransform = GetComponent<Transform>();
         myRigidbody = GetComponent<Rigidbody2D>();
 
         // 충돌 방향 마커 초기화
@@ -262,6 +314,9 @@ public class PlayerMove : MonoBehaviour
                 weightList[i].Add(0f);
             }
         }
+        playerUIController = GetComponent<PlayerUIController>();
+
+        currentStamina = 1f;
 
         NormalizeCurve(dashSpeed, dashDuration);
     }
