@@ -2182,7 +2182,7 @@ MonoBehaviour:
   deceleration: 15
   boostDeceleration: 25
   limitedSpeed: 5
-  maxSpeed: 5
+  defaultMaxSpeed: 0
   boostMaxSpeed: 7.5
   dashSpeed:
     serializedVersion: 2
