@@ -1,45 +1,45 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class PlayerMove : MonoBehaviour
 {
-    [Header("Ãæµ¹ À§Ä¡")]
+    [Header("ì¶©ëŒ ìœ„ì¹˜")]
     [SerializeField] Transform collisionMarkers;
 
-    [Header("°¡¼Ó")]
+    [Header("ê°€ì†")]
     [SerializeField] float acceleration;
     [SerializeField] float boostAcceleration;
 
-    [Header("°¨¼Ó")]
+    [Header("ê°ì†")]
     [SerializeField] float deaceleration;
     [SerializeField] float boostDeaceleration;
 
-    [Header("ÃÖ´ë ¼Óµµ")]
+    [Header("ìµœëŒ€ ì†ë„")]
     [SerializeField] float defaultMaxSpeed = 10f;
     [SerializeField] float boostMaxSpeed = 15f;
 
-    [Header("Á¦ÇÑ °ª Àû¿ë ¼Óµµ")]
+    [Header("ì œí•œ ê°’ ì ìš© ì†ë„")]
     [SerializeField] float limitedSpeed = 1f;
 
-    [Header("´ë½¬")]
+    [Header("ëŒ€ì‰¬")]
     [SerializeField] AnimationCurve dashSpeed;
     [SerializeField] float dashFinishSpeed = 1.5f;
     [SerializeField] float dashDuration = 0.5f;
     [SerializeField] float dashCooltime = 1f;
 
-    [Header("Åº¼º")]
+    [Header("íƒ„ì„±")]
     [SerializeField] float bounceFactor = 1f;
     [SerializeField] float minBounceForce = 0.5f;
 
-    [Header("½ºÅÂ¹Ì³ª")]
+    [Header("ìŠ¤íƒœë¯¸ë‚˜")]
     [SerializeField] float staminaRegenRate = 1f;
     [SerializeField] float staminaDrainRate = 1f;
     [SerializeField] float staminaRegenDelay = 0.1f;
 
     //bool canMove = true;
-
 
     bool isDash = false;
 
@@ -55,15 +55,17 @@ public class PlayerMove : MonoBehaviour
 
     Rigidbody2D myRigidbody;
 
-    List<Transform>[] dirMarkers = new List<Transform>[4];
-    List<float>[] weightList = new List<float>[4];
+    Transform[] dirMarkers;
+    float[] weights;
 
     Coroutine dashCooltimeCoroutine = null;
 
     InputActionReference moveInputActionReference;
     InputActionReference boostInputActionReference;
     InputActionReference dashInputActionReference;
+
     //InputActionReference mousePointInputActionReference;
+
     InputActionReference leftInputActionReference;
     InputActionReference rightInputActionReference;
     InputActionReference upInputActionReference;
@@ -72,74 +74,77 @@ public class PlayerMove : MonoBehaviour
     public void HandleCollision(Collision2D collision)
     {
 
-        #region ¹æÇâ °è»ê
+        #region ë°©í–¥ ê³„ì‚°
 
         int contactCount = collision.contactCount;
 
-        InitWeight();
+        for (int i = 0; i < weights.Length; i++) weights[i] = 0f;
 
         float maxWeight = 0f;
-        Dir selectDir = Dir.Top;
+        Transform selectPosition = null;
 
         for (int i = 0; i < contactCount; i++)
         {
-            ContactPoint2D contact = collision.GetContact(i); // °¢ Ãæµ¹ ÁöÁ¡ °¡Á®¿À±â
+            ContactPoint2D contact = collision.GetContact(i); // ê° ì¶©ëŒ ì§€ì  ê°€ì ¸ì˜¤ê¸°
 
-            Vector2 collisionPoint = contact.point; // Ãæµ¹ ÁöÁ¡
+            Vector2 collisionPoint = contact.point; // ì¶©ëŒ ì§€ì 
 
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < dirMarkers.Length; j++)
             {
-                for (int k = 0; k < dirMarkers[j].Count; k++)
+                Vector2 pos = dirMarkers[j].position;
+
+                weights[j] += Vector2.Distance(collisionPoint, pos);
+
+                if (maxWeight < weights[j])
                 {
-                    Vector2 pos = dirMarkers[j][k].position;
+                    selectPosition = dirMarkers[j];
 
-                    weightList[j][k] += Vector2.Distance(collisionPoint, pos);
-
-                    if (maxWeight < weightList[j][k])
-                    {
-                        selectDir = (Dir)j;
-
-                        maxWeight = weightList[j][k];
-                    }
+                    maxWeight = weights[j];
                 }
             }
         }
 
         #endregion
 
-        #region Èû Àû¿ë
-
-        float value;
+        #region í˜ ì ìš©
 
         Vector2 velocity = isDash ? dashVelocity : this.velocity;
 
-        switch (selectDir)
+        Vector3 dir = (transform.position - selectPosition.position).normalized; // íŠ•ê²¨ë‚˜ê°ˆ ë°©í–¥ì„ ë‚˜íƒ€ë‚´ëŠ” ë²¡í„°
+
+        // dirì˜ ë°©í–¥ì„ ê¸°ë°˜ìœ¼ë¡œ íšŒì „ ì—†ì´ ê°€ì¥ ê°€ê¹Œìš´ 4ë°©í–¥ìœ¼ë¡œ ë³€í™˜
+        Vector2 normalizedDir;
+
+        if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y)) // xê°€ ë” í¬ë©´ left ë˜ëŠ” right
         {
-            case Dir.Top:
-                value = -velocity.y * bounceFactor;
-                value = value < minBounceForce ? minBounceForce : value;
-                this.velocity.y = value; break;
-            case Dir.Bottom:
-                value = -velocity.y * bounceFactor;
-                value = value > -minBounceForce ? -minBounceForce : value;
-                this.velocity.y = value; break;
-            case Dir.Left:
-                value = -velocity.x * bounceFactor;
-                value = value > -minBounceForce ? -minBounceForce : value;
-                this.velocity.x = value; break;
-            case Dir.Right:
-                value = -velocity.x * bounceFactor;
-                value = value < minBounceForce ? minBounceForce : value;
-                this.velocity.x = value; break;
+            normalizedDir = (dir.x > 0) ? Vector2.right : Vector2.left;
         }
+        else // yê°€ ë” í¬ë©´ up ë˜ëŠ” down
+        {
+            normalizedDir = (dir.y > 0) ? Vector2.up : Vector2.down;
+        }
+
+        // ë²¡í„° ë°©í–¥ì— ë”°ë¼ ë°˜ì‚¬ ë²¡í„°ë¥¼ ê³„ì‚°
+        Vector3 bounce = Vector3.Reflect(velocity, normalizedDir) * bounceFactor;
+
+        // ìµœì†Œ íŠ•ê¹€ í˜ ë³´ì¥
+        if (Mathf.Abs(bounce.x) < minBounceForce && bounce.x != 0f)
+            bounce.x = Mathf.Sign(bounce.x) * minBounceForce;
+
+        if (Mathf.Abs(bounce.y) < minBounceForce && bounce.y != 0f)
+            bounce.y = Mathf.Sign(bounce.y) * minBounceForce;
+
+        this.velocity = bounce;
+
+        // ë°˜ì‚¬ëœ ë²¡í„°(bounce)ì˜ ë°©í–¥ì„ ì ìš©í•˜ë„ë¡ ìˆ˜ì •
+        Vector3 bounceDirection = bounce.normalized;  // ë°˜ì‚¬ëœ ë²¡í„°ì˜ ì •ê·œí™”ëœ ë°©í–¥
+
+        // íŠ•ê²¨ë‚˜ê°€ëŠ” ë°©í–¥ì„ ì œëŒ€ë¡œ ë””ë²„ê¹…
+        Debug.Log("Bounce Dir : " + bounceDirection);  // ë°˜ì‚¬ëœ ë²¡í„°ì˜ ë°©í–¥
 
         #endregion
 
         if (isDash) isDash = false;
-    }
-    void InitWeight()
-    {
-        for (int i = 0; i < 4; i++) for (int j = 0; j < weightList[i].Count; j++) weightList[i][j] = 0f;
     }
     IEnumerator DashCoroutine(Vector2 dir)
     {
@@ -186,17 +191,17 @@ public class PlayerMove : MonoBehaviour
     private void Update()
     {
 
-        #region ÀÔ·Â
+        #region ì…ë ¥
 
         Vector2 moveValue = moveInputActionReference.action.ReadValue<Vector2>();
 
         bool isBoost = boostInputActionReference.action.IsPressed();
 
-        if (isBoost) // ´ë½Ã ÀÔ·Â ½Ã
+        if (isBoost) // ë¶€ìŠ¤íŠ¸ ì…ë ¥ ì‹œ
         {
             if (currentStamina > 0f)
             {
-                currentStamina -= Time.deltaTime * staminaDrainRate;
+                currentStamina -= Time.deltaTime * (isDash ? 0f : staminaDrainRate);
 
                 if (currentStamina < 0f) currentStamina = 0f;
 
@@ -226,7 +231,7 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        #region ´ë½¬ Àû¿ë ÀÔ·Â
+        #region ëŒ€ì‰¬ ì ìš© ì…ë ¥
 
         if (dashCooltimeCoroutine == null)
         {
@@ -252,7 +257,7 @@ public class PlayerMove : MonoBehaviour
 
         #endregion
 
-        #region °è»ê
+        #region ê³„ì‚°
 
         velocity += (Time.deltaTime * (isBoost ? boostAcceleration : acceleration)) * moveValue;
 
@@ -289,7 +294,7 @@ public class PlayerMove : MonoBehaviour
 
         #endregion
 
-        #region Àû¿ë
+        #region ì ìš©
 
         myRigidbody.linearVelocity = applyVelocity;
 
@@ -302,18 +307,17 @@ public class PlayerMove : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
 
-        // Ãæµ¹ ¹æÇâ ¸¶Ä¿ ÃÊ±âÈ­
-        for (int i = 0; i < 4; i++)
-        {
-            dirMarkers[i] = new List<Transform>();
-            weightList[i] = new List<float>();
+        dirMarkers = new Transform[collisionMarkers.childCount];
+        weights = new float[collisionMarkers.childCount];
 
-            for (int j = 0; j < collisionMarkers.GetChild(i).childCount; j++)
-            {
-                dirMarkers[i].Add(collisionMarkers.GetChild(i).GetChild(j));
-                weightList[i].Add(0f);
-            }
+        int index = 0;
+
+        foreach (Transform collisionMarker in collisionMarkers)
+        {
+            dirMarkers[index] = collisionMarker;
+            weights[index++] = 0f;
         }
+
         playerUIController = GetComponent<PlayerUIController>();
 
         currentStamina = 1f;
@@ -355,7 +359,7 @@ public class PlayerMove : MonoBehaviour
         AnimationCurve normalizedCurve = new AnimationCurve();
 
         Keyframe[] keys = curve.keys;
-        float originalDuration = keys[keys.Length - 1].time; // ¿ø·¡ Ä¿ºêÀÇ ¸¶Áö¸· Å°ÇÁ·¹ÀÓ ½Ã°£
+        float originalDuration = keys[keys.Length - 1].time; // ì›ë˜ ì»¤ë¸Œì˜ ë§ˆì§€ë§‰ í‚¤í”„ë ˆì„ ì‹œê°„
 
         foreach (Keyframe key in keys)
         {

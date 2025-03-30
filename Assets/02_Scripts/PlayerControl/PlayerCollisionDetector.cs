@@ -1,9 +1,8 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerCollisionDetector : MonoBehaviour
 {
     PlayerMove playerMove;
-
     private void Awake()
     {
         playerMove = GetComponent<PlayerMove>();
