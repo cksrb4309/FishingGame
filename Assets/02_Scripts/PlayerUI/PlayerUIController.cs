@@ -1,10 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerUIController : MonoBehaviour
 {
-    [Header("���¹̳� UI")]
+    [Header("캔버스")]
+    [SerializeField] Transform canvasTransform;
+
+    [Header("스태미나 UI")]
     [SerializeField] CanvasGroup staminaCanvasGroup;
     [SerializeField] Image staminaFillImage;
     [SerializeField] float staminaHideTime = 1f;
@@ -16,6 +19,10 @@ public class PlayerUIController : MonoBehaviour
         staminaCanvasGroup.alpha = 0f;
 
         StartCoroutine(StaminaCoroutine());
+    }
+    public void LateUpdate()
+    {
+        canvasTransform.position = transform.position;
     }
     IEnumerator StaminaCoroutine()
     {
