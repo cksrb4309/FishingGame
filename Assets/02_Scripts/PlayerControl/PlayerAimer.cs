@@ -10,7 +10,7 @@ public class PlayerAimer : MonoBehaviour
     [Header("플레이어 Flip 기준 위치")]
     [SerializeField] Transform pivotTransform;
 
-    [SerializeField] List<Transform> weaponTransforms = null;
+    [SerializeField] List<PlayerWeapon> weaponList;
 
     InputActionReference mousePointInputActionReference;
 
@@ -41,23 +41,14 @@ public class PlayerAimer : MonoBehaviour
         #region 조준
 
         // 등록되어 있는 무기들을 모두 마우스 커서를 겨냥하게 만든다
-        // TODO : 추후 무기들의 조준에 대한 추가 기능이 있다면 WeaponAimSet 클래스를 구현한다
 
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-        foreach (var weaponTransform in weaponTransforms)
+        bool isFlip = flipTransform.localScale.x < 0;
+
+        foreach (PlayerWeapon weapon in weaponList)
         {
-            Vector3 dir = mousePosition - weaponTransform.position;
-
-            float angle = (Mathf.Atan2(dir.y, dir.x)) * Mathf.Rad2Deg;
-
-            Quaternion originalRotation = Quaternion.Euler(0, 0, angle);
-
-            if (flipTransform.localScale.x < 0)
-            
-                originalRotation = Quaternion.Euler(originalRotation.eulerAngles.x, originalRotation.eulerAngles.y, originalRotation.eulerAngles.z + 180f);
-            
-            weaponTransform.rotation = originalRotation;
+            weapon.SetDestination(mousePosition, isFlip);
         }
 
         #endregion
