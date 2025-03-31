@@ -12,5 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066cf82f8f80d408c856e48fc8f1127b, type: 3}
   m_Name: vFavorites Data
   m_EditorClassIdentifier: 
-  pages: []
+  pages:
+  - items:
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-2a3d8488a18769b42be6abd3967ba96f-102900000-0
+      _typeString: UnityEditor.SceneAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: 2a3d8488a18769b42be6abd3967ba96f, type: 3}
+      isSceneGameObject: 0
+      isFolder: 0
+      isAsset: 1
+      _id: 1055887238
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-a7240eb543ea2e844aef71c16164f46e-102900000-0
+      _typeString: UnityEditor.SceneAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: a7240eb543ea2e844aef71c16164f46e, type: 3}
+      isSceneGameObject: 0
+      isFolder: 0
+      isAsset: 1
+      _id: 1058645757
+    name: Scene
+    _id: 1064641558
+  - items: []
+    name: Page 2
+    _id: 1048780277
+  - items: []
+    name: Page 3
+    _id: 0
   rowScale: 1

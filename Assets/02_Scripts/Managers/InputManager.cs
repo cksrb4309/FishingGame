@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VInspector;
@@ -25,7 +25,7 @@ public class InputManager : MonoBehaviour
     {
         if (!instance.inputActions.ContainsKey(inputType))
         {
-            Debug.LogWarning("¿äÃ»ÇÑ InputType¿¡ ¸Â´Â InputActionÀÌ ¾ø½À´Ï´Ù ! : " + inputType.ToString());
+            Debug.LogWarning("ìš”ì²­í•œ InputTypeì— ë§ëŠ” InputActionì´ ì—†ìŠµë‹ˆë‹¤ ! : " + inputType.ToString());
 
             return null;
         }
@@ -41,7 +41,7 @@ public class InputManager : MonoBehaviour
     {
         if (!instance.inputActions.ContainsKey(inputType))
         {
-            Debug.LogWarning("ÇØÁ¦ ¿äÃ»ÇÑ InputType¿¡ ¸Â´Â InputActionÀÌ ¾ø½À´Ï´Ù ! : " + inputType.ToString());
+            Debug.LogWarning("í•´ì œ ìš”ì²­í•œ InputTypeì— ë§ëŠ” InputActionì´ ì—†ìŠµë‹ˆë‹¤ ! : " + inputType.ToString());
 
             return;
         }
