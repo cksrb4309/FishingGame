@@ -59,4 +59,5 @@ public enum InputType
     Right,
     Up,
     Down,
+    PlayerAttack,
 }
