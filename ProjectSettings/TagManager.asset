@@ -16,7 +16,7 @@ TagManager:
   - Ground
   - Wall
   - Bullet
-  - 
+  - PlayerSearchCollider
   - 
   - 
   - 
@@ -41,10 +41,13 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Back_Weapon
+    uniqueID: 477251557
+    locked: 0
   - name: Player
     uniqueID: 2833943807
     locked: 0
-  - name: Weapon
+  - name: Forward_Weapon
     uniqueID: 4223600743
     locked: 0
   - name: Bullet

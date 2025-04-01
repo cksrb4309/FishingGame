@@ -19,12 +19,13 @@ public class Bullet : MonoBehaviour
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Enemy")
+        if (collision.collider.TryGetComponent(out IDamagable damagable))
         {
-            Debug.Log("데미지 줘야함 ~");
+            damagable.ReceiveDamage(1f);
         }
 
         gameObject.SetActive(false);
+
         PoolManager.ReturnObj(ObjectPoolID.Bullet, this);
     }
 }
