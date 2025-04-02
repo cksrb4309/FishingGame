@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-
     [SerializeField] float projectileSpeed = 50f;
 
     Rigidbody2D rb = null;
@@ -27,6 +26,6 @@ public class EnemyProjectile : MonoBehaviour
 
         gameObject.SetActive(false);
 
-        PoolManager.ReturnObj(ObjectPoolID.PlayerBullet_1, this);
+        PoolManager.ReturnObj(ObjectPoolID.EnemyBullet_1, this);
     }
 }
