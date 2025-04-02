@@ -1997,6 +1997,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a0922baf95d7244b676b8ef7f50cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectPoolSetting:
+    serializedKvps:
+    - Key: 0
+      Value: {fileID: 7846646299517885772, guid: e691ee772e876234d93af66ec626fab7, type: 3}
+      index: 0
+      isKeyRepeated: 0
+      isKeyNull: 0
+    - Key: 1
+      Value: {fileID: 7846646299517885772, guid: 18c548ba3110c9141a31404b854804d7, type: 3}
+      index: 1
+      isKeyRepeated: 0
+      isKeyNull: 0
+    dividerPos: 0.33
 --- !u!1 &1202535471
 GameObject:
   m_ObjectHideFlags: 0
@@ -2261,6 +2274,7 @@ GameObject:
   - component: {fileID: 1262226504}
   - component: {fileID: 1262226503}
   - component: {fileID: 1262226506}
+  - component: {fileID: 1262226507}
   m_Layer: 7
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -2398,6 +2412,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 2de0d6b30241b4b4e95a2b62fa7864fb, type: 2}
+  enemyAttack: {fileID: 1262226507}
+--- !u!114 &1262226507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262226502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 676dc482aa6579647b04d965cbb71f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireTransform: {fileID: 1262226505}
 --- !u!1 &1267853771
 GameObject:
   m_ObjectHideFlags: 0
@@ -3425,7 +3453,7 @@ GameObject:
   - component: {fileID: 1612296806}
   - component: {fileID: 1612296805}
   - component: {fileID: 1612296804}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4016,7 +4044,6 @@ MonoBehaviour:
   - {fileID: 1659791886}
   aimSpeed: 1000
   attackInterval: 1
-  bulletPrefab: {fileID: -3509974931447234112, guid: e691ee772e876234d93af66ec626fab7, type: 3}
 --- !u!1 &1808538813
 GameObject:
   m_ObjectHideFlags: 0

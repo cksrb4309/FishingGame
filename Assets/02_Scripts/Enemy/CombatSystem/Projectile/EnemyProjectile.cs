@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class EnemyProjectile : MonoBehaviour
 {
-    [SerializeField] float bulletSpeed = 50f;
+
+    [SerializeField] float projectileSpeed = 50f;
 
     Rigidbody2D rb = null;
     private void Awake()
@@ -15,17 +16,17 @@ public class Bullet : MonoBehaviour
 
         gameObject.SetActive(true);
 
-        rb.linearVelocity = transform.right * bulletSpeed;
+        rb.linearVelocity = transform.right * projectileSpeed;
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.TryGetComponent(out IDamagable damagable))
+        if (collision.collider.TryGetComponent(out IPlayerDamagable damagable))
         {
             damagable.ReceiveDamage(1f);
         }
 
         gameObject.SetActive(false);
 
-        PoolManager.ReturnObj(ObjectPoolID.Bullet, this);
+        PoolManager.ReturnObj(ObjectPoolID.PlayerBullet_1, this);
     }
 }
