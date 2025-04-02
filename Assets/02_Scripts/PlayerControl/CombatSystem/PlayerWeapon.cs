@@ -15,9 +15,6 @@ public class PlayerWeapon : MonoBehaviour
     [Header("공격 간격")]
     [SerializeField] float attackInterval = 1f;
 
-    [Header("투사체 프리팹")]
-    [SerializeField] Bullet bulletPrefab;
-
     float[] currentAngles = new float[2];
 
     float timeSinceLastShot = 10f;
@@ -43,7 +40,7 @@ public class PlayerWeapon : MonoBehaviour
     {
         foreach (Transform fireTransform in fireTransforms)
         {
-            Bullet bullet = PoolManager.GetObj<Bullet>(ObjectPoolID.Bullet);
+            PlayerProjectile bullet = PoolManager.GetObj<PlayerProjectile>(ObjectPoolID.PlayerBullet_1);
 
             bullet.transform.position = fireTransform.position;
 
@@ -94,7 +91,7 @@ public class PlayerWeapon : MonoBehaviour
     }
     private void Awake()
     {
-        PoolManager.CreatePool(ObjectPoolID.Bullet, bulletPrefab);
+        PoolManager.CreatePool<PlayerProjectile>(ObjectPoolID.PlayerBullet_1);
     }
     private void OnEnable()
     {

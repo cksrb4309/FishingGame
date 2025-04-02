@@ -34,8 +34,26 @@ MonoBehaviour:
       _id: 1058645757
     name: Scene
     _id: 1064641558
-  - items: []
-    name: Page 2
+  - items:
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-9c448eeef2d8826469069b2e2fdca194-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: 9c448eeef2d8826469069b2e2fdca194, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1033461521
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-732e94625251e42429049c8ea2e31c67-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: 732e94625251e42429049c8ea2e31c67, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1051325877
+    name: Prefabs
     _id: 1048780277
   - items: []
     name: Page 3
