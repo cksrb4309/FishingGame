@@ -18,9 +18,9 @@ public class EnemyProjectile : MonoBehaviour
 
         rb.linearVelocity = transform.right * projectileSpeed;
     }
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.collider.TryGetComponent(out IPlayerDamagable damagable))
+        if (collision.TryGetComponent(out IPlayerDamagable damagable))
         {
             damagable.ReceiveDamage(1f);
         }
