@@ -5,6 +5,10 @@ public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] Transform fireTransform;
 
+    [SerializeField] float damage;
+    [SerializeField] float range;
+    [SerializeField] float speed;
+
     Transform targetTransform = null;
 
     Coroutine attackCoroutine = null;
@@ -43,7 +47,7 @@ public class EnemyAttack : MonoBehaviour
     }
     public void Attack()
     {
-        EnemyProjectile enemyProjectile = PoolManager.GetObj<EnemyProjectile>(ObjectPoolID.EnemyBullet_1);
+        Projectile enemyProjectile = PoolManager.GetObj<Projectile>(ObjectPoolID.EnemyProjectile_1);
 
         enemyProjectile.transform.position = fireTransform.position;
 
@@ -51,10 +55,10 @@ public class EnemyAttack : MonoBehaviour
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-        enemyProjectile.Setting(angle);
+        enemyProjectile.Setting(damage, range, speed, angle, targetTransform.position);
     }
     private void Awake()
     {
-        PoolManager.CreatePool<EnemyProjectile>(ObjectPoolID.EnemyBullet_1);
+        PoolManager.CreatePool<Projectile>(ObjectPoolID.EnemyProjectile_1);
     }
 }

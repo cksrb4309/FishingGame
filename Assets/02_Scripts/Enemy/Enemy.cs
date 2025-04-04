@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IEnemyDamagable
+public class Enemy : MonoBehaviour, IPlayerDamagable
 {
     [SerializeField] EnemyData enemyData;
     [SerializeField] EnemyAttack enemyAttack;
-    
+
     public void ReceiveDamage(float damage)
     {
         Debug.Log("ReceiveDamage " + damage.ToString());

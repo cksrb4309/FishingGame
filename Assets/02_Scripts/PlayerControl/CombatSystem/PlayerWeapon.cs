@@ -12,8 +12,21 @@ public class PlayerWeapon : MonoBehaviour
     [Header("에임 겨누는 속도")]
     [SerializeField] float aimSpeed; // 조준 속도
 
+    [Header("데미지")]
+    [SerializeField] float damage;
+
+    [Header("투사체 속도")]
+    [SerializeField] float projectileSpeed;
+
+    [Header("투사체 사정거리")]
+    [SerializeField] float projectileRange;
+
     [Header("공격 간격")]
     [SerializeField] float attackInterval = 1f;
+
+    
+
+    Vector2 targetPosition = Vector2.zero;
 
     float[] currentAngles = new float[2];
 
@@ -40,15 +53,17 @@ public class PlayerWeapon : MonoBehaviour
     {
         foreach (Transform fireTransform in fireTransforms)
         {
-            PlayerProjectile bullet = PoolManager.GetObj<PlayerProjectile>(ObjectPoolID.PlayerBullet_1);
+            Projectile bullet = PoolManager.GetObj<Projectile>(ObjectPoolID.PlayerProjectile_1);
 
             bullet.transform.position = fireTransform.position;
 
-            bullet.Setting(fireTransform.eulerAngles.z + (beforeFlip ? 180f : 0f));
+            bullet.Setting(damage, projectileRange, projectileSpeed, fireTransform.eulerAngles.z + (beforeFlip ? 180f : 0f), targetPosition);
         }
     }
     public void SetDestination(Vector3 position, bool isFlip)
     {
+        targetPosition = position;
+
         for (int i = 0; i < 2; i++)
         {
             Vector3 dir = position - pivotTransforms[i].position;
@@ -91,7 +106,7 @@ public class PlayerWeapon : MonoBehaviour
     }
     private void Awake()
     {
-        PoolManager.CreatePool<PlayerProjectile>(ObjectPoolID.PlayerBullet_1);
+        PoolManager.CreatePool<Projectile>(ObjectPoolID.PlayerProjectile_1);
     }
     private void OnEnable()
     {
