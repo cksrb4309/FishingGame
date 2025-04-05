@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IPlayerDamagable
+public interface IDamagable
 {
     public void ReceiveDamage(float damage);
 }

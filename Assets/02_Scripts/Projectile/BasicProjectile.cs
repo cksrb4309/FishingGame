@@ -17,7 +17,7 @@ public class BasicProjectile : Projectile
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out IPlayerDamagable damagable))
+        if (collision.TryGetComponent(out IDamagable damagable))
         {
             damagable.ReceiveDamage(1f);
         }
@@ -28,5 +28,11 @@ public class BasicProjectile : Projectile
     void DisableProjectile()
     {
         gameObject.SetActive(false);
+
+        PoolManager.ReturnObj(objectPoolID, (Projectile)this);
+    }
+    private void OnDisable()
+    {
+        CancelInvoke();
     }
 }

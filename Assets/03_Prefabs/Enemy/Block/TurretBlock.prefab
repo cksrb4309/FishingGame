@@ -191,31 +191,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ffe13b5660ee3a4fb9ad4a04e6df486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackInterval: 1
-  attackDamages:
-  - 1
-  - 1.2
-  - 1.4
-  projectileSpeeds:
-  - 10
-  - 15
-  - 20
-  projectileIntervals:
-  - 0.5
-  - 0.5
-  - 0
-  shotAngles:
-  - 0
-  projectiles: 020000000100000002000000
-  projectileCount: 010000000200000003000000
-  spreadAngles:
-  - 0
-  - 30
-  - 45
-  projectileMaxRanges:
-  - 15
-  - 12
-  - 8
+  projectileSet:
+    projectileDatas:
+    - {fileID: 11400000, guid: 800cf52840fb60843b9bcf960f08baa5, type: 2}
+    - {fileID: 11400000, guid: ad940c4b390e2434ba2d31096c8de42f, type: 2}
+    - {fileID: 11400000, guid: 87842dbc6b89b8f449407b1d6e35077e, type: 2}
+    burstCounts: 050000000300000002000000
+    burstIntervals:
+    - 0.1
+    - 0.25
+    - 0.5
+  mainAttackInterval: 0
   aggroDistance: 20
   aggroTime: 5
 --- !u!1 &4997873876332159861

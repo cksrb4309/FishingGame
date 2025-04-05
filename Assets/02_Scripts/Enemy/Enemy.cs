@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IPlayerDamagable
+public class Enemy : MonoBehaviour, IDamagable
 {
     [SerializeField] EnemyData enemyData;
     [SerializeField] EnemyAttack enemyAttack;

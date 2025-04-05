@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2569797729133068678}
   - component: {fileID: 7152491816751153198}
-  - component: {fileID: 114971906481643218}
-  - component: {fileID: 4028322734574277210}
+  - component: {fileID: -3908166051891367604}
+  - component: {fileID: 7341385476048935562}
   m_Layer: 7
-  m_Name: BasicBlock
+  m_Name: ExplosionBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
+  m_Color: {r: 1, g: 0.3537736, b: 0.3537736, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &114971906481643218
+--- !u!114 &-3908166051891367604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,11 +98,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7078140696374761400}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfe7f131a7a6b954dadc724f097ff3db, type: 3}
+  m_Script: {fileID: 11500000, guid: a89f796e30b869c45994820dc36562aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   blockData: {fileID: 11400000, guid: 5a4b477a6d0fb06479ec5b6685f22eab, type: 2}
---- !u!61 &4028322734574277210
+  explosionDamage: 10
+  explosionRange: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 192
+--- !u!61 &7341385476048935562
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

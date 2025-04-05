@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Block : MonoBehaviour, IPlayerDamagable
+public class Block : MonoBehaviour, IDamagable
 {
     [SerializeField] BlockData blockData;
 
@@ -31,6 +31,7 @@ public class Block : MonoBehaviour, IPlayerDamagable
     public void Awake()
     {
         Hp = blockData.MaxHp;
+
         isAlive = true;
     }
 

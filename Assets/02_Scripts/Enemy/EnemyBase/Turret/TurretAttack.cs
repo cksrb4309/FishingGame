@@ -4,39 +4,11 @@ using UnityEngine;
 
 public class TurretAttack : MonoBehaviour
 {
-    #region 이전버전
-    //[Header("공격 간격")]
-    //[SerializeField] float attackInterval;
-
-    //[Header("투사체 데미지")]
-    //[SerializeField] List<float> attackDamages;
-
-    //[Header("투사체 스피드")]
-    //[SerializeField] float[] projectileSpeeds;
-
-    //[Header("투사체 간격")]
-    //[SerializeField] List<float> projectileIntervals;
-
-    //[Header("투사체 발사각")]
-    //[SerializeField] List<float> shotAngles;
-
-    //[Header("공격 투사체")]
-    //[SerializeField] List<ObjectPoolID> projectiles;
-
-    //[Header("투사체 발사 개수")]
-    //[SerializeField] int[] projectileCount;
-
-    //[Header("투사체 간의 퍼지는 각도")]
-    //[SerializeField] float[] spreadAngles;
-
-    //[Header("투사체의 사정거리")]
-    //[SerializeField] List<float> projectileMaxRanges;
-
-
-    #endregion
-
     [Header("투사체 공격 세팅")]
-    [SerializeField] ProjectileSet 
+    [SerializeField] ProjectileSet projectileSet;
+
+    [Header("메인 공격 딜레이")]
+    [SerializeField] float mainAttackInterval;
 
     [Header("어그로가 풀리기 위한 위치 차이 값")]
     [SerializeField] float aggroDistance;
@@ -51,62 +23,46 @@ public class TurretAttack : MonoBehaviour
 
     float aggroDuration;
 
-    bool shouldStopAttack = false;
+    bool shouldAttackStop = false;
 
     public void SetTarget()
     {
         if (targetTransform == null) targetTransform = PlayerManager.PlayerTransform;
 
-        if (attackCoroutine == null) attackCoroutine = StartCoroutine(AttackCoroutine());
+        if (attackCoroutine == null) StartAttack();
 
         aggroDuration = aggroTime;
 
-        shouldStopAttack = false;
+        projectileSet.Enable();
+
+        shouldAttackStop = false;
 
         if (aggroCoroutine == null) aggroCoroutine = StartCoroutine(AggroCoroutine());
     }
+    void StartAttack()
+    {
+        projectileSet.TargetTransformSetting(targetTransform);
+        projectileSet.FireTransformSetting(transform);
+
+        attackCoroutine = StartCoroutine(AttackCoroutine());
+    }
     protected virtual IEnumerator AttackCoroutine()
     {
-        #region 이전 버전
-        //WaitForSeconds attackInterval = new WaitForSeconds(this.attackInterval);
-        //WaitForSeconds[] projectileIntervals = new WaitForSeconds[this.projectileIntervals.Count];
+        while (true)
+        {
+            yield return new WaitForSeconds(mainAttackInterval);
 
-        //for (int i = 0; i < projectileIntervals.Length; i++) projectileIntervals[i] = new WaitForSeconds(this.projectileIntervals[i]);
+            if (shouldAttackStop)
+            {
+                shouldAttackStop = false;
 
-        //while (true)
-        //{
-        //    yield return attackInterval; // 공격 딜레이 적용
+                attackCoroutine = null;
 
-        //    if (shouldStopAttack)
-        //    {
-        //        shouldStopAttack = false;
+                yield break;
+            }
 
-        //        attackCoroutine = null; yield break;
-        //    }
-
-        //    for (int index = 0; index < projectiles.Count; index++) // 투사체 수만큼 반복
-        //    {
-        //        Vector2 dir = (targetTransform.position - transform.position).normalized;
-
-        //        float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-        //        for (int count = 0; count < projectileCount[index]; count++)
-        //        {
-        //            float projectileAngle = spreadAngles[index] * (count - ((projectileCount[index] - 1) * 0.5f));
-
-        //            Projectile projectile = PoolManager.GetObj<Projectile>(ObjectPoolID.TurretProjectile_1);
-
-        //            projectile.transform.position = transform.position;
-
-        //            projectile.Setting(attackDamages[index], projectileMaxRanges[index], projectileSpeeds[index], targetAngle + projectileAngle, targetTransform.position);
-        //        }
-
-        //        yield return projectileIntervals[index];
-        //    }
-        //}
-        #endregion
-
-
+            yield return projectileSet.LaunchProjectiles();
+        }
     }
     protected virtual IEnumerator AggroCoroutine()
     {
@@ -123,6 +79,7 @@ public class TurretAttack : MonoBehaviour
             else
             {
                 aggroDuration -= 0.49f;
+                Debug.Log(aggroDuration);
             }
         }
 
@@ -130,13 +87,20 @@ public class TurretAttack : MonoBehaviour
     }
     void ReleaseAggro()
     {
-        shouldStopAttack = true;
+        projectileSet.Disable();
+
+        shouldAttackStop = true;
 
         aggroCoroutine = null;
     }
-
     public void Start()
     {
-        foreach (ObjectPoolID objectPoolID in projectiles) PoolManager.CreatePool<Projectile>(objectPoolID);
+        projectileSet.CreatePoolObject();
+    }
+    public void OnDestroy()
+    {
+        if (attackCoroutine != null) StopCoroutine(attackCoroutine);
+
+        if (aggroCoroutine != null) StopCoroutine(aggroCoroutine);
     }
 }

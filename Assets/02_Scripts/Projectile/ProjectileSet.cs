@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class ProjectileSet
 {
     [Header("사용할 투사체 데이터 셋")]
@@ -56,5 +57,9 @@ public class ProjectileSet
                 yield return new WaitForSeconds(burstIntervals[index]);
             }
         }
+    }
+    public void CreatePoolObject()
+    {
+        foreach (ProjectileData projectileData in projectileDatas) PoolManager.CreatePool<Projectile>(projectileData.Projectiles);
     }
 }
