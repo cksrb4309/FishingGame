@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour, IPlayerDamagable
+public class PlayerHealth : MonoBehaviour, IDamagable
 {
     [SerializeField] float maxHealth;
 

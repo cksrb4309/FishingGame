@@ -323,6 +323,8 @@ public class PlayerMove : MonoBehaviour
         currentStamina = 1f;
 
         NormalizeCurve(dashSpeed, dashDuration);
+
+        PlayerManager.SetPlayerTransform(transform);
     }
     private void OnEnable()
     {
