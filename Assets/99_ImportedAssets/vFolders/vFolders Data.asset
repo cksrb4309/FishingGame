@@ -16,10 +16,15 @@ MonoBehaviour:
     keys:
     - 9c448eeef2d8826469069b2e2fdca194
     - 732e94625251e42429049c8ea2e31c67
+    - fc78cac9fa0639f4b951cf3ff3842e6c
     values:
     - iconNameOrGuid: Prefab Icon
       colorIndex: 0
       isIconRecursive: 1
+      isColorRecursive: 0
+    - iconNameOrGuid: Prefab Icon
+      colorIndex: 0
+      isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: Prefab Icon
       colorIndex: 0

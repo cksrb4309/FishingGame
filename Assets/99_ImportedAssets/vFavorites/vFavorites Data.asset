@@ -62,6 +62,15 @@ MonoBehaviour:
       isFolder: 1
       isAsset: 0
       _id: 1023349570
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-fc78cac9fa0639f4b951cf3ff3842e6c-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: fc78cac9fa0639f4b951cf3ff3842e6c, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1061297638
     name: Prefabs
     _id: 1048780277
   - items: []
