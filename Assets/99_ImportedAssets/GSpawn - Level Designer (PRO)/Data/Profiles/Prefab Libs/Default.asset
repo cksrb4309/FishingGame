@@ -1,5 +1,101 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6790549548127927036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfdaf7f2c4c1d04580d676ed3717f21, type: 3}
+  m_Name: Global Light 2D
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: 3fd74da8-4634-44a9-b31d-edb57b22972c
+  _prefabAsset: {fileID: 876975737599454106, guid: 4b43c331de02ef2488bcc4d2846b275a, type: 3}
+  _preview:
+    _prefabAsset: {fileID: 876975737599454106, guid: 4b43c331de02ef2488bcc4d2846b275a, type: 3}
+    _texture: {fileID: 0}
+    _yaw: 0
+    _pitch: 0
+  _sceneToObjectGroup:
+    _serializedKeys: []
+    _serializedValues: []
+  _spawnGuideTransformTRS:
+    _position: {x: 0, y: 0, z: 0}
+    _rotation: {x: -0, y: -0, z: -0, w: 1}
+    _scale: {x: 1, y: 1, z: 1}
+  _modularSnapVerticalStep: 0
+  _surfaceSnapAppliedOffsetFromSurface: 0
+  _tags: 0
+  _modelSize: {x: 0, y: 0, z: 0}
+  _uiSelected: 0
+--- !u!114 &-4179535371805865020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfdaf7f2c4c1d04580d676ed3717f21, type: 3}
+  m_Name: TurretProjectile_1
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: a500cf33-821f-484d-b7ad-6e2c5ced644e
+  _prefabAsset: {fileID: 7846646299517885772, guid: 4d6cf46d29351374ca63d624a4daf560, type: 3}
+  _preview:
+    _prefabAsset: {fileID: 7846646299517885772, guid: 4d6cf46d29351374ca63d624a4daf560, type: 3}
+    _texture: {fileID: 0}
+    _yaw: 0
+    _pitch: 0
+  _sceneToObjectGroup:
+    _serializedKeys: []
+    _serializedValues: []
+  _spawnGuideTransformTRS:
+    _position: {x: 0, y: 0, z: 0}
+    _rotation: {x: 0, y: 0, z: 0, w: 1}
+    _scale: {x: 0.2, y: 0.2, z: 0.2}
+  _modularSnapVerticalStep: 0
+  _surfaceSnapAppliedOffsetFromSurface: 0
+  _tags: 0
+  _modelSize: {x: 0.2, y: 0.2, z: 0}
+  _uiSelected: 0
+--- !u!114 &-3541079526923980260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfdaf7f2c4c1d04580d676ed3717f21, type: 3}
+  m_Name: ExplosionBlock
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: 31ac762f-e31e-4e8a-b42f-c448675ffd78
+  _prefabAsset: {fileID: 7078140696374761400, guid: b6097344fac4d0a48b0b688023d2c0d9, type: 3}
+  _preview:
+    _prefabAsset: {fileID: 7078140696374761400, guid: b6097344fac4d0a48b0b688023d2c0d9, type: 3}
+    _texture: {fileID: 0}
+    _yaw: 0
+    _pitch: 0
+  _sceneToObjectGroup:
+    _serializedKeys: []
+    _serializedValues: []
+  _spawnGuideTransformTRS:
+    _position: {x: -10.59, y: -6.94, z: 0}
+    _rotation: {x: 0, y: 0, z: 0, w: 1}
+    _scale: {x: 1, y: 1, z: 1}
+  _modularSnapVerticalStep: 0
+  _surfaceSnapAppliedOffsetFromSurface: 0
+  _tags: 0
+  _modelSize: {x: 1, y: 1, z: 0}
+  _uiSelected: 1
 --- !u!114 &-2816623259797288522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22,7 +118,33 @@ MonoBehaviour:
     _path: Assets/Sci-Fi Tomb\Prefabs
     _reveresedPath: Prefabs/Sci-Fi Tomb/Assets
   _prefabs: []
-  _uiSelected: 1
+  _uiSelected: 0
+  _uiPinned: 0
+--- !u!114 &-2094672071841334734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b09c502d52d26944bd03a0b831a19c4, type: 3}
+  m_Name: Enemy
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: 8f6a716e-232b-4f97-a7ee-5431f1411b51
+  _parentLib: {fileID: 8398545562207117450}
+  _directChildren:
+  - {fileID: 4134568149710809316}
+  - {fileID: 975138869166675496}
+  _prefabsVisibleInManager: 1
+  _libName: Enemy
+  _folderPath:
+    _path: Assets\03_Prefabs\Enemy
+    _reveresedPath: Enemy/03_Prefabs/Assets
+  _prefabs: []
+  _uiSelected: 0
   _uiPinned: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -40,6 +162,309 @@ MonoBehaviour:
   _libs:
   - {fileID: 6196654592123161556}
   - {fileID: -2816623259797288522}
+  - {fileID: 8079129374304068133}
+  - {fileID: 8398545562207117450}
+  - {fileID: -2094672071841334734}
+  - {fileID: 4134568149710809316}
+  - {fileID: 975138869166675496}
+  - {fileID: 97036079231508209}
+  - {fileID: 8839014995506492838}
+  - {fileID: 2785915937242503045}
+--- !u!114 &97036079231508209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b09c502d52d26944bd03a0b831a19c4, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: a38d63db-a08c-4d6e-abb7-add1043abc9e
+  _parentLib: {fileID: 8398545562207117450}
+  _directChildren: []
+  _prefabsVisibleInManager: 1
+  _libName: Player
+  _folderPath:
+    _path: Assets\03_Prefabs\Player
+    _reveresedPath: Player/03_Prefabs/Assets
+  _prefabs:
+  - {fileID: 5991473291869297734}
+  _uiSelected: 0
+  _uiPinned: 0
+--- !u!114 &924636228440927139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfdaf7f2c4c1d04580d676ed3717f21, type: 3}
+  m_Name: BasicBlock
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: b4d27bf4-bd88-44eb-8c1f-0bf16d88660b
+  _prefabAsset: {fileID: 7078140696374761400, guid: 322a7018bde558048a3150f4226cc51a, type: 3}
+  _preview:
+    _prefabAsset: {fileID: 7078140696374761400, guid: 322a7018bde558048a3150f4226cc51a, type: 3}
+    _texture: {fileID: 0}
+    _yaw: 0
+    _pitch: 0
+  _sceneToObjectGroup:
+    _serializedKeys: []
+    _serializedValues: []
+  _spawnGuideTransformTRS:
+    _position: {x: -10.59, y: -6.94, z: 0}
+    _rotation: {x: 0, y: 0, z: 0, w: 1}
+    _scale: {x: 1, y: 1, z: 1}
+  _modularSnapVerticalStep: 0
+  _surfaceSnapAppliedOffsetFromSurface: 0
+  _tags: 0
+  _modelSize: {x: 1, y: 1, z: 0}
+  _uiSelected: 0
+--- !u!114 &975138869166675496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b09c502d52d26944bd03a0b831a19c4, type: 3}
+  m_Name: Mob
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: fd0a7794-31b8-46be-a2a2-1eac0c5eea24
+  _parentLib: {fileID: -2094672071841334734}
+  _directChildren: []
+  _prefabsVisibleInManager: 1
+  _libName: Mob
+  _folderPath:
+    _path: Assets\03_Prefabs\Enemy\Mob
+    _reveresedPath: Mob/Enemy/03_Prefabs/Assets
+  _prefabs:
+  - {fileID: 4527024374001685958}
+  _uiSelected: 0
+  _uiPinned: 0
+--- !u!114 &1396884144967807437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfdaf7f2c4c1d04580d676ed3717f21, type: 3}
+  m_Name: Main Camera
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: a3528b0a-44b7-49c9-8a50-66074c2ba117
+  _prefabAsset: {fileID: 1000030280871323111, guid: f8a49856be67cd940bfe371001cc57e9, type: 3}
+  _preview:
+    _prefabAsset: {fileID: 1000030280871323111, guid: f8a49856be67cd940bfe371001cc57e9, type: 3}
+    _texture: {fileID: 0}
+    _yaw: 0
+    _pitch: 0
+  _sceneToObjectGroup:
+    _serializedKeys: []
+    _serializedValues: []
+  _spawnGuideTransformTRS:
+    _position: {x: 0, y: 0, z: -10}
+    _rotation: {x: -0, y: -0, z: -0, w: 1}
+    _scale: {x: 1, y: 1, z: 1}
+  _modularSnapVerticalStep: 0
+  _surfaceSnapAppliedOffsetFromSurface: 0
+  _tags: 0
+  _modelSize: {x: 0, y: 0, z: 0}
+  _uiSelected: 0
+--- !u!114 &2785915937242503045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b09c502d52d26944bd03a0b831a19c4, type: 3}
+  m_Name: Setting
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: ddb9004c-d93a-4130-90c1-7f0582ddcd75
+  _parentLib: {fileID: 8398545562207117450}
+  _directChildren: []
+  _prefabsVisibleInManager: 1
+  _libName: Setting
+  _folderPath:
+    _path: Assets\03_Prefabs\Setting
+    _reveresedPath: Setting/03_Prefabs/Assets
+  _prefabs:
+  - {fileID: -6790549548127927036}
+  - {fileID: 1396884144967807437}
+  _uiSelected: 0
+  _uiPinned: 0
+--- !u!114 &4134568149710809316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b09c502d52d26944bd03a0b831a19c4, type: 3}
+  m_Name: Block
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: 0b2057ad-ebaa-4c8f-8ef1-f0e9f3bed1e0
+  _parentLib: {fileID: -2094672071841334734}
+  _directChildren: []
+  _prefabsVisibleInManager: 1
+  _libName: Block
+  _folderPath:
+    _path: Assets\03_Prefabs\Enemy\Block
+    _reveresedPath: Block/Enemy/03_Prefabs/Assets
+  _prefabs:
+  - {fileID: 924636228440927139}
+  - {fileID: -3541079526923980260}
+  - {fileID: 4564285840355732386}
+  _uiSelected: 1
+  _uiPinned: 0
+--- !u!114 &4527024374001685958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfdaf7f2c4c1d04580d676ed3717f21, type: 3}
+  m_Name: TestEnemy
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: 04d5c71c-52a8-4542-be76-43642ce85883
+  _prefabAsset: {fileID: 2720083411479949728, guid: 93bfb5cc54c4e064a921aa0d6e1a90fc, type: 3}
+  _preview:
+    _prefabAsset: {fileID: 2720083411479949728, guid: 93bfb5cc54c4e064a921aa0d6e1a90fc, type: 3}
+    _texture: {fileID: 0}
+    _yaw: 0
+    _pitch: 0
+  _sceneToObjectGroup:
+    _serializedKeys: []
+    _serializedValues: []
+  _spawnGuideTransformTRS:
+    _position: {x: 10.78, y: -1.32, z: 0}
+    _rotation: {x: 0, y: 0, z: 0, w: 1}
+    _scale: {x: 1, y: 1, z: 1}
+  _modularSnapVerticalStep: 0
+  _surfaceSnapAppliedOffsetFromSurface: 0
+  _tags: 0
+  _modelSize: {x: 1, y: 1, z: 0}
+  _uiSelected: 0
+--- !u!114 &4564285840355732386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfdaf7f2c4c1d04580d676ed3717f21, type: 3}
+  m_Name: TurretBlock
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: ec0443ec-c34c-485c-9f50-06fe99818898
+  _prefabAsset: {fileID: 2137118498327414490, guid: a37bfd0ff825dae4fb3dc7d63c69f638, type: 3}
+  _preview:
+    _prefabAsset: {fileID: 2137118498327414490, guid: a37bfd0ff825dae4fb3dc7d63c69f638, type: 3}
+    _texture: {fileID: 0}
+    _yaw: 0
+    _pitch: 0
+  _sceneToObjectGroup:
+    _serializedKeys: []
+    _serializedValues: []
+  _spawnGuideTransformTRS:
+    _position: {x: -4.06, y: -6.31, z: 0}
+    _rotation: {x: 0, y: 0, z: 0, w: 1}
+    _scale: {x: 1, y: 1, z: 1}
+  _modularSnapVerticalStep: 0
+  _surfaceSnapAppliedOffsetFromSurface: 0
+  _tags: 0
+  _modelSize: {x: 1, y: 1, z: 0}
+  _uiSelected: 0
+--- !u!114 &5991473291869297734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfdaf7f2c4c1d04580d676ed3717f21, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: d9d24f31-c44e-4710-a2cc-f9f5b6cc921b
+  _prefabAsset: {fileID: 8866453601078990376, guid: b94a663ff07c60d47ac927363b8d3004, type: 3}
+  _preview:
+    _prefabAsset: {fileID: 8866453601078990376, guid: b94a663ff07c60d47ac927363b8d3004, type: 3}
+    _texture: {fileID: 0}
+    _yaw: 0
+    _pitch: 0
+  _sceneToObjectGroup:
+    _serializedKeys: []
+    _serializedValues: []
+  _spawnGuideTransformTRS:
+    _position: {x: 0, y: 0, z: 0}
+    _rotation: {x: 0, y: 0, z: 0, w: 1}
+    _scale: {x: 1, y: 1, z: 1}
+  _modularSnapVerticalStep: 0
+  _surfaceSnapAppliedOffsetFromSurface: 0
+  _tags: 0
+  _modelSize: {x: 3.1885, y: 3.6875, z: 10}
+  _uiSelected: 0
+--- !u!114 &6164750914942088695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfdaf7f2c4c1d04580d676ed3717f21, type: 3}
+  m_Name: EnemyProjectile_1
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: 2ee88401-8c91-49ef-b6d5-c82695264c9b
+  _prefabAsset: {fileID: 7846646299517885772, guid: 18c548ba3110c9141a31404b854804d7, type: 3}
+  _preview:
+    _prefabAsset: {fileID: 7846646299517885772, guid: 18c548ba3110c9141a31404b854804d7, type: 3}
+    _texture: {fileID: 0}
+    _yaw: 0
+    _pitch: 0
+  _sceneToObjectGroup:
+    _serializedKeys: []
+    _serializedValues: []
+  _spawnGuideTransformTRS:
+    _position: {x: 0, y: 0, z: 0}
+    _rotation: {x: 0, y: 0, z: 0, w: 1}
+    _scale: {x: 0.2, y: 0.2, z: 0.2}
+  _modularSnapVerticalStep: 0
+  _surfaceSnapAppliedOffsetFromSurface: 0
+  _tags: 0
+  _modelSize: {x: 0.2, y: 0.2, z: 0}
+  _uiSelected: 0
 --- !u!114 &6196654592123161556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,5 +488,117 @@ MonoBehaviour:
     _path: Assets/Sci-Fi Tomb
     _reveresedPath: Sci-Fi Tomb/Assets
   _prefabs: []
+  _uiSelected: 0
+  _uiPinned: 0
+--- !u!114 &8079129374304068133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b09c502d52d26944bd03a0b831a19c4, type: 3}
+  m_Name: Assets
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: a6591a86-a1f7-45e8-9142-0437f99856bb
+  _parentLib: {fileID: 0}
+  _directChildren:
+  - {fileID: 8398545562207117450}
+  _prefabsVisibleInManager: 1
+  _libName: Assets
+  _folderPath:
+    _path: Assets
+    _reveresedPath: Assets
+  _prefabs: []
+  _uiSelected: 0
+  _uiPinned: 0
+--- !u!114 &8212961203538778286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfdaf7f2c4c1d04580d676ed3717f21, type: 3}
+  m_Name: PlayerProjectile_1
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: 39a912f0-6de1-48a2-971b-9267609b9a7f
+  _prefabAsset: {fileID: 7846646299517885772, guid: e691ee772e876234d93af66ec626fab7, type: 3}
+  _preview:
+    _prefabAsset: {fileID: 7846646299517885772, guid: e691ee772e876234d93af66ec626fab7, type: 3}
+    _texture: {fileID: 0}
+    _yaw: 0
+    _pitch: 0
+  _sceneToObjectGroup:
+    _serializedKeys: []
+    _serializedValues: []
+  _spawnGuideTransformTRS:
+    _position: {x: 0, y: 0, z: 0}
+    _rotation: {x: 0, y: 0, z: 0, w: 1}
+    _scale: {x: 0.2, y: 0.2, z: 0.2}
+  _modularSnapVerticalStep: 0
+  _surfaceSnapAppliedOffsetFromSurface: 0
+  _tags: 0
+  _modelSize: {x: 0.2, y: 0.2, z: 0}
+  _uiSelected: 0
+--- !u!114 &8398545562207117450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b09c502d52d26944bd03a0b831a19c4, type: 3}
+  m_Name: 03_Prefabs
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: b9613abc-1fd6-4b6b-9687-5d3a6a966c64
+  _parentLib: {fileID: 8079129374304068133}
+  _directChildren:
+  - {fileID: -2094672071841334734}
+  - {fileID: 97036079231508209}
+  - {fileID: 8839014995506492838}
+  - {fileID: 2785915937242503045}
+  _prefabsVisibleInManager: 1
+  _libName: 03_Prefabs
+  _folderPath:
+    _path: Assets\03_Prefabs
+    _reveresedPath: 03_Prefabs/Assets
+  _prefabs: []
+  _uiSelected: 0
+  _uiPinned: 0
+--- !u!114 &8839014995506492838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b09c502d52d26944bd03a0b831a19c4, type: 3}
+  m_Name: Projectile
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: 3b1b16e8-0780-4d3b-b681-987a8f01f997
+  _parentLib: {fileID: 8398545562207117450}
+  _directChildren: []
+  _prefabsVisibleInManager: 1
+  _libName: Projectile
+  _folderPath:
+    _path: Assets\03_Prefabs\Projectile
+    _reveresedPath: Projectile/03_Prefabs/Assets
+  _prefabs:
+  - {fileID: 6164750914942088695}
+  - {fileID: 8212961203538778286}
+  - {fileID: -4179535371805865020}
   _uiSelected: 0
   _uiPinned: 0

@@ -13,4 +13,47 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   _profileName: Default
-  _prefabs: []
+  _prefabs:
+  - {fileID: 1144114661390988495}
+--- !u!114 &1144114661390988495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9fd0c34ebc5e2f4bb376f0d8a5bcf72, type: 3}
+  m_Name: BasicBlock
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: 993aa38d-d57e-49ee-9edf-0b2c7b8ac2ba
+  _pluginPrefab: {fileID: 924636228440927139, guid: bc0e2f9845d46e74b81e46fc5efae30d, type: 2}
+  _preview:
+    _prefabAsset: {fileID: 7078140696374761400, guid: 322a7018bde558048a3150f4226cc51a, type: 3}
+    _texture: {fileID: 0}
+    _yaw: 0
+    _pitch: 0
+  _uiSelected: 0
+  _used: 1
+  _spawnChance: 1
+  _volumeRadius: 0.5
+  _alignAxis: 0
+  _alignmentAxis: 1
+  _invertAlignmentAxis: 0
+  _offsetFromSurface: 0
+  _embedInSurface: 1
+  _alignToStroke: 0
+  _strokeAlignmentAxis: 3
+  _invertStrokeAlignmentAxis: 0
+  _randomizeRotation: 1
+  _rotationRandomizationAxis: 3
+  _minRandomRotation: 0
+  _maxRandomRotation: 360
+  _randomizeScale: 1
+  _minRandomScale: 0.8
+  _maxRandomScale: 1
+  _enableSlopeCheck: 0
+  _minSlope: 0
+  _maxSlope: 45
