@@ -22,7 +22,7 @@ MonoBehaviour:
   _segBrushMinRandomHeight: 1
   _segBrushMaxRandomHeight: 5
   _segBrushHeightPatternWrapMode: 1
-  _segBrushHeightPattern: {fileID: 0}
+  _segBrushHeightPattern: {fileID: -1793927898638623926, guid: 3d8859175b7ed4249b4a36c4163de495, type: 2}
   _eraseForeignObjects: 1
   _connectYOffset: 0
   _connectMode: 0

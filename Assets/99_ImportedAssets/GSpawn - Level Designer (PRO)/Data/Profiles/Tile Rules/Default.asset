@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5301109591465954732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0d9cf11589b7a34ca6e2c52bae6eb70, type: 3}
+  m_Name: ExplosionBlock
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: 6d9468ed-d51e-47ab-8a8b-33207da1e7a1
+  _pluginPrefab: {fileID: -3541079526923980260, guid: bc0e2f9845d46e74b81e46fc5efae30d, type: 2}
+  _preview:
+    _prefabAsset: {fileID: 7078140696374761400, guid: b6097344fac4d0a48b0b688023d2c0d9, type: 3}
+    _texture: {fileID: 0}
+    _yaw: 0
+    _pitch: 0
+  _uiSelected: 1
+  _used: 1
+  _spawnChance: 1
+  _cellXCondition: 0
+  _minCellX: -10
+  _maxCellX: 10
+  _cellYCondition: 0
+  _minCellY: -10
+  _maxCellY: 10
+  _cellZCondition: 0
+  _minCellZ: -10
+  _maxCellZ: 10
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13,4 +45,133 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   _profileName: Default
-  _tileRules: []
+  _tileRules:
+  - {fileID: 6787140656113554915}
+  - {fileID: 1172846997513697846}
+--- !u!114 &1172846997513697846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c745aa5119a074084fa542ea1e3ece, type: 3}
+  m_Name: TileRule
+  m_EditorClassIdentifier: 
+  _ruleType: 0
+  _ruleRotationMode: 1
+  _ruleMask:
+    _reqOnMask: 16777216
+    _rotatedReqOnMask_90: 16777216
+    _rotatedReqOnMask_180: 16777216
+    _rotatedReqOnMask_270: 16777216
+    _mirrXReqOnMask: 16777216
+    _mirrZReqOnMask: 16777216
+    _numReqOnBitsSet: 1
+    _reqOffMask: 7558594560
+    _rotatedReqOffMask_90: 7558594560
+    _rotatedReqOffMask_180: 7558594560
+    _rotatedReqOffMask_270: 7558594560
+    _mirrXReqOffMask: 7558594560
+    _mirrZReqOffMask: 7558594560
+    _numReqOffBitsSet: 8
+  _prefabs:
+  - {fileID: -5301109591465954732}
+  _prefabViewState: {fileID: -7629594938114706920, guid: 89090a6be4ffff64084377e716740902, type: 2}
+--- !u!114 &6787140656113554915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c745aa5119a074084fa542ea1e3ece, type: 3}
+  m_Name: TileRule
+  m_EditorClassIdentifier: 
+  _ruleType: 0
+  _ruleRotationMode: 1
+  _ruleMask:
+    _reqOnMask: 7575371776
+    _rotatedReqOnMask_90: 7575371776
+    _rotatedReqOnMask_180: 7575371776
+    _rotatedReqOnMask_270: 7575371776
+    _mirrXReqOnMask: 7575371776
+    _mirrZReqOnMask: 7575371776
+    _numReqOnBitsSet: 9
+    _reqOffMask: 0
+    _rotatedReqOffMask_90: 0
+    _rotatedReqOffMask_180: 0
+    _rotatedReqOffMask_270: 0
+    _mirrXReqOffMask: 0
+    _mirrZReqOffMask: 0
+    _numReqOffBitsSet: 0
+  _prefabs:
+  - {fileID: 8145437713421411806}
+  _prefabViewState: {fileID: 6582022962720885492, guid: 89090a6be4ffff64084377e716740902, type: 2}
+--- !u!114 &7179041940368382864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c745aa5119a074084fa542ea1e3ece, type: 3}
+  m_Name: TileRule
+  m_EditorClassIdentifier: 
+  _ruleType: 0
+  _ruleRotationMode: 1
+  _ruleMask:
+    _reqOnMask: 16777216
+    _rotatedReqOnMask_90: 16777216
+    _rotatedReqOnMask_180: 16777216
+    _rotatedReqOnMask_270: 16777216
+    _mirrXReqOnMask: 16777216
+    _mirrZReqOnMask: 16777216
+    _numReqOnBitsSet: 1
+    _reqOffMask: 0
+    _rotatedReqOffMask_90: 0
+    _rotatedReqOffMask_180: 0
+    _rotatedReqOffMask_270: 0
+    _mirrXReqOffMask: 0
+    _mirrZReqOffMask: 0
+    _numReqOffBitsSet: 0
+  _prefabs: []
+  _prefabViewState: {fileID: 1078240421485584084, guid: 89090a6be4ffff64084377e716740902, type: 2}
+--- !u!114 &8145437713421411806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0d9cf11589b7a34ca6e2c52bae6eb70, type: 3}
+  m_Name: BasicBlock
+  m_EditorClassIdentifier: 
+  _guid:
+    _guidString: 2b17879f-bff1-4390-995c-6cbf281a62c2
+  _pluginPrefab: {fileID: 924636228440927139, guid: bc0e2f9845d46e74b81e46fc5efae30d, type: 2}
+  _preview:
+    _prefabAsset: {fileID: 7078140696374761400, guid: 322a7018bde558048a3150f4226cc51a, type: 3}
+    _texture: {fileID: 0}
+    _yaw: 0
+    _pitch: 0
+  _uiSelected: 0
+  _used: 1
+  _spawnChance: 1
+  _cellXCondition: 0
+  _minCellX: -10
+  _maxCellX: 10
+  _cellYCondition: 0
+  _minCellY: -10
+  _maxCellY: 10
+  _cellZCondition: 0
+  _minCellZ: -10
+  _maxCellZ: 10
