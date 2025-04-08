@@ -136,7 +136,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -71366553
-  m_SortingLayer: 3
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a0aaf079bd63a2f45b0933dcfc118805, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -316,7 +316,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 477251557
-  m_SortingLayer: 1
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 31a36876a7c0ac6408870b46a135ae6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -668,7 +668,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1461023489
-  m_SortingLayer: 2
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6bf4700c1b3518446afe7d3351ddca29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -693,6 +693,7 @@ GameObject:
   - component: {fileID: 8590130192725971404}
   - component: {fileID: 8147623902930237891}
   - component: {fileID: 6124648649964925021}
+  - component: {fileID: 2828718054593958607}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -818,6 +819,20 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &2828718054593958607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5156182912528178777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e2bd2d33568b0c44a540bd44f688862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followSpeed: 5
+  maxFollowDistance: 5
 --- !u!1 &6068109017958752291
 GameObject:
   m_ObjectHideFlags: 0
