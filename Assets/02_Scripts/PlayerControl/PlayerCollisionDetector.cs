@@ -2,14 +2,14 @@
 
 public class PlayerCollisionDetector : MonoBehaviour
 {
-    PlayerMove playerMove;
+    //PlayerMove playerMove;
     private void Awake()
     {
-        playerMove = GetComponent<PlayerMove>();
+        //playerMove = GetComponent<PlayerMove>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        playerMove.HandleCollision(collision);
+        //playerMove.HandleCollision(collision);
     }
 }

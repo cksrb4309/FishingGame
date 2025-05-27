@@ -15,10 +15,44 @@ MonoBehaviour:
   sceneDatas_byGuid:
     keys:
     - 2a3d8488a18769b42be6abd3967ba96f
+    - d4e725aa69ea4274383fc6ec65a5c0f7
     values:
     - goDatas_byGlobalId:
         keys:
         - globalObjectIdString: GlobalObjectId_V1-2-2a3d8488a18769b42be6abd3967ba96f-737612380-0
         values:
         - colorIndex: 1
+          iconNameOrGuid: 
+    - goDatas_byGlobalId:
+        keys:
+        - globalObjectIdString: GlobalObjectId_V1-2-d4e725aa69ea4274383fc6ec65a5c0f7-2125188607-0
+        - globalObjectIdString: GlobalObjectId_V1-2-d4e725aa69ea4274383fc6ec65a5c0f7-2073823927-0
+        - globalObjectIdString: GlobalObjectId_V1-2-d4e725aa69ea4274383fc6ec65a5c0f7-308187843-0
+        - globalObjectIdString: GlobalObjectId_V1-2-d4e725aa69ea4274383fc6ec65a5c0f7-18092064-0
+        - globalObjectIdString: GlobalObjectId_V1-2-d4e725aa69ea4274383fc6ec65a5c0f7-671526804-0
+        - globalObjectIdString: GlobalObjectId_V1-2-d4e725aa69ea4274383fc6ec65a5c0f7-1462223246-0
+        - globalObjectIdString: GlobalObjectId_V1-2-d4e725aa69ea4274383fc6ec65a5c0f7-179731028-0
+        - globalObjectIdString: GlobalObjectId_V1-2-d4e725aa69ea4274383fc6ec65a5c0f7-1914307133-0
+        - globalObjectIdString: GlobalObjectId_V1-2-d4e725aa69ea4274383fc6ec65a5c0f7-895798982-0
+        - globalObjectIdString: GlobalObjectId_V1-2-d4e725aa69ea4274383fc6ec65a5c0f7-156263752-0
+        values:
+        - colorIndex: 1
+          iconNameOrGuid: 
+        - colorIndex: 2
+          iconNameOrGuid: 
+        - colorIndex: 1
+          iconNameOrGuid: 
+        - colorIndex: 1
+          iconNameOrGuid: 
+        - colorIndex: 1
+          iconNameOrGuid: 
+        - colorIndex: 1
+          iconNameOrGuid: 
+        - colorIndex: 1
+          iconNameOrGuid: 
+        - colorIndex: 7
+          iconNameOrGuid: 
+        - colorIndex: 1
+          iconNameOrGuid: 
+        - colorIndex: 9
           iconNameOrGuid: 
