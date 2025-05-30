@@ -28,13 +28,13 @@ public class PlayerUIController : MonoBehaviour
     {
         while (true)
         {
+            staminaViewTime += Time.deltaTime;
+
             if (staminaViewTime < staminaHideTime)
 
                 staminaCanvasGroup.alpha += Time.deltaTime * staminaFadeSpeed;
             
             else staminaCanvasGroup.alpha -= Time.deltaTime * staminaFadeSpeed;
-
-            staminaViewTime += Time.deltaTime;
 
             yield return null;
         }
