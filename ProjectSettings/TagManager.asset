@@ -12,13 +12,13 @@ TagManager:
   - Water
   - UI
   - Player
-  - Enemy
-  - Ground
-  - Wall
-  - PlayerProjectile
-  - PlayerSearchCollider
-  - EnemyProjectile
-  - TurretProjectile
+  - Zone
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

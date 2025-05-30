@@ -48,15 +48,3 @@ public class InputManager : MonoBehaviour
     }
 }
 
-public enum InputType
-{
-    PlayerMove,
-    PlayerBoost,
-    PlayerDash,
-    MousePoint,
-    Left,
-    Right,
-    Up,
-    Down,
-    PlayerAttack,
-}

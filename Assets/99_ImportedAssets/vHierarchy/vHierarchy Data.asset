@@ -16,6 +16,8 @@ MonoBehaviour:
     keys:
     - 2a3d8488a18769b42be6abd3967ba96f
     - d4e725aa69ea4274383fc6ec65a5c0f7
+    - fd6d039f2412b6548885797d0ef04ed2
+    - b7fbc9b7113917846b662420bc01eb1b
     values:
     - goDatas_byGlobalId:
         keys:
@@ -55,4 +57,43 @@ MonoBehaviour:
         - colorIndex: 1
           iconNameOrGuid: 
         - colorIndex: 9
+          iconNameOrGuid: 
+    - goDatas_byGlobalId:
+        keys:
+        - globalObjectIdString: GlobalObjectId_V1-2-fd6d039f2412b6548885797d0ef04ed2-609043899-0
+        - globalObjectIdString: GlobalObjectId_V1-2-fd6d039f2412b6548885797d0ef04ed2-242912965-0
+        - globalObjectIdString: GlobalObjectId_V1-2-fd6d039f2412b6548885797d0ef04ed2-598574472-0
+        - globalObjectIdString: GlobalObjectId_V1-2-fd6d039f2412b6548885797d0ef04ed2-1472753108-0
+        - globalObjectIdString: GlobalObjectId_V1-2-fd6d039f2412b6548885797d0ef04ed2-1777676699-0
+        values:
+        - colorIndex: 1
+          iconNameOrGuid: 
+        - colorIndex: 1
+          iconNameOrGuid: 
+        - colorIndex: 1
+          iconNameOrGuid: 
+        - colorIndex: 2
+          iconNameOrGuid: 
+        - colorIndex: 9
+          iconNameOrGuid: 
+    - goDatas_byGlobalId:
+        keys:
+        - globalObjectIdString: GlobalObjectId_V1-2-b7fbc9b7113917846b662420bc01eb1b-1574913138-0
+        - globalObjectIdString: GlobalObjectId_V1-2-b7fbc9b7113917846b662420bc01eb1b-333614880-0
+        - globalObjectIdString: GlobalObjectId_V1-2-b7fbc9b7113917846b662420bc01eb1b-453126662-0
+        - globalObjectIdString: GlobalObjectId_V1-2-b7fbc9b7113917846b662420bc01eb1b-225715406-0
+        - globalObjectIdString: GlobalObjectId_V1-2-b7fbc9b7113917846b662420bc01eb1b-537251285-0
+        - globalObjectIdString: GlobalObjectId_V1-2-b7fbc9b7113917846b662420bc01eb1b-804667989-0
+        values:
+        - colorIndex: 1
+          iconNameOrGuid: 
+        - colorIndex: 1
+          iconNameOrGuid: 
+        - colorIndex: 1
+          iconNameOrGuid: 
+        - colorIndex: 9
+          iconNameOrGuid: 
+        - colorIndex: 2
+          iconNameOrGuid: 
+        - colorIndex: 3
           iconNameOrGuid: 

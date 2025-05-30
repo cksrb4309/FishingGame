@@ -7,6 +7,8 @@ using System.Linq;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMove : MonoBehaviour
 {
+    public static PlayerMove Instance { get; private set; } = null;
+
     [Header("가속")]
     [SerializeField] float defaultAcceleration;
     [SerializeField] float boostAcceleration;
@@ -48,6 +50,10 @@ public class PlayerMove : MonoBehaviour
 
     Coroutine applyBoostMaxSpeedCoroutine = null;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -151,7 +157,6 @@ public class PlayerMove : MonoBehaviour
         myRigidbody.linearVelocity = applyVelocity;
 
         #endregion
-
     }
     IEnumerator ApplyBoostMaxSpeedCoroutine(bool isBoost)
     {
