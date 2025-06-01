@@ -29,7 +29,7 @@ public class PlayerFishingLineController : MonoBehaviour, IDirectionable
 
     IEnumerator LineCoroutine()
     {
-        yield return new WaitForSecondsRealtime(0.01f);
+        yield return new WaitForSecondsRealtime(0.05f);
 
         bobberObject.SetActive(true);
         lineRenderer.gameObject.SetActive(true);

@@ -1450,9 +1450,10 @@ MonoBehaviour:
   bobberTransform: {fileID: 1393596024}
   rodTipTransform: {fileID: 1534364104}
   exclamationImage: {fileID: 1703744234}
-  castHeight: 0.3
-  castMinSpeed: 0.1
-  castMaxSpeed: 3
+  castHeight: 0.35
+  castMinSpeed: 3
+  castMaxSpeed: 1
+  castPowMulitplier: 1
   currentState: 0
 --- !u!1 &860686374
 GameObject:
@@ -1956,7 +1957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1393596024
 Transform:
   m_ObjectHideFlags: 0

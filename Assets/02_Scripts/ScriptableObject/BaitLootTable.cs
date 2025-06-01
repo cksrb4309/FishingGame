@@ -19,6 +19,9 @@ public class BaitLootTable : ScriptableObject
         float randomValue = UnityEngine.Random.Range(0, totalWeight);
         float cumulative = 0;
 
+
+
+
         foreach (var wi in filteredLoots)
         {
             cumulative += wi.probability;
