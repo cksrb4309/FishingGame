@@ -35,9 +35,14 @@ public class PlayerFishingManager : MonoBehaviour
     Item baitItem = null;
     Item targetItem = null;
 
+    int fishingLevel = 1;
 
-    private void Update()
+    bool canFishing = true;
+
+    void Update()
     {
+        if (!canFishing) return;
+
         switch (currentState)
         {
             case FishingState.None:
@@ -68,7 +73,7 @@ public class PlayerFishingManager : MonoBehaviour
                 break;
         }
     }
-    private IEnumerator CastCoroutine(Vector3 position)
+    IEnumerator CastCoroutine(Vector3 position)
     {
         bobberTransform.position = rodTipTransform.position;
         position.z = 10f;
@@ -93,7 +98,7 @@ public class PlayerFishingManager : MonoBehaviour
         bobberTransform.position = endPos;
         PickCatchItem();
     }
-    private void PickCatchItem()
+    void PickCatchItem()
     {
         Collider2D zoneObj = Physics2D.OverlapPoint((Vector2)bobberTransform.position, zoneLayerMask);
 
@@ -111,7 +116,8 @@ public class PlayerFishingManager : MonoBehaviour
         if (baitItem != null)
         {
             bait = baitItem;
-            // UseBait();
+
+            UseBait();
         }
         else
         {
@@ -120,11 +126,11 @@ public class PlayerFishingManager : MonoBehaviour
 
         currentState = FishingState.WaitingForBite;
 
-        targetItem = bait.SelectItem(zoneObj.GetComponent<FishingZoneArea>().GetFishingZone());
+        targetItem = bait.SelectItem(zoneObj.GetComponent<FishingZoneArea>().GetFishingZone(), fishingLevel);
 
         currentCoroutine = StartCoroutine(WaitingCoroutine());
     }
-    private IEnumerator WaitingCoroutine()
+    IEnumerator WaitingCoroutine()
     {
         float biteWaitTime = targetItem.GetBiteWaitTime();
 
@@ -139,7 +145,7 @@ public class PlayerFishingManager : MonoBehaviour
 
         FishingCancel();
     }
-    private void PerformHook()
+    void PerformHook()
     {
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
 
@@ -151,7 +157,7 @@ public class PlayerFishingManager : MonoBehaviour
 
         fishingSystem.StartFishing(targetItem);
     }
-    private void FishingCast()
+    void FishingCast()
     {
         currentState = FishingState.Casting;
         PlayerFishingLineController.Instance.EnableLine();
@@ -162,7 +168,7 @@ public class PlayerFishingManager : MonoBehaviour
 
         currentCoroutine = StartCoroutine(CastCoroutine(mousePositionAction.action.ReadValue<Vector2>()));
     }
-    private void FishingCancel()
+    void FishingCancel()
     {
         PlayerFishingLineController.Instance.DisableLine();
 
@@ -185,7 +191,21 @@ public class PlayerFishingManager : MonoBehaviour
     }
     public void Complete()
     {
+        PlayerInventory.Instance.GetItem(targetItem);
+
         FishingCancel();
+    }
+    public void EnableFishing() => canFishing = true;
+    public void DisableFishing() => canFishing = false;
+    public void SelectBait(Item item)
+    {
+        baitItem = item;
+    }
+    void UseBait()
+    {
+        Debug.Log("¹Ì³¢ »ç¿ë");
+
+        PlayerInventory.Instance.UseBaitItem();
     }
     private void OnEnable()
     {

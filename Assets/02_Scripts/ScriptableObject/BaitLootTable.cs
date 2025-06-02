@@ -9,18 +9,15 @@ public class BaitLootTable : ScriptableObject
 {
     [SerializeField] List<BaitLootData> baitLootDatas;
 
-    public Item SelectItem(FishingZone zone)
+    public Item SelectItem(FishingZone zone, int fishingLevel)
     {
-        var filteredLoots = baitLootDatas.Where(wi => zone.items.Contains(wi.targetItem)).ToList();
+        var filteredLoots = baitLootDatas.Where(wi => (zone.items.Contains(wi.targetItem)) && (fishingLevel >= wi.targetItem.itemLevel)).ToList();
 
         if (filteredLoots.Count == 0) return null;
 
         float totalWeight = filteredLoots.Sum(wi => wi.probability);
         float randomValue = UnityEngine.Random.Range(0, totalWeight);
         float cumulative = 0;
-
-
-
 
         foreach (var wi in filteredLoots)
         {

@@ -18,7 +18,10 @@ public class InGameUIManager : MonoBehaviour
     InGameUIState currentState = InGameUIState.None;
     public void SelectUI(InGameUIState nextState)
     {
+        ContextMenuManager.Instance.CloseMenu();
+
         if (currentState != nextState) ChangeUI(nextState);
+
         else BackgroundSetting(false);
     }
     void ChangeUI(InGameUIState nextState)
@@ -28,14 +31,22 @@ public class InGameUIManager : MonoBehaviour
         
         foreach (var state in inGameUIPannels.Keys)
             inGameUIPannels[state].SetActive(state == nextState);
+
+        currentState = nextState;
     }
     void BackgroundSetting(bool isShow)
     {
+        if (isShow) PlayerFishingManager.Instance.DisableFishing();
+        else PlayerFishingManager.Instance.EnableFishing();
+
         uiCanvasGroup.DOKill();
         blurImage.material.DOKill();
-        uiCanvasGroup.DOFade(isShow ? 1f : 0f, 0.3f);
-        blurImage.material.DOFloat(isShow ? 1f : 0f, "_Alpha", 0.3f);
+
+        uiCanvasGroup.DOFade(isShow ? 1f : 0f, 0.2f);
+        blurImage.material.DOFloat(isShow ? 1f : 0f, "_Alpha", 0.2f);
+
         if (isShow == false) currentState = InGameUIState.None;
+
         uiCanvasGroup.interactable = isShow;
         uiCanvasGroup.blocksRaycasts = isShow;
     }
