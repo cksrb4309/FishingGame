@@ -13,8 +13,8 @@ TagManager:
   - UI
   - Player
   - Zone
-  - 
-  - 
+  - CircleDetector
+  - Interactable
   - 
   - 
   - 
@@ -44,26 +44,11 @@ TagManager:
   - name: Background
     uniqueID: 2339268421
     locked: 0
-  - name: Wall
-    uniqueID: 3312113829
-    locked: 0
-  - name: Block
-    uniqueID: 697326781
-    locked: 0
-  - name: Enemy
-    uniqueID: 3991444831
-    locked: 0
-  - name: Back_Weapon
-    uniqueID: 477251557
-    locked: 0
   - name: Player
     uniqueID: 2833943807
     locked: 0
-  - name: Forward_Weapon
-    uniqueID: 4223600743
-    locked: 0
-  - name: Bullet
-    uniqueID: 418632321
+  - name: UI
+    uniqueID: 2462648019
     locked: 0
   m_RenderingLayers:
   - Default

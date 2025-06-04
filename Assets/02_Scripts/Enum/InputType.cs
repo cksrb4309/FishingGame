@@ -12,4 +12,5 @@ public enum InputType
     FishingCast,
     FishingCancel,
     Inventory,
+    Interact,
 }
