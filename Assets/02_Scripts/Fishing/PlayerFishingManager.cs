@@ -207,6 +207,7 @@ public class PlayerFishingManager : MonoBehaviour
 
         PlayerInventory.Instance.UseBaitItem();
     }
+    public void SetFishingLevel(int level) => fishingLevel = level;
     private void OnEnable()
     {
         fishingCastAction = InputManager.GetInputAction(InputType.FishingCast);

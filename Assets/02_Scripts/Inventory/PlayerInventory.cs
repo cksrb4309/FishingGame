@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerInventory : MonoBehaviour
 {
     public static PlayerInventory Instance { get; private set; } = null;
-
+    public Dictionary<int, Item> ItemDictionary => itemDictionary;
     [SerializeField] ItemSlot[] itemSlots;
 
     Dictionary<int, Item> itemDictionary = new();
@@ -71,6 +71,14 @@ public class PlayerInventory : MonoBehaviour
     {
         itemDictionary[item.itemId].itemCount -= usedCount;
 
+        SelectCategory(currentCategory);
+    }
+    public void UseItem(Recipe recipe)
+    {
+        foreach (RecipeEntry entry in recipe.RecipeEntries)
+        {
+            itemDictionary[entry.item.itemId].itemCount -= entry.count;
+        }
         SelectCategory(currentCategory);
     }
     public void SelectBaitItem(Item item)

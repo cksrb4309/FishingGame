@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerUIController : MonoBehaviour
@@ -13,7 +15,12 @@ public class PlayerUIController : MonoBehaviour
     [SerializeField] float staminaHideTime = 1f;
     [SerializeField] float staminaFadeSpeed = 1f;
 
+    InputActionReference interactInputAction = null;
+
     float staminaViewTime = 10f;
+
+    List<IInteractable> interactables = new();
+    IInteractable interactable = null;
     public void Start()
     {
         staminaCanvasGroup.alpha = 0f;
@@ -22,7 +29,12 @@ public class PlayerUIController : MonoBehaviour
     }
     public void LateUpdate()
     {
-        canvasTransform.position = transform.position;
+        //canvasTransform.position = transform.position;
+    }
+    public void Update()
+    {
+        if (interactInputAction.action.WasPressedThisFrame() && interactable != null)
+            interactable.Interact();
     }
     IEnumerator StaminaCoroutine()
     {
@@ -44,5 +56,73 @@ public class PlayerUIController : MonoBehaviour
         staminaFillImage.fillAmount = amount;
 
         staminaViewTime = 0f;
+    }
+    public void AddInteractable(IInteractable interactable)
+    {
+        if (!interactables.Contains(interactable))
+        {
+            interactables.Add(interactable);
+
+            if (interactables.Count == 1)
+            {
+                this.interactable = interactable;
+            }
+            else
+            {
+                GetClosest();
+            }
+        }
+    }
+    void GetClosest()
+    {
+        IInteractable next = null;
+
+        Vector3 a = transform.position;
+        float distance = float.PositiveInfinity;
+
+        foreach (IInteractable i in interactables)
+        {
+            Vector3 b = i.GetPosition();
+
+            if (Vector3.Distance(a, b) < distance)
+            {
+                distance = Vector3.Distance(a, b);
+
+                next = i;
+            }
+        }
+
+        if (interactable != next)
+        {
+            if (interactable != null) interactable.Release();
+
+            interactable = next;
+        }
+    }
+    public void RemoveInteractable(IInteractable interactable)
+    {
+        if (interactables.Contains(interactable))
+        {
+            interactables.Remove(interactable);
+
+            if (interactables.Count == 0)
+            {
+                this.interactable.Release();
+
+                this.interactable = null;
+            }
+            else
+            {
+                GetClosest();
+            }
+        }
+    }
+    private void OnEnable()
+    {
+        interactInputAction = InputManager.GetInputAction(InputType.Interact);
+    }
+    private void OnDisable()
+    {
+        InputManager.Release(InputType.Interact);
     }
 }
