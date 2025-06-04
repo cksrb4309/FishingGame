@@ -166,9 +166,6 @@ public class PlayerMove : MonoBehaviour
         {
             currentMaxSpeed += maxSpeedTransitionSpeed * (isBoost ? 1f : -1f) * Time.deltaTime;
 
-            Debug.Log($"targetSpeed:{targetSpeed.ToString()} - currentMaxSpeed:{currentMaxSpeed.ToString()} > 0f");
-            Debug.Log($"{(targetSpeed - currentMaxSpeed > 0f).ToString()} && {(!isBoost).ToString()}");
-
             if (!(targetSpeed - currentMaxSpeed > 0f ^ !isBoost))
             {
                 currentMaxSpeed = targetSpeed; yield break;

@@ -21,6 +21,7 @@ public class PlayerFishingManager : MonoBehaviour
     [SerializeField] float castHeight = 0.5f;
     [SerializeField] float castMinSpeed = 0.1f;
     [SerializeField] float castMaxSpeed = 3f;
+    [SerializeField] float castPowMulitplier = 1.5f;
 
     InputActionReference fishingCastAction;
     InputActionReference cancelFishingAction;
@@ -34,9 +35,14 @@ public class PlayerFishingManager : MonoBehaviour
     Item baitItem = null;
     Item targetItem = null;
 
+    int fishingLevel = 1;
 
-    private void Update()
+    bool canFishing = true;
+
+    void Update()
     {
+        if (!canFishing) return;
+
         switch (currentState)
         {
             case FishingState.None:
@@ -67,7 +73,7 @@ public class PlayerFishingManager : MonoBehaviour
                 break;
         }
     }
-    private IEnumerator CastCoroutine(Vector3 position)
+    IEnumerator CastCoroutine(Vector3 position)
     {
         bobberTransform.position = rodTipTransform.position;
         position.z = 10f;
@@ -77,22 +83,22 @@ public class PlayerFishingManager : MonoBehaviour
         Vector3 controlPoint = (startPos + endPos) / 2 + (distance * castHeight * Vector3.up);
         float t = 0;
         float speed = Mathf.Lerp(castMinSpeed, castMaxSpeed, Mathf.InverseLerp(0f, 15f, distance));
-        //float speed = 1f;
+        float tt = 0;
+        while (t < 1f) {
 
-        while (t < 1f)
-        {
-            Vector3 pos = (Mathf.Pow(1 - t, 2) * startPos) + (2 * (1 - t) * t * controlPoint) + (Mathf.Pow(t, 2) * endPos);
+            tt = Mathf.Pow(t, castPowMulitplier);
+
+            Vector3 pos = (Mathf.Pow(1 - tt, 2) * startPos) + (2 * (1 - tt) * tt * controlPoint) + (Mathf.Pow(tt, 2) * endPos);
 
             bobberTransform.position = pos;
 
-            t += Time.deltaTime * speed;
-            yield return null;
+            t += Time.deltaTime * speed; yield return null;
         }
 
         bobberTransform.position = endPos;
         PickCatchItem();
     }
-    private void PickCatchItem()
+    void PickCatchItem()
     {
         Collider2D zoneObj = Physics2D.OverlapPoint((Vector2)bobberTransform.position, zoneLayerMask);
 
@@ -110,7 +116,8 @@ public class PlayerFishingManager : MonoBehaviour
         if (baitItem != null)
         {
             bait = baitItem;
-            // UseBait();
+
+            UseBait();
         }
         else
         {
@@ -119,11 +126,11 @@ public class PlayerFishingManager : MonoBehaviour
 
         currentState = FishingState.WaitingForBite;
 
-        targetItem = bait.SelectItem(zoneObj.GetComponent<FishingZoneArea>().GetFishingZone());
+        targetItem = bait.SelectItem(zoneObj.GetComponent<FishingZoneArea>().GetFishingZone(), fishingLevel);
 
         currentCoroutine = StartCoroutine(WaitingCoroutine());
     }
-    private IEnumerator WaitingCoroutine()
+    IEnumerator WaitingCoroutine()
     {
         float biteWaitTime = targetItem.GetBiteWaitTime();
 
@@ -138,7 +145,7 @@ public class PlayerFishingManager : MonoBehaviour
 
         FishingCancel();
     }
-    private void PerformHook()
+    void PerformHook()
     {
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
 
@@ -150,7 +157,7 @@ public class PlayerFishingManager : MonoBehaviour
 
         fishingSystem.StartFishing(targetItem);
     }
-    private void FishingCast()
+    void FishingCast()
     {
         currentState = FishingState.Casting;
         PlayerFishingLineController.Instance.EnableLine();
@@ -161,7 +168,7 @@ public class PlayerFishingManager : MonoBehaviour
 
         currentCoroutine = StartCoroutine(CastCoroutine(mousePositionAction.action.ReadValue<Vector2>()));
     }
-    private void FishingCancel()
+    void FishingCancel()
     {
         PlayerFishingLineController.Instance.DisableLine();
 
@@ -184,7 +191,21 @@ public class PlayerFishingManager : MonoBehaviour
     }
     public void Complete()
     {
+        PlayerInventory.Instance.GetItem(targetItem);
+
         FishingCancel();
+    }
+    public void EnableFishing() => canFishing = true;
+    public void DisableFishing() => canFishing = false;
+    public void SelectBait(Item item)
+    {
+        baitItem = item;
+    }
+    void UseBait()
+    {
+        Debug.Log("¹Ì³¢ »ç¿ë");
+
+        PlayerInventory.Instance.UseBaitItem();
     }
     private void OnEnable()
     {

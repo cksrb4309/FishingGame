@@ -9,9 +9,9 @@ public class BaitLootTable : ScriptableObject
 {
     [SerializeField] List<BaitLootData> baitLootDatas;
 
-    public Item SelectItem(FishingZone zone)
+    public Item SelectItem(FishingZone zone, int fishingLevel)
     {
-        var filteredLoots = baitLootDatas.Where(wi => zone.items.Contains(wi.targetItem)).ToList();
+        var filteredLoots = baitLootDatas.Where(wi => (zone.items.Contains(wi.targetItem)) && (fishingLevel >= wi.targetItem.itemLevel)).ToList();
 
         if (filteredLoots.Count == 0) return null;
 
