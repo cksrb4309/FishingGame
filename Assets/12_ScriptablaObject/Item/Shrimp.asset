@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: 1
   itemId: 1
+  itemLevel: 1
   itemName: "\uBA4D\uCCAD\uD55C \uC0C8\uC6B0"
   itemExplain: "\uBA4D\uCCAD\uD55C \uC0C8\uC6B0\r\n\r\n\uC65C\uC778\uC9C0 \uBAA8\uB974\uAC8C
     \uC544\uBB34 \uBBF8\uB07C\uAC00 \uC5C6\uC5B4\uB3C4 \uB09A\uC2EF\uB300\uC5D0 \uAC78\uB9AC\uB294
     \uC0DD\uBB3C.\n\uB108\uBB34 \uB9CE\uC774 \uBA39\uC73C\uBA74 \uBA4D\uCCAD\uD574\uC9C4\uB2E4."
   itemIcon: {fileID: 21300000, guid: f81a2ef57dd9988428ca8bab06fe135e, type: 3}
-  fishingMethodData: {fileID: 11400000, guid: 2cadd0952548e2e4ca9877336e4d51d0, type: 2}
+  fishingMethodData: {fileID: 11400000, guid: 1153dea34dd83ec42b33a1e24c20a532, type: 2}
   baitLootTable: {fileID: 11400000, guid: 5f00146ae7d914343839a6b273fe4a49, type: 2}
