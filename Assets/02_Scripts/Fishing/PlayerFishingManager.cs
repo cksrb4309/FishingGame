@@ -33,9 +33,6 @@ public class PlayerFishingManager : MonoBehaviour
     Coroutine currentCoroutine = null;
 
     Item baitItem = null;
-    Item targetItem = null;
-
-    int fishingLevel = 1;
 
     bool canFishing = true;
 
@@ -126,13 +123,16 @@ public class PlayerFishingManager : MonoBehaviour
 
         currentState = FishingState.WaitingForBite;
 
-        targetItem = bait.SelectItem(zoneObj.GetComponent<FishingZoneArea>().GetFishingZone(), fishingLevel);
+        FishingData.SetTargetItem(
+            bait.SelectItem(
+                zoneObj.GetComponent<FishingZoneArea>().GetFishingZone(),
+                FishingData.FishingLevel));
 
         currentCoroutine = StartCoroutine(WaitingCoroutine());
     }
     IEnumerator WaitingCoroutine()
     {
-        float biteWaitTime = targetItem.GetBiteWaitTime();
+        float biteWaitTime = FishingData.TargetItem.GetBiteWaitTime();
 
         yield return new WaitForSeconds(biteWaitTime);
 
@@ -151,11 +151,11 @@ public class PlayerFishingManager : MonoBehaviour
 
         currentState = FishingState.Hooked;
 
-        currentFishingStyle = targetItem.GetFishingStyle();
+        currentFishingStyle = FishingData.TargetItem.GetFishingStyle();
 
         IFishingSystem fishingSystem = fishingSystems[currentFishingStyle].GetComponent<IFishingSystem>();
 
-        fishingSystem.StartFishing(targetItem);
+        fishingSystem.StartFishing();
     }
     void FishingCast()
     {
@@ -191,7 +191,7 @@ public class PlayerFishingManager : MonoBehaviour
     }
     public void Complete()
     {
-        PlayerInventory.Instance.GetItem(targetItem);
+        PlayerInventory.Instance.GetItem();
 
         FishingCancel();
     }
@@ -207,7 +207,6 @@ public class PlayerFishingManager : MonoBehaviour
 
         PlayerInventory.Instance.UseBaitItem();
     }
-    public void SetFishingLevel(int level) => fishingLevel = level;
     private void OnEnable()
     {
         fishingCastAction = InputManager.GetInputAction(InputType.FishingCast);

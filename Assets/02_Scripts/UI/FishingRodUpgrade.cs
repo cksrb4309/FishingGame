@@ -75,7 +75,7 @@ public class FishingRodUpgrade : MonoBehaviour, IInteractable
     {
         PlayerInventory.Instance.UseItem(recipes[level]);
 
-        PlayerFishingManager.Instance.SetFishingLevel(level + 2);
+        FishingData.SetFishingLevel(level + 2);
 
         level += 1;
 

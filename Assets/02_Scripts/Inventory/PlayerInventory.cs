@@ -59,11 +59,12 @@ public class PlayerInventory : MonoBehaviour
 
         return filtered.OrderBy(i => i.itemId).ToList();
     }
-    public void GetItem(Item item)
+    public void GetItem()
     {
-        item.itemCount++;
+        FishingData.TargetItem.itemCount++;
 
-        if (!itemDictionary.ContainsKey(item.itemId)) itemDictionary[item.itemId] = item;
+        if (!itemDictionary.ContainsKey(FishingData.TargetItem.itemId))
+            itemDictionary[FishingData.TargetItem.itemId] = FishingData.TargetItem;
         
         SelectCategory(currentCategory);
     }

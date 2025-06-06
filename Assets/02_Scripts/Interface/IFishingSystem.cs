@@ -1,6 +1,6 @@
 public interface IFishingSystem
 {
-    public void StartFishing(Item targetItem);
+    public void StartFishing();
     public void Complete();
     public void CancelFishing();
 }

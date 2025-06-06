@@ -4,12 +4,8 @@ public class Fishing_AutoComplete : MonoBehaviour, IFishingSystem
 {
     [SerializeField] Transform bobberTransform;
 
-    Item targetItem = null;
-
-    public void StartFishing(Item targetItem)
+    public void StartFishing()
     {
-        this.targetItem = targetItem;
-
         Complete();
     }
     public void CancelFishing()
@@ -18,7 +14,7 @@ public class Fishing_AutoComplete : MonoBehaviour, IFishingSystem
     }
     public void Complete()
     {
-        Debug.Log("È¹µæ : " + targetItem.itemName);
+        Debug.Log("È¹µæ : " + FishingData.TargetItem.itemName);
 
         PlayerFishingManager.Instance.Complete();
     }

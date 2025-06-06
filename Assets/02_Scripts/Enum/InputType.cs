@@ -13,4 +13,5 @@ public enum InputType
     FishingCancel,
     Inventory,
     Interact,
+    FishingClick,
 }

@@ -9,9 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64c719f90e54d04449526826eb006440, type: 3}
-  m_Name: DefaultFishingMethod
+  m_Script: {fileID: 11500000, guid: aafdd4687a9b76b4da7a2be53d0d55fd, type: 3}
+  m_Name: MiniGame_1_FishingMethod
   m_EditorClassIdentifier: 
   style: 2
   minBiteWaitTime: 2
   maxBiteWaitTime: 3
+  maxHp: 100
+  speed: 75
+  minRotateDelay: 1
+  maxRotateDelay: 3
+  balanceRotateDelay: 7

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using VInspector;
@@ -24,33 +24,33 @@ public class PoolManager : MonoBehaviour
 
         if (poolManager == null)
         {
-            Debug.LogWarning("Ç® ¸Å´ÏÀú ÃÊ±âÈ­ ¹®Á¦ ÀÖÀ½"); return;
+            Debug.LogWarning("í’€ ë§¤ë‹ˆì € ì´ˆê¸°í™” ë¬¸ì œ ìˆìŒ"); return;
         }
 
         if (!poolManager.objectPoolSetting.ContainsKey(id) || poolManager.objectPoolSetting[id] == null)
         {
-            Debug.LogError($"[ERROR] objectPoolSetting¿¡ {id}°¡ Á¸ÀçÇÏÁö ¾Ê°Å³ª nullÀÔ´Ï´Ù!"); return;
+            Debug.LogError($"[ERROR] objectPoolSettingì— {id}ê°€ ì¡´ì¬í•˜ì§€ ì•Šê±°ë‚˜ nullì…ë‹ˆë‹¤!"); return;
         }
 
         if (!poolManager.pools.ContainsKey(id))
         {
-            Debug.Log("¿ÀºêÁ§Æ® Ç® »ı¼º ¿äÇÔ");
+            Debug.Log("ì˜¤ë¸Œì íŠ¸ í’€ ìƒì„± ìš”í•¨");
             try
             {
                 var obj = poolManager.objectPoolSetting[id].GetComponent<T>();
-                Debug.Log($"[DEBUG] {id}¿¡¼­ GetComponent<T>() ¼º°ø: {obj}");
+                Debug.Log($"[DEBUG] {id}ì—ì„œ GetComponent<T>() ì„±ê³µ: {obj}");
 
                 poolManager.pools[id] = new ObjectPool<T>(obj, initialSize, poolManager.transform);
-                Debug.Log($"[DEBUG] {id}¿¡ ´ëÇÑ ObjectPool »ı¼º ¿Ï·á");
+                Debug.Log($"[DEBUG] {id}ì— ëŒ€í•œ ObjectPool ìƒì„± ì™„ë£Œ");
             }
             catch (Exception e)
             {
-                Debug.LogError($"[ERROR] ObjectPool »ı¼º Áß ¿¹¿Ü ¹ß»ı! ID: {id}\n{e}");
+                Debug.LogError($"[ERROR] ObjectPool ìƒì„± ì¤‘ ì˜ˆì™¸ ë°œìƒ! ID: {id}\n{e}");
             }
         }
         else
         {
-            Debug.Log("¿ÀºêÁ§Æ® Ç® »ı¼ºµÇ¾î ÀÖÀ½");
+            Debug.Log("ì˜¤ë¸Œì íŠ¸ í’€ ìƒì„±ë˜ì–´ ìˆìŒ");
         }
     }
     public static T GetObj<T>(ObjectPoolID id) where T : MonoBehaviour
@@ -79,12 +79,12 @@ public class PoolManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        CreatePool<AttackArea>(ObjectPoolID.AttackArea, 4);
     }
 }
 
 public enum ObjectPoolID
 {
-    [InspectorName("À¯Àú Åõ»çÃ¼_1")] PlayerProjectile_1 = 0,
-    [InspectorName("Àû Åõ»çÃ¼_1")] EnemyProjectile_1 = 1,
-    [InspectorName("ÅÍ·¿ Åõ»çÃ¼_1")] TurretProjectile_1 = 2,
+    [InspectorName("1ë²ˆ ë¯¸ë‹ˆê²Œì„ ê³µê²© ì˜¤ë¸Œì íŠ¸")] AttackArea = 0,
 }

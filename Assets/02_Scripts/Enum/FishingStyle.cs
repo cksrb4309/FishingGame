@@ -1,5 +1,6 @@
 public enum FishingStyle
 {
-    None,
-    Fishing_AutoComplete,
+    None = 0,
+    AutoComplete = 1,
+    Game_1 = 2,
 }
