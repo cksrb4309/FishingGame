@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2003820369586165263}
   - component: {fileID: 4348982118775831057}
   - component: {fileID: 1694615179511093015}
-  - component: {fileID: 1444718323442217739}
   - component: {fileID: 1272658795979382691}
+  - component: {fileID: 8602410112577872193}
   m_Layer: 0
   m_Name: AttackArea
   m_TagString: Untagged
@@ -78,21 +78,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1444718323442217739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6418174437975541644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63b5bd5289fe2d549aeaa7fea9ace6dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvasGroup: {fileID: 1272658795979382691}
-  myRect: {fileID: 2003820369586165263}
-  fillImage: {fileID: 1245234405280167179}
 --- !u!225 &1272658795979382691
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -105,6 +90,21 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &8602410112577872193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6418174437975541644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b411afb1bda23474ba871bcccbbbfbc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 1272658795979382691}
+  myRect: {fileID: 2003820369586165263}
+  fillImage: {fileID: 1245234405280167179}
 --- !u!1 &7998461371565196797
 GameObject:
   m_ObjectHideFlags: 0

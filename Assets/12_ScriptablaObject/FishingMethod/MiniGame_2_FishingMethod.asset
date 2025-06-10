@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aafdd4687a9b76b4da7a2be53d0d55fd, type: 3}
-  m_Name: MiniGame_1_FishingMethod
+  m_Name: MiniGame_2_FishingMethod
   m_EditorClassIdentifier: 
-  style: 2
+  style: 3
   minBiteWaitTime: 2
   maxBiteWaitTime: 3
   maxHp: 100
-  speed: 75
-  minRotateDelay: 1
-  maxRotateDelay: 7
-  balanceRotateDelay: 3
+  speed: 120
+  minRotateDelay: 0.5
+  maxRotateDelay: 3.5
+  balanceRotateDelay: 1.75

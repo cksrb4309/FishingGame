@@ -6,7 +6,7 @@ public class FishController : MonoBehaviour
 {
     public static FishController Instance { get; private set; } = null;
 
-    [SerializeField] Fishing_Game_1 game;
+    IFishingSystem game = null;
 
     [SerializeField] Vector2 minBorder;
     [SerializeField] Vector2 maxBorder;
@@ -23,7 +23,9 @@ public class FishController : MonoBehaviour
     int hp = 0;
     int rotateCount = 0;
     float rotateDelayHap = 0;
-    float angle = 0f;
+    float currentAngle = 0f;
+    float targetAngle = 0f;
+    float rotationSpeed = 360f; // degrees per second (적당히 조절 가능)
     float minRotateDelay = 0f;
     float maxRotateDelay = 0f;
     float balanceRotateDelay = 0f;
@@ -55,8 +57,10 @@ public class FishController : MonoBehaviour
     {
         Hp -= damage;
     }
-    public void Setting(FishingMethodData_Game_1 fishData, float hpMultiplier = 1f)
+    public void Setting(IFishingSystem game, FishingMethodData_Game_1 fishData, float hpMultiplier = 1f)
     {
+        this.game = game;
+
         MaxHp = fishData.maxHp;
         Hp = (int)(fishData.maxHp * hpMultiplier);
         speed = fishData.speed;
@@ -67,9 +71,19 @@ public class FishController : MonoBehaviour
 
         rotateCount = 0;
         rotateDelayHap = 0;
-        angle = Random.Range(0f, 360f);
+
+        // 초기 방향 및 회전값 설정
+        float angle = Random.Range(0f, 360f);
         direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)).normalized;
+
+        // 초기 회전값 적용
+        currentAngle = angle;
+        targetAngle = angle;
         myRect.rotation = Quaternion.Euler(0, 0, angle);
+
+        // 이동 및 회전 코루틴 시작
+        if (moveCoroutine != null) StopCoroutine(moveCoroutine);
+        if (rotateCoroutine != null) StopCoroutine(rotateCoroutine);
 
         moveCoroutine = StartCoroutine(MoveCoroutine());
         rotateCoroutine = StartCoroutine(RotateCoroutine());
@@ -88,6 +102,7 @@ public class FishController : MonoBehaviour
             {
                 direction.x *= -1;
                 nextPos.x = Mathf.Clamp(nextPos.x, minBorder.x, maxBorder.x);
+                targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             }
 
             // Y축 경계 반사
@@ -95,13 +110,14 @@ public class FishController : MonoBehaviour
             {
                 direction.y *= -1;
                 nextPos.y = Mathf.Clamp(nextPos.y, minBorder.y, maxBorder.y);
+                targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             }
 
             myRect.anchoredPosition = nextPos;
 
-            // 회전 업데이트
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            myRect.rotation = Quaternion.Euler(0, 0, angle);
+            // 부드러운 회전
+            currentAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotationSpeed * Time.deltaTime);
+            myRect.rotation = Quaternion.Euler(0, 0, currentAngle);
         }
     }
     IEnumerator RotateCoroutine()
@@ -125,14 +141,11 @@ public class FishController : MonoBehaviour
     }
     void Rotate()
     {
-        // 랜덤 각도 설정
-        angle = Random.Range(0f, 360f);
+        // 목표 각도 설정
+        targetAngle = Random.Range(0f, 360f);
 
-        // 방향 벡터 갱신
-        direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)).normalized;
-
-        // 회전 적용 (UI 시각적 표현)
-        myRect.rotation = Quaternion.Euler(0f, 0f, angle);
+        // 새 방향 계산
+        direction = new Vector2(Mathf.Cos(targetAngle * Mathf.Deg2Rad), Mathf.Sin(targetAngle * Mathf.Deg2Rad)).normalized;
     }
     public void Cancel()
     {

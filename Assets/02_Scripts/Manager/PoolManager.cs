@@ -80,7 +80,7 @@ public class PoolManager : MonoBehaviour
     {
         instance = this;
 
-        CreatePool<AttackArea>(ObjectPoolID.AttackArea, 4);
+        CreatePool<AttackAreaCircle>(ObjectPoolID.AttackArea, 4);
     }
 }
 

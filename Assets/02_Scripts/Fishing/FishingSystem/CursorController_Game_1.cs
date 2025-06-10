@@ -2,19 +2,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class FishingCursorController : MonoBehaviour
+public class CursorController_Game_1 : MonoBehaviour
 {
     [SerializeField] Transform maskTransform;
 
     [SerializeField] Image cursorImage;
-    [SerializeField] Sprite game_1_Cursor;
 
     InputActionReference clickInput = null;
     InputActionReference mousePositionInput = null;
 
     float attackCooldownTime = 1f;
 
-    public void Game_1_Setting()
+    public void Setting()
     {
         cursorImage.gameObject.SetActive(true);
         enabled = true;
@@ -43,7 +42,7 @@ public class FishingCursorController : MonoBehaviour
     }
     void Attack()
     {
-        AttackArea attackArea = PoolManager.GetObj<AttackArea>(ObjectPoolID.AttackArea);
+        AttackAreaCircle attackArea = PoolManager.GetObj<AttackAreaCircle>(ObjectPoolID.AttackArea);
         attackArea.gameObject.SetActive(true);
         attackArea.transform.SetParent(maskTransform);
         attackArea.transform.localScale = Vector3.one;

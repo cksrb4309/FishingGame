@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AttackArea : MonoBehaviour
+public class AttackAreaCircle : MonoBehaviour
 {
     [SerializeField] CanvasGroup canvasGroup;
     [SerializeField] RectTransform myRect;

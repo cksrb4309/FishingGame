@@ -18,6 +18,9 @@ public class FishingData : MonoBehaviour
 
     [SerializeField] MiniGame_1_Data miniGame_1_Data;
     public static MiniGame_1_Data MiniGame_1_Data => instance.miniGame_1_Data;
+
+    [SerializeField] MiniGame_2_Data miniGame_2_Data;
+    public static MiniGame_2_Data MiniGame_2_Data => instance.miniGame_2_Data;
 }
 
 [Serializable]
@@ -35,6 +38,21 @@ public class MiniGame_1_Data
 
     public int AttackDamage { get => attackDamage + (int)(attackDamage * (FishingData.FishingLevel - 1) * damageMultiplier); }
     public float AttackDelay { get => attackDelay - attackDelay * (FishingData.FishingLevel - 1) * delayMultiplier; }
+    public float AttackRange { get => attackRange + attackRange * (FishingData.FishingLevel - 1) * rangeMultiplier; }
+    public float AttackInterval { get => attackInterval - attackInterval * (FishingData.FishingLevel - 1) * intervalMultiplier; }
+}
+[Serializable]
+public class MiniGame_2_Data
+{
+    [SerializeField] int attackDamage;
+    [SerializeField] float attackRange;
+    [SerializeField] float attackInterval;
+
+    [SerializeField] float damageMultiplier = 0.2f;
+    [SerializeField] float rangeMultiplier = 0.2f;
+    [SerializeField] float intervalMultiplier = 0.1f;
+
+    public int AttackDamage { get => attackDamage + (int)(attackDamage * (FishingData.FishingLevel - 1) * damageMultiplier); }
     public float AttackRange { get => attackRange + attackRange * (FishingData.FishingLevel - 1) * rangeMultiplier; }
     public float AttackInterval { get => attackInterval - attackInterval * (FishingData.FishingLevel - 1) * intervalMultiplier; }
 }

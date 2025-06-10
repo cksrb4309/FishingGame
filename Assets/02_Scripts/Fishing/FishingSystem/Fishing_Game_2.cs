@@ -1,10 +1,10 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class Fishing_Game_1 : MonoBehaviour, IFishingSystem // 카서스 Q 공격 게임
+public class Fishing_Game_2 : MonoBehaviour, IFishingSystem // 벨코즈 R 공격 게임
 {
     [SerializeField] FishController fishController;
-    [SerializeField] CursorController_Game_1 cursorController;
+    [SerializeField] CursorController_Game_2 cursorController;
     [SerializeField] CanvasGroup canvasGroup;
 
     public void StartFishing()
