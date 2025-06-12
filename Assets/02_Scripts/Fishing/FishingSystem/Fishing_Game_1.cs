@@ -5,21 +5,21 @@ public class Fishing_Game_1 : MonoBehaviour, IFishingSystem // 카서스 Q 공격 게�
 {
     [SerializeField] FishController fishController;
     [SerializeField] CursorController_Game_1 cursorController;
-    [SerializeField] CanvasGroup canvasGroup;
+    [SerializeField] SpriteRenderGroup spriteRenderGroup;
 
     public void StartFishing()
     {
         fishController.Setting(this, (FishingMethodData_Game_1)FishingData.MethodData);
         cursorController.Setting();
 
-        canvasGroup.DOFade(1f, 0.5f);
+        spriteRenderGroup.Fade(1f, 0.5f);
     }
     public void CancelFishing()
     {
         fishController.Cancel();
         cursorController.Cancel();
 
-        canvasGroup.DOFade(0f, 0.5f);
+        spriteRenderGroup.Fade(0f, 0.5f);
     }
     public void Complete()
     {

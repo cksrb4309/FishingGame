@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Fishing_AutoComplete : MonoBehaviour, IFishingSystem
 {
-    [SerializeField] Transform bobberTransform;
-
     public void StartFishing()
     {
         Complete();

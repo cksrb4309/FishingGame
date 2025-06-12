@@ -14,8 +14,6 @@ public class FishController : MonoBehaviour
     [SerializeField] TMP_Text hpText;
     [SerializeField] TMP_Text maxHpText;
 
-    [SerializeField] RectTransform myRect;
-
     Coroutine moveCoroutine = null;
     Coroutine rotateCoroutine = null;
     Vector2 direction = Vector2.zero;
@@ -52,7 +50,8 @@ public class FishController : MonoBehaviour
     {
         Instance = this;
     }
-    public Vector2 Position => myRect.anchoredPosition;
+    public Vector2 WorldPosition => transform.position;
+    public Vector2 LocalPosition => transform.localPosition;
     public void Attack(int damage)
     {
         Hp -= damage;
@@ -79,7 +78,7 @@ public class FishController : MonoBehaviour
         // 초기 회전값 적용
         currentAngle = angle;
         targetAngle = angle;
-        myRect.rotation = Quaternion.Euler(0, 0, angle);
+        transform.rotation = Quaternion.Euler(0, 0, angle);
 
         // 이동 및 회전 코루틴 시작
         if (moveCoroutine != null) StopCoroutine(moveCoroutine);
@@ -94,7 +93,7 @@ public class FishController : MonoBehaviour
         {
             yield return null;
 
-            Vector2 pos = myRect.anchoredPosition;
+            Vector2 pos = transform.localPosition;
             Vector2 nextPos = pos + direction * speed * Time.deltaTime;
 
             // X축 경계 반사
@@ -113,11 +112,11 @@ public class FishController : MonoBehaviour
                 targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             }
 
-            myRect.anchoredPosition = nextPos;
+            transform.localPosition = nextPos;
 
             // 부드러운 회전
             currentAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotationSpeed * Time.deltaTime);
-            myRect.rotation = Quaternion.Euler(0, 0, currentAngle);
+            transform.rotation = Quaternion.Euler(0, 0, currentAngle);
         }
     }
     IEnumerator RotateCoroutine()

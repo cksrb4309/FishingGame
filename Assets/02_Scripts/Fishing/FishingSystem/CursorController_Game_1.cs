@@ -6,7 +6,7 @@ public class CursorController_Game_1 : MonoBehaviour
 {
     [SerializeField] Transform maskTransform;
 
-    [SerializeField] Image cursorImage;
+    [SerializeField] SpriteRenderer cursor;
 
     InputActionReference clickInput = null;
     InputActionReference mousePositionInput = null;
@@ -15,7 +15,7 @@ public class CursorController_Game_1 : MonoBehaviour
 
     public void Setting()
     {
-        cursorImage.gameObject.SetActive(true);
+        cursor.gameObject.SetActive(true);
         enabled = true;
     }
     private void Update()
@@ -33,11 +33,11 @@ public class CursorController_Game_1 : MonoBehaviour
     }
     private void LateUpdate()
     {
-        cursorImage.transform.position = Camera.main.ScreenToWorldPoint(mousePositionInput.action.ReadValue<Vector2>());
+        cursor.transform.position = Camera.main.ScreenToWorldPoint(mousePositionInput.action.ReadValue<Vector2>());
     }
     public void Cancel()
     {
-        cursorImage.gameObject.SetActive(false);
+        cursor.gameObject.SetActive(false);
         enabled = false;
     }
     void Attack()
@@ -47,14 +47,14 @@ public class CursorController_Game_1 : MonoBehaviour
         attackArea.transform.SetParent(maskTransform);
         attackArea.transform.localScale = Vector3.one;
         attackArea.transform.SetAsLastSibling();
-        attackArea.Setting(cursorImage.rectTransform.anchoredPosition);
+        attackArea.Setting(cursor.transform.position);
     }
     private void OnEnable()
     {
         clickInput = InputManager.GetInputAction(InputType.FishingClick);
         mousePositionInput = InputManager.GetInputAction(InputType.MousePoint);
 
-        cursorImage.rectTransform.sizeDelta = Vector2.one * FishingData.MiniGame_1_Data.AttackRange * 2f;
+        cursor.size = Vector2.one * FishingData.MiniGame_1_Data.AttackRange * 2f;
     }
     private void OnDisable()
     {
