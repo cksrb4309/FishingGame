@@ -1308,7 +1308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishController: {fileID: 1962863264}
   cursorController: {fileID: 1983610592}
-  spriteRenderGroup: {fileID: 0}
+  renderMaterialController: {fileID: 0}
 --- !u!1 &73699072
 GameObject:
   m_ObjectHideFlags: 0
@@ -3159,7 +3159,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: f782b2107cf2da140b633ec579277e21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4194,7 +4194,7 @@ GameObject:
   - component: {fileID: 354225362}
   - component: {fileID: 354225361}
   - component: {fileID: 354225364}
-  - component: {fileID: 354225363}
+  - component: {fileID: 354225365}
   m_Layer: 0
   m_Name: FishingPanel
   m_TagString: Untagged
@@ -4244,7 +4244,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: f782b2107cf2da140b633ec579277e21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4331,7 +4331,19 @@ SpriteMask:
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
   m_MaskSource: 1
---- !u!114 &354225363
+--- !u!225 &354225364
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354225359}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &354225365
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4343,20 +4355,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdcc0d4e4300a2243b9e2cba3a4817f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alpha: 1
+  material: {fileID: 2100000, guid: f782b2107cf2da140b633ec579277e21, type: 2}
+  startAlpha: 0
   canvasGroup: {fileID: 354225364}
---- !u!225 &354225364
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 354225359}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1001 &358898911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7549,7 +7550,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: f782b2107cf2da140b633ec579277e21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8166,7 +8167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishController: {fileID: 848606477}
   cursorController: {fileID: 267142740}
-  spriteRenderGroup: {fileID: 354225363}
+  renderMaterialController: {fileID: 354225365}
 --- !u!1001 &745210918
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10666,7 +10667,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: f782b2107cf2da140b633ec579277e21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26311,7 +26312,7 @@ MonoBehaviour:
   miniGame_1_Data:
     attackDamage: 20
     attackDelay: 1
-    attackRange: 50
+    attackRange: 1
     attackInterval: 1
     damageMultiplier: 0.2
     delayMultiplier: 0.1

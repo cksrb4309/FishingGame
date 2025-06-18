@@ -16,7 +16,7 @@ MonoBehaviour:
   minBiteWaitTime: 2
   maxBiteWaitTime: 3
   maxHp: 100
-  speed: 75
+  speed: 2
   minRotateDelay: 1
   maxRotateDelay: 7
   balanceRotateDelay: 3

@@ -16,6 +16,7 @@ public class AttackAreaCircle : MonoBehaviour
         range = FishingData.MiniGame_1_Data.AttackRange;
 
         border.size = Vector2.one * range * 2f;
+        fillImage.size = border.size;
 
         fillImage.color = new Color(fillImage.color.r, fillImage.color.g, fillImage.color.b, 0f);
         fillImage.DOFade(1f, FishingData.MiniGame_1_Data.AttackDelay).OnComplete(Attack);
@@ -35,5 +36,8 @@ public class AttackAreaCircle : MonoBehaviour
         PoolManager.ReturnObj(ObjectPoolID.AttackArea, this);
 
         gameObject.SetActive(false);
+        Color c = border.color;
+        c.a = 1f;
+        border.color = c;
     }
 }
