@@ -87,4 +87,5 @@ public class PoolManager : MonoBehaviour
 public enum ObjectPoolID
 {
     [InspectorName("1번 미니게임 공격 오브젝트")] AttackArea = 0,
+    [InspectorName("3번 미니게임 공격 오브젝트")] AttackProjectile = 1,
 }

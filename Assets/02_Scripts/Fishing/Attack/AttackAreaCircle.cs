@@ -8,7 +8,7 @@ public class AttackAreaCircle : MonoBehaviour
     [SerializeField] SpriteRenderer fillImage;
 
     float range = 0f;
-
+    
     public void Setting(Vector2 position)
     {
         transform.position = position;

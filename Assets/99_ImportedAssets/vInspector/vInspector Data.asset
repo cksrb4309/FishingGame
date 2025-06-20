@@ -13,17 +13,10 @@ MonoBehaviour:
   m_Name: vInspector Data
   m_EditorClassIdentifier: 
   bookmarks:
-  - _obj: {fileID: 7846646299517885772, guid: e691ee772e876234d93af66ec626fab7, type: 3}
+  - _obj: {fileID: 2100000, guid: f782b2107cf2da140b633ec579277e21, type: 2}
     globalId:
-      globalObjectIdString: GlobalObjectId_V1-1-e691ee772e876234d93af66ec626fab7-7846646299517885772-0
+      globalObjectIdString: GlobalObjectId_V1-3-f782b2107cf2da140b633ec579277e21-2100000-0
     isSceneGameObject: 0
     isAsset: 1
-    _typeString: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - _obj: {fileID: 0}
-    globalId:
-      globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-2132623516-0
-    isSceneGameObject: 1
-    isAsset: 0
-    _typeString: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    _typeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null

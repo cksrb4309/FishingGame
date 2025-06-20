@@ -31,13 +31,13 @@ public class PlayerFishingRodController : MonoBehaviour, IDirectionable
             {
                 float t = (float)i / (rodLinePositionCount - 1);
 
-                //// ±âº» ¼±Çü À§Ä¡
+                //// ï¿½âº» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
                 //Vector3 basePos = Vector3.Lerp(Vector3.zero, tipPosition, t);
 
-                //// ÈÖ¾îÁü È¿°ú: Sin(t * PI) Àº 0 ¡æ 1 ¡æ 0À¸·Î ºÎµå·¯¿î ÈÖ¾îÁü
+                //// ï¿½Ö¾ï¿½ï¿½ï¿½ È¿ï¿½ï¿½: Sin(t * PI) ï¿½ï¿½ 0 ï¿½ï¿½ 1 ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Îµå·¯ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½
                 //Vector3 curvedOffset = Mathf.Sin(t * Mathf.PI) * tensionOffset * rodTension;
 
-                //// ÃÖÁ¾ À§Ä¡
+                //// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
                 //rodPositions[i] = basePos + curvedOffset;
 
                 rodPositions[i] = Vector3.Lerp(Vector3.zero, tipPosition, t);

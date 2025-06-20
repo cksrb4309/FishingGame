@@ -11,11 +11,8 @@ public class CircleDetector : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("A");
         if (collision.TryGetComponent(out IInteractable interactable))
         {
-            Debug.Log("B");
-
             uiController.AddInteractable(interactable);
         }
     }

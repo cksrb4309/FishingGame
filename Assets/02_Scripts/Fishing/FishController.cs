@@ -8,6 +8,7 @@ public class FishController : MonoBehaviour
 
     IFishingSystem game = null;
 
+    [SerializeField] CanvasGroup hpCanvasGroup;
     [SerializeField] Vector2 minBorder;
     [SerializeField] Vector2 maxBorder;
 
@@ -38,7 +39,9 @@ public class FishController : MonoBehaviour
         {
             hp = value;
 
-            hpText.text = value.ToString();
+            if (value >= 0) hpText.text = value.ToString();
+            
+            else hpText.text = "0";
 
             if (hp <= 0)
             {
@@ -58,6 +61,8 @@ public class FishController : MonoBehaviour
     }
     public void Setting(IFishingSystem game, FishingMethodData_Game_1 fishData, float hpMultiplier = 1f)
     {
+        gameObject.SetActive(true);
+        hpCanvasGroup.alpha = 1;
         this.game = game;
 
         MaxHp = fishData.maxHp;
@@ -149,6 +154,14 @@ public class FishController : MonoBehaviour
     public void Cancel()
     {
         if (moveCoroutine != null) StopCoroutine(moveCoroutine);
+
+        StartCoroutine(DisableCoroutine());
+    }
+    IEnumerator DisableCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        gameObject.SetActive(false);
+        hpCanvasGroup.alpha = 0;
     }
     public void Complete()
     {

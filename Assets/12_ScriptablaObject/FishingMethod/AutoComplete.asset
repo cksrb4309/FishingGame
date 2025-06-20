@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64c719f90e54d04449526826eb006440, type: 3}
-  m_Name: DefaultFishingMethod
+  m_Name: AutoComplete
   m_EditorClassIdentifier: 
   style: 2
   minBiteWaitTime: 2

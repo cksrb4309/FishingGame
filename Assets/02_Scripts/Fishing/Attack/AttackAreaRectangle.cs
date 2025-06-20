@@ -2,14 +2,26 @@ using UnityEngine;
 
 public class AttackAreaRectangle : MonoBehaviour
 {
-    [SerializeField] RectTransform startPosition;
-    [SerializeField] RectTransform endPosition;
-    [SerializeField] RectTransform fishPosition;
+    [SerializeField] Transform startPosition;
+    [SerializeField] Transform endPosition;
+    [SerializeField] Transform fishPosition;
+
+    SpriteRenderer spriteRenderer;
+
+    const float SizeY = 60f;
 
     float attackCooldownTime = 1f;
     float attackInterval = 1;
     float attackRange = 1f;
     int attackDamage = 1;
+    private void Awake()
+    {
+        spriteRenderer = GetComponentInParent<SpriteRenderer>();
+    }
+    public void Setting()
+    {
+        spriteRenderer.size = new Vector2(FishingData.MiniGame_2_Data.AttackRange * 4f, SizeY);
+    }
 
     bool IsObjectNearInfiniteLine(Vector2 startPos, Vector2 endPos, Vector2 targetPos, float range)
     {
@@ -32,7 +44,7 @@ public class AttackAreaRectangle : MonoBehaviour
     {
         if (attackCooldownTime <= 0f)
         {
-            if (IsObjectNearInfiniteLine(startPosition.anchoredPosition, endPosition.anchoredPosition,fishPosition.anchoredPosition, attackRange))
+            if (IsObjectNearInfiniteLine(startPosition.position, endPosition.position,fishPosition.position, attackRange))
             
                 FishController.Instance.Attack(attackDamage);
 
