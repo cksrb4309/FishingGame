@@ -14,14 +14,14 @@ public class Fishing_Game_4 : MonoBehaviour, IFishingSystem
     {
         FishController.Instance.Setting(this, (FishingMethodData_Game_1)FishingData.MethodData);
 
-        cursorController.Setting();
+        userController.Setting();
 
         renderMaterialController.Fade(1f, 0.5f);
     }
     public void CancelFishing()
     {
         FishController.Instance.Cancel();
-        cursorController.Cancel();
+        userController.Cancel();
 
         renderMaterialController.Fade(0, 0.5f);
     }
