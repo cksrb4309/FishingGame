@@ -1,34 +1,31 @@
-using DG.Tweening;
 using UnityEngine;
 
-public class Fishing_Game_1 : MonoBehaviour, IFishingSystem
+public class Fishing_Game_1 : Fishing_Game
 {
     CursorController_Game_1 cursorController;
-    RenderMaterialController renderMaterialController;
-
-    private void Awake()
+    protected override void Awake()
     {
         cursorController = GetComponentInChildren<CursorController_Game_1>(true);
-        renderMaterialController = GetComponentInParent<RenderMaterialController>();
     }
-    public void StartFishing()
+    public override void StartFishing()
     {
+        base.StartFishing();
+
+        game123.alpha = 1;
+        game4.alpha = 0;
+
         FishController.Instance.Setting(this, (FishingMethodData_Game_1)FishingData.MethodData);
         cursorController.Setting();
-
-        renderMaterialController.Fade(1f, 0.5f);
     }
-    public void CancelFishing()
+    public override void CancelFishing()
     {
+        base.CancelFishing();
+        
         FishController.Instance.Cancel();
         cursorController.Cancel();
-
-        renderMaterialController.Fade(0f, 0.5f);
     }
-    public void Complete()
+    public override void Complete()
     {
-        CancelFishing();
-        
-        PlayerFishingManager.Instance.Complete();
+        base.Complete();
     }
 }

@@ -13,6 +13,7 @@ public class RenderMaterialController : MonoBehaviour
     {
         // TODO : 렌더링 문제 생기면 이쪽 확인
         material.DOFloat(endValue, AlphaID, duration).OnComplete(() => { action?.Invoke(); });
+        
         if (canvasGroup != null) canvasGroup.DOFade(endValue, duration);
     }
     private void Start()

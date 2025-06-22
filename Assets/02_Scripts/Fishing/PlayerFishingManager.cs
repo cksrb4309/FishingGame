@@ -101,8 +101,6 @@ public class PlayerFishingManager : MonoBehaviour
 
         if (zoneObj == null)
         {
-            Debug.Log("À§Ä¡¿¡ ¸Â´Â Á¸ÀÌ ¾ø½À´Ï´Ù");
-
             FishingCancel();
 
             return;
@@ -162,7 +160,6 @@ public class PlayerFishingManager : MonoBehaviour
         currentState = FishingState.Casting;
         PlayerFishingLineController.Instance.EnableLine();
 
-        // ÀÌµ¿ °íÁ¤, È¸Àü °íÁ¤
         PlayerMove.Instance.DisableMove();
         DirectionManager.Instance.DisableDirection();
 
@@ -183,7 +180,7 @@ public class PlayerFishingManager : MonoBehaviour
             currentFishingStyle = FishingStyle.None;
         }
 
-        // ÀÌµ¿ °íÁ¤, È¸Àü °íÁ¤ ÇØÁ¦
+        // ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½, È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         PlayerMove.Instance.EnableMove();
         DirectionManager.Instance.EnableDirection();
 
@@ -203,7 +200,7 @@ public class PlayerFishingManager : MonoBehaviour
     }
     void UseBait()
     {
-        Debug.Log("¹Ì³¢ »ç¿ë");
+        Debug.Log("ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½");
 
         PlayerInventory.Instance.UseBaitItem();
     }

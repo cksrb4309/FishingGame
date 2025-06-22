@@ -1,34 +1,24 @@
-using UnityEngine;
-
-public class Fishing_Game_4 : MonoBehaviour, IFishingSystem 
+public class Fishing_Game_4 : Fishing_Game
 {
-    [SerializeField] UserController userController;
-    RenderMaterialController renderMaterialController;
-
-    private void Awake()
+    public override void StartFishing()
     {
-        userController = GetComponentInChildren<UserController>(true);
-        renderMaterialController = GetComponentInParent<RenderMaterialController>();
-    }
-    public void StartFishing()
-    {
-        FishController.Instance.Setting(this, (FishingMethodData_Game_1)FishingData.MethodData);
+        base.StartFishing();
 
-        userController.Setting();
-
-        renderMaterialController.Fade(1f, 0.5f);
-    }
-    public void CancelFishing()
-    {
-        FishController.Instance.Cancel();
-        userController.Cancel();
-
-        renderMaterialController.Fade(0, 0.5f);
-    }
-    public void Complete()
-    {
-        CancelFishing();
+        game123.alpha = 0;
+        game4.alpha = 1;
         
-        PlayerFishingManager.Instance.Complete();
+        UserController.Instance.Setting();
+        FishPatternController.Instance.Setting();
+    }
+    public override void CancelFishing()
+    {
+        base.CancelFishing();
+
+        UserController.Instance.Cancel();
+        FishPatternController.Instance.Cancel();
+    }
+    public override void Complete()
+    {
+        base.Complete();
     }
 }

@@ -24,33 +24,33 @@ public class PoolManager : MonoBehaviour
 
         if (poolManager == null)
         {
-            Debug.LogWarning("풀 매니저 초기화 문제 있음"); return;
+            // Debug.LogWarning("풀 매니저 초기화 문제 있음"); return;
         }
 
         if (!poolManager.objectPoolSetting.ContainsKey(id) || poolManager.objectPoolSetting[id] == null)
         {
-            Debug.LogError($"[ERROR] objectPoolSetting에 {id}가 존재하지 않거나 null입니다!"); return;
+            // Debug.LogError($"[ERROR] objectPoolSetting에 {id}가 존재하지 않거나 null입니다!"); return;
         }
 
         if (!poolManager.pools.ContainsKey(id))
         {
-            Debug.Log("오브젝트 풀 생성 요함");
+            // Debug.Log("오브젝트 풀 생성 요함");
             try
             {
                 var obj = poolManager.objectPoolSetting[id].GetComponent<T>();
-                Debug.Log($"[DEBUG] {id}에서 GetComponent<T>() 성공: {obj}");
+                // Debug.Log($"[DEBUG] {id}에서 GetComponent<T>() 성공: {obj}");
 
                 poolManager.pools[id] = new ObjectPool<T>(obj, initialSize, poolManager.transform);
-                Debug.Log($"[DEBUG] {id}에 대한 ObjectPool 생성 완료");
+                // Debug.Log($"[DEBUG] {id}에 대한 ObjectPool 생성 완료");
             }
             catch (Exception e)
             {
-                Debug.LogError($"[ERROR] ObjectPool 생성 중 예외 발생! ID: {id}\n{e}");
+                // Debug.LogError($"[ERROR] ObjectPool 생성 중 예외 발생! ID: {id}\n{e}");
             }
         }
         else
         {
-            Debug.Log("오브젝트 풀 생성되어 있음");
+            // Debug.Log("오브젝트 풀 생성되어 있음");
         }
     }
     public static T GetObj<T>(ObjectPoolID id) where T : MonoBehaviour
@@ -59,13 +59,13 @@ public class PoolManager : MonoBehaviour
         
             return pool.Pop();
 
-        Debug.LogWarning("GetObj Error : " + id.ToString());
+        // Debug.LogWarning("GetObj Error : " + id.ToString());
 
         return null;
     }
     public static void ReturnObj<T>(ObjectPoolID id, T obj) where T : MonoBehaviour
     {
-        Debug.Log("Return Obj : " + obj.gameObject.name);
+        // Debug.Log("Return Obj : " + obj.gameObject.name);
 
         if (instance.pools.TryGetValue(id, out object poolObj) && poolObj is ObjectPool<T> pool)
         {
@@ -73,7 +73,7 @@ public class PoolManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("ReturnObj Error : " + id.ToString());
+            // Debug.LogWarning("ReturnObj Error : " + id.ToString());
         }
     }
     private void Awake()
@@ -89,4 +89,5 @@ public enum ObjectPoolID
     [InspectorName("1번 미니게임 공격 오브젝트")] AttackArea = 0,
     [InspectorName("3번 미니게임 공격 오브젝트")] AttackProjectile = 1,
     [InspectorName("4번 미니게임 회피 1")] FishPattern_1 = 2,
+    [InspectorName("4번 미니게임 회피 2")] FishPattern_2 = 3,
 }

@@ -23,6 +23,8 @@ public class FishingData : MonoBehaviour
     public static MiniGame_2_Data MiniGame_2_Data => instance.miniGame_2_Data;
     [SerializeField] MiniGame_3_Data miniGame_3_Data;
     public static MiniGame_3_Data MiniGame_3_Data => instance.miniGame_3_Data;
+    [SerializeField] MiniGame_4_Data miniGame_4_Data;
+    public static MiniGame_4_Data MiniGame_4_Data => instance.miniGame_4_Data;
 }
 
 [Serializable]

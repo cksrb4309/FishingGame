@@ -1,21 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FishPatternObj : MonoBehaviour
 {
+    static Transform patternObjParent = null;
     [SerializeField] ObjectPoolID objectPoolID;
     [SerializeField] SpriteRenderer[] fillSpriteRenderers;
-
-    GameObject colliderGroup;
+    [SerializeField] SpriteRenderer[] borderSpriteRenderers;
+    [SerializeField] GameObject colliderGroup;
+    [SerializeField] Rigidbody2D rb;
     int damage;
+    bool isAttack = false;
 
     private void Awake()
     {
-        colliderGroup = transform.Find("ColliderGroup").gameObject;
+        if (patternObjParent == null) patternObjParent = GameObject.Find("PatternObjParent").transform;
+
+        transform.SetParent(patternObjParent);
     }
     public void Enable(int damage, float delay)
     {
+        gameObject.SetActive(true);
+
         this.damage = damage;
 
         StartCoroutine(EnableCoroutine(delay));
@@ -25,42 +31,59 @@ public class FishPatternObj : MonoBehaviour
     {
         float t = 0;
         float speed = delay > 0f ? 1f / delay : 6000f;
-        Color color = new Color(1, 1, 1, 0);
 
+        Color[] fillColors = new Color[fillSpriteRenderers.Length];
+        Color[] borderColors = new Color[borderSpriteRenderers.Length];
+        for (int i = 0; i < fillSpriteRenderers.Length; i++) fillColors[i] = fillSpriteRenderers[i].color;
+        for (int i = 0; i < borderSpriteRenderers.Length; i++)
+        {
+            borderColors[i] = borderSpriteRenderers[i].color;
+            borderColors[i].a = 1f;
+            borderSpriteRenderers[i].color = borderColors[i];
+        }
         while (t <= 1f)
         {
-            color.a = t;
-
             for (int i = 0; i < fillSpriteRenderers.Length; i++)
-                fillSpriteRenderers[i].color = color;
-            
+            {
+                fillColors[i].a = t;
+                fillSpriteRenderers[i].color = fillColors[i];
+            }
+
 
             t += speed * Time.deltaTime;
 
             yield return null;
         }
-        color.a = 1;
 
-        for (int i = 0; i < fillSpriteRenderers.Length; i++)
-            fillSpriteRenderers[i].color = color;
+        for (int i = 0; i < fillSpriteRenderers.Length; i++) fillColors[i].a = 1f;
+        for (int i = 0; i < fillSpriteRenderers.Length; i++) fillSpriteRenderers[i].color = fillColors[i];
+
+        isAttack = true;
 
         colliderGroup.SetActive(true);
+        rb.WakeUp();
 
         yield return new WaitForSeconds(0.2f);
 
+        rb.WakeUp();
+
         colliderGroup.SetActive(false);
-        
+
         gameObject.SetActive(false);
 
+        if (isAttack)
+            FishPatternController.Instance.ReceiveDamage(FishingData.MiniGame_4_Data.AttackDamage);
+        
         isAttack = false;
 
         PoolManager.ReturnObj(objectPoolID, this);
     }
-    bool isAttack = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isAttack) return;
-        isAttack = true;
+        if (!isAttack) return;
+
+        isAttack = false;
+
         UserController.Instance.ReceiveDamage(damage);
     }
 }
