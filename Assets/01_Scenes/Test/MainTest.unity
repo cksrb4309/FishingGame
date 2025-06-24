@@ -2876,7 +2876,7 @@ GameObject:
   - component: {fileID: 216857520}
   - component: {fileID: 216857521}
   m_Layer: 12
-  m_Name: UserController
+  m_Name: UserMainController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -80,7 +80,7 @@ public class FishPatternData
     }
     void SetPosition(Transform transform)
     {
-        Vector2 spawnPosition = useLocalPosition ? UserController.Instance.Position : Camera.main.transform.position;
+        Vector2 spawnPosition = useLocalPosition ? UserMainController.Instance.Position : Camera.main.transform.position;
 
         spawnPosition += useRandomPosition ? Random.insideUnitCircle * pivotPosition.magnitude : pivotPosition;
 

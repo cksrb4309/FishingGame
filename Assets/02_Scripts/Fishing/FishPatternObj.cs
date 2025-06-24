@@ -84,6 +84,6 @@ public class FishPatternObj : MonoBehaviour
 
         isAttack = false;
 
-        UserController.Instance.ReceiveDamage(damage);
+        UserMainController.Instance.ReceiveDamage(damage);
     }
 }
