@@ -11,8 +11,7 @@ public class Fishing_Game_1 : Fishing_Game
     {
         base.StartFishing();
 
-        game123.alpha = 1;
-        game4.alpha = 0;
+        SetCanvas(gameIndex: 1);
 
         FishController.Instance.Setting(this, (FishingMethodData_Game_1)FishingData.MethodData);
         cursorController.Setting();

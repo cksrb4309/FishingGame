@@ -4,8 +4,7 @@ public class Fishing_Game_4 : Fishing_Game
     {
         base.StartFishing();
 
-        game123.alpha = 0;
-        game4.alpha = 1;
+        SetCanvas(gameIndex: 4);
         
         UserMainController.Instance.Setting();
         FishPatternController.Instance.Setting();

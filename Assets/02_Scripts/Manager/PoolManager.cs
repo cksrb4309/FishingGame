@@ -90,4 +90,6 @@ public enum ObjectPoolID
     [InspectorName("3번 미니게임 공격 오브젝트")] AttackProjectile = 1,
     [InspectorName("4번 미니게임 회피 1")] FishPattern_1 = 2,
     [InspectorName("4번 미니게임 회피 2")] FishPattern_2 = 3,
+    [InspectorName("5번 미니게임 공격 오브젝트 1")] AttackProjectile_5_1 = 4,
+    
 }

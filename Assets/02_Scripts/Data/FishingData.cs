@@ -25,6 +25,8 @@ public class FishingData : MonoBehaviour
     public static MiniGame_3_Data MiniGame_3_Data => instance.miniGame_3_Data;
     [SerializeField] MiniGame_4_Data miniGame_4_Data;
     public static MiniGame_4_Data MiniGame_4_Data => instance.miniGame_4_Data;
+    [SerializeField] MiniGame_5_Data miniGame_5_Data;
+    public static MiniGame_5_Data MiniGame_5_Data => instance.miniGame_5_Data;
 }
 
 [Serializable]
@@ -97,4 +99,15 @@ public class MiniGame_4_Data
     public int MaxHp { get => maxHp + (int)(maxHp * (FishingData.FishingLevel - 1) * maxHpMultiplier); }
     public float MoveSpeed { get => moveSpeed + moveSpeed * (FishingData.FishingLevel - 1) * moveSpeedMultiplier; }
     public float DashRegen { get => dashRegen + dashRegen * (FishingData.FishingLevel - 1) * dashRegenMultiplier; }
+}
+[Serializable]
+public class MiniGame_5_Data
+{
+    [SerializeField] int attackHp;
+    [SerializeField] int attackSp;
+    [SerializeField] float attackCp;
+
+    public int AttackHp { get => attackHp; }
+    public int AttackSp { get => attackSp; }
+    public float AttackCp { get => attackCp; }
 }

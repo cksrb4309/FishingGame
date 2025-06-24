@@ -13,8 +13,7 @@ public class Fishing_Game_3 : Fishing_Game
     {
         base.StartFishing();
         
-        game123.alpha = 1;
-        game4.alpha = 0;
+        SetCanvas(gameIndex: 3);
 
         FishController.Instance.Setting(this, (FishingMethodData_Game_1)FishingData.MethodData);
 

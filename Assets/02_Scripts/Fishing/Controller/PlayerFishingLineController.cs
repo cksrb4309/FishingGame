@@ -50,11 +50,9 @@ public class PlayerFishingLineController : MonoBehaviour, IDirectionable
             {
                 float t = (float)i / (linePositionCount - 1);
 
-                // 기본 직선 위치
                 Vector3 basePos = Vector3.Lerp(Vector3.zero, pivotToTip, t);
 
-                // 중력 방향 휘어짐 (2D 탑뷰니까 Y축이 아래임)
-                float bend = Mathf.Sin(t * Mathf.PI); // 중간이 가장 많이 휨
+                float bend = Mathf.Sin(t * Mathf.PI); 
                 Vector3 gravityOffset =  bend * gravityBendAmount * Vector3.down;
 
                 linePositions[i] = basePos + gravityOffset;

@@ -6,4 +6,5 @@ public enum FishingStyle
     Game_2 = 3,
     Game_3 = 4,
     Game_4 = 5,
+    Game_5 = 6,
 }

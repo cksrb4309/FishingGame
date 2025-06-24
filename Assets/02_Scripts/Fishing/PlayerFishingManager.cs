@@ -180,7 +180,6 @@ public class PlayerFishingManager : MonoBehaviour
             currentFishingStyle = FishingStyle.None;
         }
 
-        // �̵� ����, ȸ�� ���� ����
         PlayerMove.Instance.EnableMove();
         DirectionManager.Instance.EnableDirection();
 
@@ -188,6 +187,8 @@ public class PlayerFishingManager : MonoBehaviour
     }
     public void Complete()
     {
+        Debug.Log("Manager Complete");
+
         PlayerInventory.Instance.GetItem();
 
         FishingCancel();
@@ -200,8 +201,6 @@ public class PlayerFishingManager : MonoBehaviour
     }
     void UseBait()
     {
-        Debug.Log("�̳� ���");
-
         PlayerInventory.Instance.UseBaitItem();
     }
     private void OnEnable()
