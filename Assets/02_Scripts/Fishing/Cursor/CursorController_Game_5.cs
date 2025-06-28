@@ -37,22 +37,19 @@ public class CursorController_Game_5 : MonoBehaviour
     {
         AttackProjectile_New projectile = PoolManager.GetObj<AttackProjectile_New>(ObjectPoolID.AttackProjectile_5_1);
 
-            projectile.transform.SetParent(transform.parent);
+        projectile.transform.SetParent(transform.parent);
 
-            projectile.transform.position = offsetPosition.position;
+        projectile.transform.position = offsetPosition.position;
 
-            Vector3 targetWorldPos = Camera.main.ScreenToWorldPoint(mousePositionInput.action.ReadValue<Vector2>());
-            targetWorldPos.z = offsetPosition.position.z;
-            Vector3 dir = targetWorldPos - offsetPosition.position;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        float angle = LookAtMouseUtils2D.GetLookAtMouseAngle(offsetPosition.position);
 
-            projectile.transform.rotation = Quaternion.Euler(0, 0, angle);
+        projectile.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-            projectile.Setting();
+        projectile.Setting();
     }
     void Catch()
     {
-        FishController_New.Instance.ModifyCp(FishingData.MiniGame_5_Data.AttackCp);
+        FishController_New.Instance.ModifyCp(PlayerStat.Stat.catchGaugeGain);
     }
     public void SetMode(bool canShoot, bool isShoot = true)
     {

@@ -38,8 +38,8 @@ public class AttackProjectile_New : MonoBehaviour
     {
         if (!isAttack) return;
 
-        FishController_New.Instance.ModifyHp(-FishingData.MiniGame_5_Data.AttackHp);
-        FishController_New.Instance.ModifySp(-FishingData.MiniGame_5_Data.AttackSp);
+        FishController_New.Instance.ModifyHp(-PlayerStat.Stat.projectileDamage);
+        FishController_New.Instance.ModifySp(-PlayerStat.Stat.stunAccumulation);
 
         gameObject.SetActive(false);
 

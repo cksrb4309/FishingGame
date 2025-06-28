@@ -24,10 +24,7 @@ public class CursorController_Game_3 : MonoBehaviour
 
             projectile.transform.position = offsetPosition.position;
 
-            Vector3 targetWorldPos = Camera.main.ScreenToWorldPoint(mousePositionInput.action.ReadValue<Vector2>());
-            targetWorldPos.z = offsetPosition.position.z;
-            Vector3 dir = targetWorldPos - offsetPosition.position;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            float angle = LookAtMouseUtils2D.GetLookAtMouseAngle(offsetPosition.position);
 
             projectile.transform.rotation = Quaternion.Euler(0, 0, angle);
             

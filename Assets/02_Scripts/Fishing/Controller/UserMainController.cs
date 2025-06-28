@@ -9,7 +9,6 @@ public class UserMainController : MonoBehaviour
     [SerializeField] SpriteRenderer myRenderer;
     [SerializeField] Vector2 minMoveAreaSize;
     [SerializeField] Vector2 maxMoveAreaSize;
-    InputActionReference dashInputActionReference;
     InputActionReference leftInputActionReference;
     InputActionReference rightInputActionReference;
     InputActionReference upInputActionReference;
@@ -65,7 +64,6 @@ public class UserMainController : MonoBehaviour
         rightInputActionReference = InputManager.GetInputAction(InputType.Right);
         downInputActionReference = InputManager.GetInputAction(InputType.Down);
         upInputActionReference = InputManager.GetInputAction(InputType.Up);
-        dashInputActionReference = InputManager.GetInputAction(InputType.PlayerDash);
     }
     private void OnDisable()
     {
@@ -73,7 +71,6 @@ public class UserMainController : MonoBehaviour
         InputManager.Release(InputType.Right);
         InputManager.Release(InputType.Down);
         InputManager.Release(InputType.Up);
-        InputManager.Release(InputType.PlayerDash);
     }
 
 

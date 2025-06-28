@@ -16,8 +16,6 @@ public class PlayerFishingRodController : MonoBehaviour, IDirectionable
 
     Vector3[] rodPositions;
 
-    [SerializeField] float rodTension = 0f;
-
     Coroutine rodTensionCoroutine = null;
 
     IEnumerator RodTensionCoroutine(FishingDirSet set)

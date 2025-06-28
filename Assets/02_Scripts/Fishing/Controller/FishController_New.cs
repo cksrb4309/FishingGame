@@ -23,11 +23,12 @@ public class FishController_New : MonoBehaviour
     bool isAlive, isStunned;
 
     int maxHp, hp, maxSp, sp;
-    float spRegenDuration, cp, maxCp, speed;
+    float cp, maxCp, speed;
     int rotateCount = 0;
     float rotateDelayHap = 0f, currentAngle = 0f, targetAngle = 0f, rotationSpeed = 360f; // degrees per second (적당히 조절 가능)
-    float minRotateDelay = 0f, maxRotateDelay = 0f, balanceRotateDelay = 0f;
+    float minRotateDelay = 0f, maxRotateDelay = 0f, balanceRotateDelay = 0f, lowHpCpMultiplier = 0f;
 
+    #region Hp, Sp, Cp 속성
     int Hp
     {
         get => hp;
@@ -91,17 +92,12 @@ public class FishController_New : MonoBehaviour
                 cpFillImage.fillAmount = cp <= 0f ? 0 : 1;
             }
 
-            if (cp <= 0)
-            {
-                Cancel();
-            }
-            if (cp >= maxCp)
-            {
-                Complete();
-            }
+            if (cp <= 0) Cancel();
+            
+            if (cp >= maxCp) Complete();
         }
     }
-
+    #endregion
     private void Awake()
     {
         Instance = this;
@@ -113,6 +109,17 @@ public class FishController_New : MonoBehaviour
     public void ModifyHp(int amount)
     {
         if (!isAlive) return;
+
+        if (amount < 0) 
+        {
+            // 현재 HP 비율 계산 (0~1)
+            float currentHpRatio = (float)hp / maxHp;
+            
+            // HP가 최대(1.0)일 때는 그대로, 최소(0.0)일 때는 LowHpCpMultiplier 적용
+            float damageMultiplier = Mathf.Lerp(lowHpCpMultiplier, 1f, currentHpRatio);
+            
+            amount = Mathf.RoundToInt(amount * damageMultiplier);
+        }
 
         Hp += amount;
     }
@@ -142,7 +149,7 @@ public class FishController_New : MonoBehaviour
 
         speed = fishData.speed;
 
-        spRegenDuration = fishData.staminaRegenDuration;
+        lowHpCpMultiplier = fishData.lowHpCpMultiplier;
 
         minRotateDelay = fishData.minRotateDelay;
         maxRotateDelay = fishData.maxRotateDelay;
@@ -233,7 +240,7 @@ public class FishController_New : MonoBehaviour
 
             if (isStunned || !isAlive) continue;
 
-            ModifyCp(-maxCp * Time.deltaTime * 0.02f);
+            ModifyCp(-maxCp * Time.deltaTime * 0.03f);
         }
     }
     void Rotate()
@@ -252,7 +259,7 @@ public class FishController_New : MonoBehaviour
 
         CursorController_Game_5.Instance.SetMode(false);
 
-        stunHandle = DOVirtual.Int(0, maxSp, spRegenDuration, value =>
+        stunHandle = DOVirtual.Int(0, maxSp, PlayerStat.Stat.stunDuration, value =>
         {
             Sp = value;
         }).OnComplete(() =>
@@ -262,6 +269,7 @@ public class FishController_New : MonoBehaviour
             stunHandle = null;
 
             CursorController_Game_5.Instance.SetMode(true);
+            
          }).SetEase(Ease.Linear);
     }
     void Die()

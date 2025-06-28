@@ -8,11 +8,10 @@ public class Item : ScriptableObject
     public int itemId;
     public int itemLevel = 1;
     public string itemName;
-    [Multiline] public string itemExplain;
+    public string itemExplain;
     public Sprite itemIcon;
     public FishingMethodData fishingMethodData;
-
-    [SerializeField] BaitLootTable baitLootTable;
+    public BaitLootTable baitLootTable;
 
     [NonSerialized] public int itemCount = 0;
     [NonSerialized] public bool isUsedAsBait = false;

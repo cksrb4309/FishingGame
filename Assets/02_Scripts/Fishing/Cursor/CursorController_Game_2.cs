@@ -26,13 +26,12 @@ public class CursorController_Game_2 : MonoBehaviour
     {
         Vector2 mouseScreenPos = mousePositionInput.action.ReadValue<Vector2>();
         Vector3 targetWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-        targetWorldPos.z = offsetPosition.position.z; // 2D UI 기준 z 제거
 
+        targetWorldPos.z = offsetPosition.position.z; // 2D UI 기준 z 제거
         targetPosition.position = offsetPosition.position + (targetWorldPos - offsetPosition.position).normalized * 10f;
 
-        Vector3 dir = targetWorldPos - offsetPosition.position;
+        float angle = LookAtMouseUtils2D.GetLookAtMouseAngle(offsetPosition.position);
 
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         angle -= 90f; // y축이 위쪽이므로, x축 기준 회전에서 90도 보정
 
         offsetPosition.rotation = Quaternion.Euler(0, 0, angle);

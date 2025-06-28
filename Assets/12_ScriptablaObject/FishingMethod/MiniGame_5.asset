@@ -15,11 +15,11 @@ MonoBehaviour:
   style: 6
   minBiteWaitTime: 1
   maxBiteWaitTime: 2
-  maxHp: 2000
-  maxSp: 1200
-  maxCp: 2000
+  maxHp: 40
+  maxSp: 10
+  maxCp: 20
   speed: 5
+  lowHpCpMultiplier: 3
   minRotateDelay: 3
   maxRotateDelay: 5
   balanceRotateDelay: 4
-  staminaRegenDuration: 3
