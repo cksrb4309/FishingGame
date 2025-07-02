@@ -27,11 +27,9 @@ public class DirectionManager : MonoBehaviour
     {
         if (!isDirectionUpdate) return;
 
-        Vector2 mousePosition = mousePointInputActionReference.action.ReadValue<Vector2>();
         Vector2 playerPosition = Camera.main.WorldToScreenPoint(pivotTransform.position);
 
-        Vector2 dir = (mousePosition - playerPosition).normalized;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        float angle = LookAtMouseUtils2D.GetLookAtMouseAngle(playerPosition);
 
         if (angle < 0) angle += 360f;
 

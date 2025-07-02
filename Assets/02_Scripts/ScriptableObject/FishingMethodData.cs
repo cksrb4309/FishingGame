@@ -4,7 +4,6 @@ using UnityEngine;
 public class FishingMethodData : ScriptableObject
 {
     [SerializeField] FishingStyle style;
-
     [SerializeField] float minBiteWaitTime;
     [SerializeField] float maxBiteWaitTime;
 

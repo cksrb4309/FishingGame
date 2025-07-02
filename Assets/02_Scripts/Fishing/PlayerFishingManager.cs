@@ -101,8 +101,6 @@ public class PlayerFishingManager : MonoBehaviour
 
         if (zoneObj == null)
         {
-            Debug.Log("위치에 맞는 존이 없습니다");
-
             FishingCancel();
 
             return;
@@ -162,7 +160,6 @@ public class PlayerFishingManager : MonoBehaviour
         currentState = FishingState.Casting;
         PlayerFishingLineController.Instance.EnableLine();
 
-        // 이동 고정, 회전 고정
         PlayerMove.Instance.DisableMove();
         DirectionManager.Instance.DisableDirection();
 
@@ -183,7 +180,6 @@ public class PlayerFishingManager : MonoBehaviour
             currentFishingStyle = FishingStyle.None;
         }
 
-        // 이동 고정, 회전 고정 해제
         PlayerMove.Instance.EnableMove();
         DirectionManager.Instance.EnableDirection();
 
@@ -191,6 +187,8 @@ public class PlayerFishingManager : MonoBehaviour
     }
     public void Complete()
     {
+        Debug.Log("Manager Complete");
+
         PlayerInventory.Instance.GetItem();
 
         FishingCancel();
@@ -203,8 +201,6 @@ public class PlayerFishingManager : MonoBehaviour
     }
     void UseBait()
     {
-        Debug.Log("미끼 사용");
-
         PlayerInventory.Instance.UseBaitItem();
     }
     private void OnEnable()

@@ -6,11 +6,8 @@ using VInspector;
 public class PoolManager : MonoBehaviour
 {
     static PoolManager instance = null;
-
     [SerializeField] SerializedDictionary<ObjectPoolID, GameObject> objectPoolSetting;
-
     Dictionary<ObjectPoolID, object> pools = new Dictionary<ObjectPoolID, object>();
-
     public static void CreatePool<T>(ObjectPoolID id, T prefab, int initialSize = 5) where T : MonoBehaviour
     {
         if (!instance.pools.ContainsKey(id))
@@ -18,55 +15,45 @@ public class PoolManager : MonoBehaviour
             instance.pools[id] = new ObjectPool<T>(prefab, initialSize, instance.transform);
         }
     }
-    public static void CreatePool<T>(ObjectPoolID id, int initialSize = 5, T t = null) where T : Component
+    public static void CreatePool<T>(ObjectPoolID id, int initialSize = 5) where T : Component
     {
         PoolManager poolManager = instance;
 
-        if (poolManager == null)
-        {
-            Debug.LogWarning("풀 매니저 초기화 문제 있음"); return;
-        }
+        if (poolManager == null) { Debug.LogError("[Error] : 풀매니저 초기화 오류."); return; }
 
-        if (!poolManager.objectPoolSetting.ContainsKey(id) || poolManager.objectPoolSetting[id] == null)
-        {
-            Debug.LogError($"[ERROR] objectPoolSetting에 {id}가 존재하지 않거나 null입니다!"); return;
-        }
+        if (!poolManager.objectPoolSetting.ContainsKey(id) || poolManager.objectPoolSetting[id] == null) return;
+        
 
         if (!poolManager.pools.ContainsKey(id))
         {
-            Debug.Log("오브젝트 풀 생성 요함");
-            try
-            {
-                var obj = poolManager.objectPoolSetting[id].GetComponent<T>();
-                Debug.Log($"[DEBUG] {id}에서 GetComponent<T>() 성공: {obj}");
+            var obj = poolManager.objectPoolSetting[id].GetComponent<T>();
 
-                poolManager.pools[id] = new ObjectPool<T>(obj, initialSize, poolManager.transform);
-                Debug.Log($"[DEBUG] {id}에 대한 ObjectPool 생성 완료");
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"[ERROR] ObjectPool 생성 중 예외 발생! ID: {id}\n{e}");
-            }
+            poolManager.pools[id] = new ObjectPool<T>(obj, initialSize, poolManager.transform);
         }
         else
         {
-            Debug.Log("오브젝트 풀 생성되어 있음");
+            Debug.Log("[Warning] : 오브젝트 풀 생성되어있음. " + id.ToString());
         }
     }
     public static T GetObj<T>(ObjectPoolID id) where T : MonoBehaviour
     {
-        if (instance.pools.TryGetValue(id, out object poolObj) && poolObj is ObjectPool<T> pool)
-        
-            return pool.Pop();
+        if (instance.pools.TryGetValue(id, out object poolObj) && poolObj is ObjectPool<T> pool_1)
 
-        Debug.LogWarning("GetObj Error : " + id.ToString());
+            return pool_1.Pop();
 
-        return null;
+        else
+        {
+            CreatePool<T>(id, 5);
+
+            if (instance.pools.TryGetValue(id, out poolObj) && poolObj is ObjectPool<T> pool_2)
+
+                return pool_2.Pop();
+
+            else return null;
+        }
     }
     public static void ReturnObj<T>(ObjectPoolID id, T obj) where T : MonoBehaviour
     {
-        Debug.Log("Return Obj : " + obj.gameObject.name);
-
         if (instance.pools.TryGetValue(id, out object poolObj) && poolObj is ObjectPool<T> pool)
         {
             pool.Push(obj);
@@ -80,11 +67,16 @@ public class PoolManager : MonoBehaviour
     {
         instance = this;
 
-        CreatePool<AttackArea>(ObjectPoolID.AttackArea, 4);
+        CreatePool<AttackAreaCircle>(ObjectPoolID.AttackArea, 4);
     }
 }
 
 public enum ObjectPoolID
 {
     [InspectorName("1번 미니게임 공격 오브젝트")] AttackArea = 0,
+    [InspectorName("3번 미니게임 공격 오브젝트")] AttackProjectile = 1,
+    [InspectorName("4번 미니게임 회피 1")] FishPattern_1 = 2,
+    [InspectorName("4번 미니게임 회피 2")] FishPattern_2 = 3,
+    [InspectorName("5번 미니게임 공격 오브젝트 1")] AttackProjectile_5_1 = 4,
+    
 }
