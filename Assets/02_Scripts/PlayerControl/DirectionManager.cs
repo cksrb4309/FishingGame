@@ -8,7 +8,7 @@ public class DirectionManager : MonoBehaviour
 
     [SerializeField] List<IDirectionable> directionables = new();
 
-    Transform pivotTransform;
+    [SerializeField] Transform pivotTransform;
 
     InputActionReference mousePointInputActionReference;
 
@@ -28,9 +28,7 @@ public class DirectionManager : MonoBehaviour
         if (!isDirectionUpdate) return;
 
         Vector2 playerPosition = Camera.main.WorldToScreenPoint(pivotTransform.position);
-
         float angle = LookAtMouseUtils2D.GetLookAtMouseAngle(playerPosition);
-
         if (angle < 0) angle += 360f;
 
         if (angle >= 337.5f || angle < 22.5f) { if (currentDir != PlayerDir.Right) { currentDir = PlayerDir.Right; SetAllDirections(); } }

@@ -6,16 +6,16 @@ using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] Image itemIconImage;
-    [SerializeField] GameObject baitSelectImage;
-    [SerializeField] TMP_Text countText;
-    [SerializeField] CanvasGroup canvasGroup;
+    [SerializeField] protected Image itemIconImage;
+    [SerializeField] protected GameObject baitSelectImage;
+    [SerializeField] protected TMP_Text countText;
+    [SerializeField] protected CanvasGroup canvasGroup;
 
-    [SerializeField] bool isAlwayView = true;
+    [SerializeField] protected bool isAlwayView = true;
 
-    Item item = null;
+    protected Item item = null;
 
-    public void Clear()
+    public virtual void Clear()
     {
         canvasGroup.alpha = isAlwayView ? 1 : 0;
         canvasGroup.interactable = false;
@@ -26,7 +26,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
         itemIconImage.color = new Color(1, 1, 1, 0);
     }
-    public void Setting(Item item)
+    public virtual void SettingItem(Item item)
     {
         this.item = item;
 
@@ -42,7 +42,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
     }
-    public void OnPointerClick(PointerEventData eventData)
+    public virtual void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {

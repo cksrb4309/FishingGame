@@ -56,8 +56,14 @@ TagManager:
   - name: New Layer 6
     uniqueID: 4136951773
     locked: 0
-  - name: UI
+  - name: AlwaysOverlayUI
     uniqueID: 2462648019
+    locked: 0
+  - name: QuestUI
+    uniqueID: 2694862543
+    locked: 0
+  - name: UserSettingUI
+    uniqueID: 214153787
     locked: 0
   m_RenderingLayers:
   - Default

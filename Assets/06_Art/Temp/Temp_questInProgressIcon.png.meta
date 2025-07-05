@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 6ab80e26629582949a66fb7a702ad0db
+guid: 1672070cc0ff27c46bc9229af71d34e1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3875698184455650170
-    second: Temp_ExclamationIcon_0
+      213: -446570328809758828
+    second: Temp_questInProgressIcon_0
   - first:
-      213: 1131383056896979349
-    second: Temp_ExclamationIcon_1
+      213: -3608514236384335785
+    second: Temp_questInProgressIcon_1
+  - first:
+      213: 2685860103418528474
+    second: Temp_questInProgressIcon_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -155,33 +158,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Temp_ExclamationIcon_0
+      name: Temp_questInProgressIcon_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 10
-        width: 6
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 68405ea1901c63ac0800000000000000
-      internalID: -3875698184455650170
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Temp_ExclamationIcon_1
-      rect:
-        serializedVersion: 2
-        x: 13
-        y: 3
+        x: 5
+        y: 13
         width: 6
         height: 6
       alignment: 0
@@ -192,8 +173,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5917d3b55ea73bf00800000000000000
-      internalID: 1131383056896979349
+      spriteID: 49f9018e6a67dc9f0800000000000000
+      internalID: -446570328809758828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Temp_questInProgressIcon_1
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 13
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7582f55bb6bfbedc0800000000000000
+      internalID: -3608514236384335785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Temp_questInProgressIcon_2
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 13
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad2c7a4a887164520800000000000000
+      internalID: 2685860103418528474
       vertices: []
       indices: 
       edges: []
@@ -212,8 +237,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Temp_ExclamationIcon_0: -3875698184455650170
-      Temp_ExclamationIcon_1: 1131383056896979349
+      Temp_questInProgressIcon_0: -446570328809758828
+      Temp_questInProgressIcon_1: -3608514236384335785
+      Temp_questInProgressIcon_2: 2685860103418528474
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

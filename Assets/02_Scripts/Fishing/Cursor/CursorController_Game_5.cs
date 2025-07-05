@@ -41,7 +41,7 @@ public class CursorController_Game_5 : MonoBehaviour
 
         projectile.transform.position = offsetPosition.position;
 
-        float angle = LookAtMouseUtils2D.GetLookAtMouseAngle(offsetPosition.position);
+        float angle = LookAtMouseUtils2D.GetLookAtMouseAngle(Camera.main.WorldToScreenPoint(offsetPosition.position));
 
         projectile.transform.rotation = Quaternion.Euler(0, 0, angle);
 

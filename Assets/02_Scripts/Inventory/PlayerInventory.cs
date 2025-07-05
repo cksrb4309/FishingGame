@@ -38,7 +38,7 @@ public class PlayerInventory : MonoBehaviour
         {
             if (items[i].itemCount > 0)
             {
-                itemSlots[i].Setting(items[i]);
+                itemSlots[i].SettingItem(items[i]);
 
                 itemSlotDictionary[items[i].itemId] = itemSlots[i];
             }
@@ -57,13 +57,47 @@ public class PlayerInventory : MonoBehaviour
 
         return filtered.OrderBy(i => i.itemId).ToList();
     }
-    public void GetItem()
+    public void GetItem() // ≥¨Ω√∏¶ ≈Î«ÿ æ∆¿Ã≈€ »πµÊ Ω√ »£√‚
     {
-        FishingData.TargetItem.itemCount++;
+        GetItem(FishingData.TargetItem);
+    }
+    public void GetItem(Item item)
+    {
+        item.itemCount++;
 
-        if (!itemDictionary.ContainsKey(FishingData.TargetItem.itemId))
-            itemDictionary[FishingData.TargetItem.itemId] = FishingData.TargetItem;
-        
+        if (!itemDictionary.ContainsKey(item.itemId))
+            itemDictionary[item.itemId] = item;
+
+        QuestManager.Instance.CheckCompletableQuest(item);
+
+        SelectCategory(currentCategory);
+    }
+    public void GetQuestReward(QuestInfo questInfo)
+    {
+        for (int i = 0; i < questInfo.rewardItems.Count; i++)
+        {
+            questInfo.rewardItems[i].targetItem.itemCount += questInfo.rewardItems[i].itemCount;
+
+            if (!itemDictionary.ContainsKey(questInfo.rewardItems[i].targetItem.itemId))
+                itemDictionary[questInfo.rewardItems[i].targetItem.itemId] = questInfo.rewardItems[i].targetItem;
+
+            QuestManager.Instance.CheckCompletableQuest(questInfo.rewardItems[i].targetItem);
+        }
+
+        SelectCategory(currentCategory);
+    }
+    public void UseQuestItem(QuestInfo questInfo)
+    {
+        for (int i = 0; i < questInfo.questItems.Count; i++)
+        {
+            questInfo.questItems[i].targetItem.itemCount -= questInfo.questItems[i].itemCount;
+
+            if (!itemDictionary.ContainsKey(questInfo.questItems[i].targetItem.itemId))
+                itemDictionary[questInfo.questItems[i].targetItem.itemId] = questInfo.questItems[i].targetItem;
+
+            QuestManager.Instance.CheckCompletableQuest(questInfo.questItems[i].targetItem);
+        }
+
         SelectCategory(currentCategory);
     }
     public void UseItem(Item item, int usedCount = 1)
@@ -86,14 +120,14 @@ public class PlayerInventory : MonoBehaviour
         {
             baitItem.isUsedAsBait = false;
 
-            itemSlotDictionary[baitItem.itemId].Setting(baitItem);
+            itemSlotDictionary[baitItem.itemId].SettingItem(baitItem);
         }
 
         if (item != null)
         {
             item.isUsedAsBait = true;
 
-            itemSlotDictionary[item.itemId].Setting(item);
+            itemSlotDictionary[item.itemId].SettingItem(item);
         }
         else SelectCategory(currentCategory);
 
@@ -113,7 +147,7 @@ public class PlayerInventory : MonoBehaviour
         }
         else
         {
-            itemSlotDictionary[baitItem.itemId].Setting(baitItem);
+            itemSlotDictionary[baitItem.itemId].SettingItem(baitItem);
         }
     }
     public void SelectCategoryMaterial() => SelectCategory(ItemCategory.Material);
