@@ -44,13 +44,39 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     }
     public virtual void OnPointerClick(PointerEventData eventData)
     {
+        switch (PlayerInventory.Instance.inventoryState)
+        {
+            case InventoryState.None:
+
+                if (eventData.button == PointerEventData.InputButton.Right)
+                {
+                    ContextMenuManager.Instance.OpenMenu(item, eventData.position);
+                }
+                else if (eventData.button == PointerEventData.InputButton.Left)
+                {
+                    ExplainText.Instance.Setting(item);
+                }
+
+                break;
+
+            case InventoryState.Shop:
+
+                if (eventData.button == PointerEventData.InputButton.Left)
+                {
+                    ShopExplainText.Instance.Setting(item);
+
+                    ShopSellButton.Instance.SelectItem(item);
+                }
+
+                break;
+        }
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             ContextMenuManager.Instance.OpenMenu(item, eventData.position);
         }
         else if (eventData.button == PointerEventData.InputButton.Left)
         {
-            ExplainText.Instance.Setting(item.itemExplain);
+            ExplainText.Instance.Setting(item);
         }
     }
 }

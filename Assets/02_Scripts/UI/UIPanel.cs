@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class UIPanel : MonoBehaviour
 {
-    [SerializeField] List<UIPanel> previousPanels;
     [SerializeField] List<UIPanel> requiredPanels;
-    public List<UIPanel> PreviousPanels => previousPanels;
     public List<UIPanel> RequiredPanels => requiredPanels;
     protected CanvasGroup canvasGroup = null;
     protected virtual void Awake()
@@ -27,5 +25,9 @@ public class UIPanel : MonoBehaviour
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
+    }
+    protected virtual void OnDisable()
+    {
+        UIManager.OnHide(this);
     }
 }

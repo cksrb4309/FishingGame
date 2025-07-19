@@ -5,15 +5,17 @@ public class ExplainText : MonoBehaviour
 {
     public static ExplainText Instance { get; private set; } = null;
 
-    [SerializeField] TMP_Text textUI;
+    TMP_Text textUI;
 
     private void Awake()
     {
         Instance = this;
+
+        textUI = GetComponent<TMP_Text>();
     }
 
-    public void Setting(string explainText)
+    public void Setting(Item item)
     {
-        textUI.text = explainText;
+        textUI.text = item != null ? item.itemExplain : string.Empty;
     }
 }

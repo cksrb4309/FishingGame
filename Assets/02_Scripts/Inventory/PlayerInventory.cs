@@ -1,31 +1,114 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using VInspector;
+using System;
+using TMPro;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : UIInputPanel
 {
     public static PlayerInventory Instance { get; private set; } = null;
     public Dictionary<int, Item> ItemDictionary => itemDictionary;
     [SerializeField] ItemSlot[] itemSlots;
+
+    [SerializeField] SerializedDictionary<InventoryState, GameObject> inventoryStateToPanel;
 
     Dictionary<int, Item> itemDictionary = new();
     Dictionary<int, ItemSlot> itemSlotDictionary = new();
 
     ItemCategory currentCategory = ItemCategory.Material;
 
+    [NonSerialized] public InventoryState inventoryState = InventoryState.None;
+
+    TMP_Text moneyText;
+
     Item baitItem = null;
 
-    private void Awake()
+    bool isShow = false;
+
+    int money = 0;
+
+    int Money
     {
+        get => money;
+        set
+        {
+            money = value;
+
+            moneyText.text = money.ToString();
+        }
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+
         Instance = this;
     }
     private void Start()
     {
+        moneyText = GameObject.Find("NumberText").GetComponent<TMP_Text>();
+
         SelectCategory(ItemCategory.Material);
+    }
+    public override void Show(bool trigger = true)
+    {
+        if (isShow) Hide();
+        
+        else
+        {
+            isShow = true;
+
+            base.Show(trigger);
+
+            OpenInventory(InventoryState.None);
+
+            SelectCategory(currentCategory);
+        }
+    }
+    public void ShowShop()
+    {
+        if (isShow)
+        {
+            HideShop();
+        }
+        else
+        {
+            isShow = true;
+
+            base.Show(true);
+
+            OpenInventory(InventoryState.Shop);
+
+            SelectCategory(currentCategory);
+        }
+    }
+    public override void Hide(bool trigger = true)
+    {
+        isShow = false;
+
+        base.Hide(trigger);
+
+        if (trigger) UIManager.OnHideAll();
+
+        ContextMenuManager.Instance.CloseMenu();
+    }
+    public void HideShop()
+    {
+        if (isShow && inventoryState == InventoryState.Shop) Hide();
+    }
+    public void OpenInventory(InventoryState inventoryState)
+    {
+        this.inventoryState = inventoryState;
+
+        foreach (var key in inventoryStateToPanel.Keys)
+
+            inventoryStateToPanel[key].SetActive(key == inventoryState);
     }
     void SelectCategory(ItemCategory category)
     {
-        ExplainText.Instance.Setting(string.Empty);
+        ExplainText.Instance.Setting(null);
+
         ContextMenuManager.Instance.CloseMenu();
 
         currentCategory = category;
@@ -150,8 +233,24 @@ public class PlayerInventory : MonoBehaviour
             itemSlotDictionary[baitItem.itemId].SettingItem(baitItem);
         }
     }
+    public void SellItem(Item item)
+    {
+        Money += item.itemPrice;
+
+        item.itemCount--;
+
+        if (item.itemCount <= 0) ShopExplainText.Instance.Setting(null);
+        
+        SelectCategory(currentCategory);
+    }
     public void SelectCategoryMaterial() => SelectCategory(ItemCategory.Material);
     public void SelectCategoryFunctional() => SelectCategory(ItemCategory.Functional);
     public void SelectCategoryEvent() => SelectCategory(ItemCategory.Event);
     public void SelectCategoryTool() => SelectCategory(ItemCategory.Tool);
+}
+
+public enum InventoryState
+{
+    None,
+    Shop,
 }

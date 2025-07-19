@@ -44,6 +44,7 @@ public class UIManager
                     }
                 }
             }
+
             for (int i = 0; i < requiredPanels.Count; i++)
             {
                 if (!activePanels.Contains(requiredPanels[i]))
@@ -65,13 +66,15 @@ public class UIManager
         {
             activePanels[i].Hide(false);
 
-            activePanels.RemoveAt(i);
-
             if (activePanels[i].Equals(uiPanel))
             {
                 activePanels.RemoveAt(i);
 
                 break;
+            }
+            else
+            {
+                activePanels.RemoveAt(i);
             }
         }
         instance.activePanels = activePanels;
@@ -85,7 +88,5 @@ public class UIManager
             activePanels[i].Hide(false);
 
         instance.activePanels = new();
-
-        instance.activePanels = activePanels;
     }
 }

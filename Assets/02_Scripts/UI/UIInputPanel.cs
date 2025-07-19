@@ -13,7 +13,7 @@ public class UIInputPanel : UIPanel
     {
         inputAction = InputManager.GetInputAction(inputType);
     }
-    protected virtual void OnDisable()
+    protected override void OnDisable()
     {
         InputManager.Release(inputType);
     }

@@ -4,6 +4,12 @@ public class ShopNpc : Npc
 {
     public override void Interact()
     {
-        ShopUI.Instance.ShowShopUI();
+        PlayerInventory.Instance.ShowShop();
+    }
+    public override void Release()
+    {
+        base.Release();
+
+        PlayerInventory.Instance.HideShop();
     }
 }

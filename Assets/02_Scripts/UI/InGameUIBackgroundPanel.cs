@@ -3,23 +3,27 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class InGameUIBackgroundPanel : UIInputPanel
+public class InGameUIBackgroundPanel : UIPanel
 {
     [SerializeField] RawImage blurImage;
     public override void Show(bool trigger = true)
     {
+        Debug.Log("InGameUIBackgroundPanel Show");
         if (trigger) UIManager.OnShow(this);
 
         BackgroundSetting(true);
     }
     public override void Hide(bool trigger = true)
     {
+        Debug.Log("InGameUIBackgroundPanel Hide");
+
         if (trigger) UIManager.OnHide(this);
 
         BackgroundSetting(false);
     }
     void BackgroundSetting(bool isShow)
     {
+        Debug.Log("BackgroundSetting : " + isShow.ToString());
         if (isShow) PlayerFishingManager.Instance.DisableFishing();
         else PlayerFishingManager.Instance.EnableFishing();
 

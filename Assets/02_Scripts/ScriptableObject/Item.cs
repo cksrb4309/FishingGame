@@ -7,6 +7,8 @@ public class Item : ScriptableObject
     public ItemCategory category;
     public int itemId;
     public int itemLevel = 1;
+    public int itemPrice = 1;
+    public int giftAffinity = 1;
     public string itemName;
     public string itemExplain;
     public Sprite itemIcon;

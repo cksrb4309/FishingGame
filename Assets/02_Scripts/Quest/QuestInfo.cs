@@ -11,19 +11,22 @@ public class QuestInfo : ScriptableObject
     public List<QuestItem> rewardItems; // 보상 아이템
 
     public string questName;
+
     [Multiline] public string questDescription;
+
+    public QuestCondition acceptCondition;
+
+    [NonSerialized] public bool isComplete = false;
 
     public bool IsAcceptable()
     {
-        return true;
+        return acceptCondition == null || acceptCondition.IsMet();
     }
     public bool IsCompletable()
     {
         bool isComplete = true;
 
         for (int i = 0; i < questItems.Count; i++) isComplete = isComplete && questItems[i].HasEnoughItems();
-
-        Debug.Log("확인 : " + isComplete.ToString());
 
         return isComplete;
     }

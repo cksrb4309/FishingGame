@@ -61,8 +61,8 @@ public class PlayerStat
     }
     public void DefaultSetting()
     {
-        stats_Int[StatType.FirePower] = 1;
-        stats_Int[StatType.Strength] = 1;
+        stats_Int[StatType.FirePower] = 2;
+        stats_Int[StatType.Strength] = 2;
         stats_Int[StatType.Luck] = 1;
 
         SetDetail();
