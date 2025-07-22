@@ -1,8 +1,11 @@
-public enum DialogueConditionType
+namespace Dialogue
 {
-    None,
-    HasGivenGift,
-    QuestInProgress,
-    QuestCompleted,
-    AffinityAboveThreshold
+    public enum DialogueConditionType
+    {
+        None,
+        HasGivenGift,
+        QuestInProgress,
+        QuestCompleted,
+        AffinityAboveThreshold
+    }
 }

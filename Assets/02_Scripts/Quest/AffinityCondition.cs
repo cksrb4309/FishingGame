@@ -1,12 +1,19 @@
 using UnityEngine;
 
-[System.Serializable]
-public class AffinityCondition : QuestCondition
+namespace Quest
 {
-    [SerializeField] int npcId;
-    [SerializeField] int requiredAffinity;
-    public override bool IsMet()
+    [CreateAssetMenu(fileName = "AffinityCondition", menuName = "Quest/Condition/Affinity")]
+    public class AffinityCondition : QuestCondition
     {
-        return requiredAffinity <= NpcAffinitySystem.GetAffinity(npcId);
+        public NpcName npcName;
+        public int requiredAffinity;
+        public override bool IsMet()
+        {
+            return requiredAffinity <= Npc.NpcAffinitySystem.GetAffinity(npcName);
+        }
+        public override void Register(QuestInfo questInfo)
+        {
+            QuestUnlockConditionManager.Instance.RegisterAffinityCondition(npcName, questInfo);
+        }
     }
 }

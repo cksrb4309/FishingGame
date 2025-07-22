@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SubQuest_1
   m_EditorClassIdentifier: 
   questId: 1
+  giverNpcName: 0
   questItems:
   - targetItem: {fileID: 11400000, guid: 6aecdfde90719e743b11f035a353c434, type: 2}
     itemCount: 2
@@ -23,3 +24,5 @@ MonoBehaviour:
   questDescription: "1. \uD638\uC218\uC5D0 \uCC0C\uB97C \uB358\uC9C4\uB2E4\n2. \uC0C8\uC6B0\uB97C
     \uB09A\uB294\uB2E4\n3. 2\uB9C8\uB9AC\uB97C \uAC00\uC838\uC624\uBA74 5\uB9C8\uB9AC\uB85C
     \uBC14\uAFD4\uC900\uB2E4"
+  acceptCondition: {fileID: 11400000, guid: ea47010e8bdcdc84296e08422d25f3f3, type: 2}
+  questDialogueTree: {fileID: 0}

@@ -1,123 +1,136 @@
+using Dialogue;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VInspector;
 
-public class QuestManager : MonoBehaviour
+namespace Quest
 {
-    public static QuestManager Instance { get; private set; } = null;
-
-    public QuestDatabase questDatabase;
-
-    public SerializedDictionary<int, GameObject> questGivers;
-
-    List<QuestInfo> inactiveQuests = new();
-    List<QuestInfo> availableQuests = new();
-    List<QuestInfo> ongoingQuests = new();
-    List<QuestInfo> completedQuests = new();
-
-    Dictionary<Item, List<QuestInfo>> itemToQuests = new();
-
-    private void Start()
+    public class QuestManager : MonoBehaviour
     {
-        Instance = this;
+        public static QuestManager Instance { get; private set; } = null;
 
-        Init();
-    }
-    void Init()
-    {
-        foreach (QuestInfo questInfo in questDatabase)
+        public QuestDatabase questDatabase;
+
+        public SerializedDictionary<int, GameObject> questGivers;
+
+        List<QuestInfo> availableQuests = new();
+        List<QuestInfo> ongoingQuests = new();
+        List<QuestInfo> completedQuests = new();
+
+        Dictionary<Item, List<QuestInfo>> itemToQuests = new();
+
+        private void Start()
         {
-            if (questInfo.IsAcceptable())
-            {
-                Debug.Log("퀘스트 활성화");
-                ActivateQuest(questInfo);
-            }
+            Instance = this;
 
-            else
+            Init();
+        }
+        void Init()
+        {
+            foreach (QuestInfo questInfo in questDatabase)
             {
-                Debug.Log("퀘스트 비활성화");
-                DeactivateQuest(questInfo);
+                questInfo.Register();
             }
         }
-    }
-    void ActivateQuest(QuestInfo questInfo)
-    {
-        // 비활성화 퀘스트에서 제거
-        inactiveQuests.RemoveAll(q => q.questId == questInfo.questId);
-
-        availableQuests.Add(questInfo);
-
-        SetQuestGiverState(questInfo, QuestState.Active);
-    }
-    void DeactivateQuest(QuestInfo questInfo)
-    {
-        inactiveQuests.Add(questInfo);
-
-        SetQuestGiverState(questInfo, QuestState.Inactive);
-    }
-    public void AcceptQuest(QuestInfo questInfo)
-    {
-        // 활성화 퀘스트에서 제거
-        availableQuests.RemoveAll(q => q.questId == questInfo.questId);
-
-        AddTargetQuest(questInfo);
-
-        // 수행 중 퀘스트에 추가
-        ongoingQuests.Add(questInfo);
-
-        SetQuestGiverState(questInfo, questInfo.IsCompletable() ? QuestState.Completable : QuestState.Accepted);
-    }
-    public void CompleteQuest(QuestInfo questInfo)
-    {
-        // 수행 중 퀘스트에서 제거
-        ongoingQuests.RemoveAll(q => q.questId == questInfo.questId);
-
-        RemoveTargetQuest(questInfo);
-
-        // 완료 퀘스트에 추가
-        completedQuests.Add(questInfo);
-
-        PlayerInventory.Instance.UseQuestItem(questInfo);
-
-        // 퀘스트 보상 처리
-        PlayerInventory.Instance.GetQuestReward(questInfo);
-
-        SetQuestGiverState(questInfo, QuestState.Completed);
-    }
-    void AddTargetQuest(QuestInfo questInfo)
-    {
-        // 퀘스트 아이템 리스트 가져오기
-        List<QuestItem> questItems = questInfo.questItems;
-
-        for (int i = 0; i < questItems.Count; i++)
+        public void ActivateQuest(QuestInfo questInfo)
         {
-            if (!itemToQuests.ContainsKey(questItems[i].targetItem))
-                itemToQuests[questItems[i].targetItem] = new();
+            availableQuests.Add(questInfo);
 
-            // 아이템에 대한 대상 퀘스트로 추가한다
-            itemToQuests[questItems[i].targetItem].Add(questInfo);
+            SetQuestGiverState(questInfo, QuestState.Active);
         }
-    }
-    void RemoveTargetQuest(QuestInfo questInfo)
-    {
-        // 퀘스트 아이템 리스트 가져오기
-        List<QuestItem> questItems = questInfo.questItems;
+        public void DeactivateQuest(QuestInfo questInfo)
+        {
+            SetQuestGiverState(questInfo, QuestState.Inactive);
+        }
+        public void AcceptQuest(QuestInfo questInfo)
+        {
+            // 활성화 퀘스트에서 제거
+            availableQuests.RemoveAll(q => q.questId == questInfo.questId);
 
-        for (int i = 0; i < questItems.Count; i++)
-        
-            itemToQuests[questItems[i].targetItem].RemoveAll(q => q.questId == questInfo.questId);
-    }
-    void SetQuestGiverState(QuestInfo questInfo, QuestState questState)
-    {
-        questGivers[questInfo.questId].GetComponent<IQuestGiver>().SetQuestState(questState);
-    }
-    public void CheckCompletableQuest(Item item)
-    {
-        if (itemToQuests.ContainsKey(item))
-            for (int i = 0; i < itemToQuests[item].Count; i++)
-                if (itemToQuests[item][i].IsCompletable())
-                    SetQuestGiverState(itemToQuests[item][i], QuestState.Completable);
+            AddTargetQuest(questInfo);
+
+            // 수행 중 퀘스트에 추가
+            ongoingQuests.Add(questInfo);
+
+            SetQuestGiverState(questInfo, questInfo.IsCompletable() ? QuestState.Completable : QuestState.Accepted);
+        }
+        public void CompleteQuest(QuestInfo questInfo)
+        {
+            // 수행 중 퀘스트에서 제거
+            ongoingQuests.RemoveAll(q => q.questId == questInfo.questId);
+
+            RemoveTargetQuest(questInfo);
+
+            // 완료 퀘스트에 추가
+            completedQuests.Add(questInfo);
+
+            PlayerInventory.Instance.UseQuestItem(questInfo);
+
+            // 퀘스트 보상 처리
+            PlayerInventory.Instance.GetQuestReward(questInfo);
+
+            SetQuestGiverState(questInfo, QuestState.Completed);
+        }
+        void AddTargetQuest(QuestInfo questInfo)
+        {
+            // 퀘스트 아이템 리스트 가져오기
+            List<QuestItem> questItems = questInfo.questItems;
+
+            for (int i = 0; i < questItems.Count; i++)
+            {
+                if (!itemToQuests.ContainsKey(questItems[i].targetItem))
+                    itemToQuests[questItems[i].targetItem] = new();
+
+                // 아이템에 대한 대상 퀘스트로 추가한다
+                itemToQuests[questItems[i].targetItem].Add(questInfo);
+            }
+        }
+        void RemoveTargetQuest(QuestInfo questInfo)
+        {
+            // 퀘스트 아이템 리스트 가져오기
+            List<QuestItem> questItems = questInfo.questItems;
+
+            for (int i = 0; i < questItems.Count; i++)
+
+                itemToQuests[questItems[i].targetItem].RemoveAll(q => q.questId == questInfo.questId);
+        }
+        void SetQuestGiverState(QuestInfo questInfo, QuestState questState)
+        {
+            questGivers[questInfo.questId].GetComponent<IQuestGiver>().SetQuestState(questState);
+        }
+        public void CheckCompletableQuest(Item item)
+        {
+            if (itemToQuests.ContainsKey(item))
+                for (int i = 0; i < itemToQuests[item].Count; i++)
+                    if (itemToQuests[item][i].IsCompletable())
+                        SetQuestGiverState(itemToQuests[item][i], QuestState.Completable);
+        }
+        public bool IsQuestCompleted(int questId)
+        {
+            return completedQuests.Any(quest => quest.questId == questId);
+        }
+        public bool IsQuestInProgress(int questId)
+        {
+            return ongoingQuests.Any(quest => quest.questId == questId);
+        }
+        public bool HasAvailableQuestFromNpc(NpcName npcName, out DialogueTree questDialogueTree)
+        {
+            foreach (var quest in availableQuests)
+            {
+                if (quest.giverNpcName == npcName)
+                {
+                    questDialogueTree = quest.questDialogueTree;
+
+                    QuestUIController.quest = quest;
+
+                    return true;
+                }
+            }
+
+            questDialogueTree = null;
+            return false;
+        }
     }
 }

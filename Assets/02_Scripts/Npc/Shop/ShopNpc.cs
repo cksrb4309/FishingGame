@@ -1,15 +1,19 @@
 using UnityEngine;
 
-public class ShopNpc : Npc
+namespace Npc
 {
-    public override void Interact()
+    public class ShopNpc : NpcObj
     {
-        PlayerInventory.Instance.ShowShop();
-    }
-    public override void Release()
-    {
-        base.Release();
+        public override void Interact()
+        {
+            PlayerInventory.Instance.ShowShop();
+        }
+        public override void Release()
+        {
+            base.Release();
 
-        PlayerInventory.Instance.HideShop();
+            PlayerInventory.Instance.HideShop();
+        }
     }
 }
+

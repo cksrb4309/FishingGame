@@ -1,6 +1,11 @@
-[System.Serializable]
-public abstract class QuestCondition
+using UnityEngine;
+
+namespace Quest
 {
-    public QuestConditionType conditionType;
-    public abstract bool IsMet();
+    public abstract class QuestCondition : ScriptableObject
+    {
+        public QuestConditionType conditionType;
+        public abstract bool IsMet();
+        public abstract void Register(QuestInfo questInfo);
+    }
 }

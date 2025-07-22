@@ -1,15 +1,18 @@
 using System;
 
-[Serializable]
-public class DialogueChoice
+namespace Dialogue
 {
-    public string choiceText;
-    public DialogueNode nextNode;
-    public Action onChoiceSelected;
-
-    public DialogueChoice(string choiceText, DialogueNode nextNode = null)
+    [Serializable]
+    public class DialogueChoice
     {
-        this.choiceText = choiceText;
-        this.nextNode = nextNode;
+        public string choiceText;
+        public DialogueNode nextNode;
+        public Action onChoiceSelected;
+
+        public DialogueChoice(string choiceText, DialogueNode nextNode = null)
+        {
+            this.choiceText = choiceText;
+            this.nextNode = nextNode;
+        }
     }
 }

@@ -20,7 +20,7 @@ public class ShopSellButton : MonoBehaviour
 
         selectedItem = item;
 
-        if (item == null || item.itemCount == 0)
+        if (item == null || item.ItemCount == 0)
         {
             button.interactable = false;
         }
@@ -33,7 +33,7 @@ public class ShopSellButton : MonoBehaviour
     }
     public void SellItem()
     {
-        if (selectedItem == null || selectedItem.itemCount == 0) return;
+        if (selectedItem == null || selectedItem.ItemCount == 0) return;
 
         PlayerInventory.Instance.SellItem(selectedItem);
 

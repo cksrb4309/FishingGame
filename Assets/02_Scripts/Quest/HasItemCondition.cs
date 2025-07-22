@@ -1,11 +1,18 @@
 using UnityEngine;
 
-[System.Serializable]
-public class HasItemCondition : QuestCondition
+namespace Quest
 {
-    [SerializeField] Item requiredItem;
-    public override bool IsMet()
+    [CreateAssetMenu(fileName = "HasItemCondition", menuName = "Quest/Condition/HasItem")]
+    public class HasItemCondition : QuestCondition
     {
-        return requiredItem.itemCount > 0;
+        public Item requiredItem;
+        public override bool IsMet()
+        {
+            return requiredItem.ItemCount > 0;
+        }
+        public override void Register(QuestInfo questInfo)
+        {
+            QuestUnlockConditionManager.Instance.RegisterItemCondition(requiredItem, questInfo);
+        }
     }
 }

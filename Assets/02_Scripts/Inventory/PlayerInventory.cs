@@ -4,7 +4,7 @@ using UnityEngine;
 using VInspector;
 using System;
 using TMPro;
-
+using Quest;
 public class PlayerInventory : UIInputPanel
 {
     public static PlayerInventory Instance { get; private set; } = null;
@@ -119,7 +119,7 @@ public class PlayerInventory : UIInputPanel
 
         for (int i = 0; i < items.Count; i++)
         {
-            if (items[i].itemCount > 0)
+            if (items[i].ItemCount > 0)
             {
                 itemSlots[i].SettingItem(items[i]);
 
@@ -135,8 +135,8 @@ public class PlayerInventory : UIInputPanel
     List<Item> SelectItemByCategory(ItemCategory category)
     {
         var filtered = (category == ItemCategory.All) ?
-            itemDictionary.Values.Where(i => i.itemCount > 0) :
-            itemDictionary.Values.Where(i => (i.category & category) != 0 && (i.itemCount > 0));
+            itemDictionary.Values.Where(i => i.ItemCount > 0) :
+            itemDictionary.Values.Where(i => (i.category & category) != 0 && (i.ItemCount > 0));
 
         return filtered.OrderBy(i => i.itemId).ToList();
     }
@@ -146,7 +146,7 @@ public class PlayerInventory : UIInputPanel
     }
     public void GetItem(Item item)
     {
-        item.itemCount++;
+        item.ItemCount++;
 
         if (!itemDictionary.ContainsKey(item.itemId))
             itemDictionary[item.itemId] = item;
@@ -159,7 +159,7 @@ public class PlayerInventory : UIInputPanel
     {
         for (int i = 0; i < questInfo.rewardItems.Count; i++)
         {
-            questInfo.rewardItems[i].targetItem.itemCount += questInfo.rewardItems[i].itemCount;
+            questInfo.rewardItems[i].targetItem.ItemCount += questInfo.rewardItems[i].itemCount;
 
             if (!itemDictionary.ContainsKey(questInfo.rewardItems[i].targetItem.itemId))
                 itemDictionary[questInfo.rewardItems[i].targetItem.itemId] = questInfo.rewardItems[i].targetItem;
@@ -173,7 +173,7 @@ public class PlayerInventory : UIInputPanel
     {
         for (int i = 0; i < questInfo.questItems.Count; i++)
         {
-            questInfo.questItems[i].targetItem.itemCount -= questInfo.questItems[i].itemCount;
+            questInfo.questItems[i].targetItem.ItemCount -= questInfo.questItems[i].itemCount;
 
             if (!itemDictionary.ContainsKey(questInfo.questItems[i].targetItem.itemId))
                 itemDictionary[questInfo.questItems[i].targetItem.itemId] = questInfo.questItems[i].targetItem;
@@ -185,7 +185,7 @@ public class PlayerInventory : UIInputPanel
     }
     public void UseItem(Item item, int usedCount = 1)
     {
-        itemDictionary[item.itemId].itemCount -= usedCount;
+        itemDictionary[item.itemId].ItemCount -= usedCount;
 
         SelectCategory(currentCategory);
     }
@@ -193,7 +193,7 @@ public class PlayerInventory : UIInputPanel
     {
         foreach (RecipeEntry entry in recipe.RecipeEntries)
         {
-            itemDictionary[entry.item.itemId].itemCount -= entry.count;
+            itemDictionary[entry.item.itemId].ItemCount -= entry.count;
         }
         SelectCategory(currentCategory);
     }
@@ -220,9 +220,9 @@ public class PlayerInventory : UIInputPanel
     }
     public void UseBaitItem()
     {
-        baitItem.itemCount--;
+        baitItem.ItemCount--;
 
-        if (baitItem.itemCount <= 0)
+        if (baitItem.ItemCount <= 0)
         {
             SelectBaitItem(null);
 
@@ -237,9 +237,9 @@ public class PlayerInventory : UIInputPanel
     {
         Money += item.itemPrice;
 
-        item.itemCount--;
+        item.ItemCount--;
 
-        if (item.itemCount <= 0) ShopExplainText.Instance.Setting(null);
+        if (item.ItemCount <= 0) ShopExplainText.Instance.Setting(null);
         
         SelectCategory(currentCategory);
     }

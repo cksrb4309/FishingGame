@@ -3,61 +3,94 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuestUIController : MonoBehaviour
+namespace Quest
 {
-    public static QuestUIController Instance { get; private set; } = null;
-
-    [SerializeField] CanvasGroup canvasGroup;
-
-    [SerializeField] TMP_Text questNameText;
-    [SerializeField] TMP_Text questObjectiveText;
-
-    [SerializeField] List<QuestItemSlot> rewardItemSlots;
-
-    [SerializeField] Button acceptButton;
-    [SerializeField] Button declineButton;
-
-    public void ShowQuestUI(QuestGiver questGiver)
+    public class QuestUIController : MonoBehaviour
     {
-        canvasGroup.alpha = 1f;
+        public static QuestUIController Instance { get; private set; } = null;
+        
+        [SerializeField] CanvasGroup canvasGroup;
 
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
+        [SerializeField] TMP_Text questNameText;
+        [SerializeField] TMP_Text questObjectiveText;
 
-        questNameText.text = questGiver.questInfo.questName;
-        questObjectiveText.text = questGiver.questInfo.questDescription;
+        [SerializeField] List<QuestItemSlot> rewardItemSlots;
 
-        acceptButton.onClick.AddListener(questGiver.Accept);
-        acceptButton.onClick.AddListener(HideQuestUI);
+        [SerializeField] Button acceptButton;
+        [SerializeField] Button declineButton;
 
-        declineButton.onClick.AddListener(questGiver.Decline);
-        declineButton.onClick.AddListener(HideQuestUI);
-
-        for (int i = 0; i < rewardItemSlots.Count; i++)
+        public static QuestInfo quest = null;
+        public void ShowQuestUI()
         {
-            if (i < questGiver.questInfo.rewardItems.Count)
+            canvasGroup.alpha = 1f;
+
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+
+            questNameText.text = quest.questName;
+            questObjectiveText.text = quest.questDescription;
+
+            acceptButton.onClick.AddListener(() => QuestManager.Instance.AcceptQuest(quest));
+            acceptButton.onClick.AddListener(HideQuestUI);
+
+            declineButton.onClick.AddListener(HideQuestUI);
+
+            for (int i = 0; i < rewardItemSlots.Count; i++)
             {
-                rewardItemSlots[i].SettingQuestItem(
-                    item : questGiver.questInfo.rewardItems[i].targetItem,
-                    itemCount : questGiver.questInfo.rewardItems[i].itemCount);
-            }
-            else
-            {
-                rewardItemSlots[i].Clear();
+                if (i < quest.rewardItems.Count)
+                {
+                    rewardItemSlots[i].SettingQuestItem(
+                        item: quest.rewardItems[i].targetItem,
+                        itemCount: quest.rewardItems[i].itemCount);
+                }
+                else
+                {
+                    rewardItemSlots[i].Clear();
+                }
             }
         }
-    }
-    public void HideQuestUI()
-    {
-        canvasGroup.alpha = 0f;
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
+        public void ShowQuestUI(QuestGiver questGiver)
+        {
+            canvasGroup.alpha = 1f;
 
-        acceptButton.onClick.RemoveAllListeners();
-        declineButton.onClick.RemoveAllListeners();
-    }
-    private void Awake()
-    {
-        Instance = this;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+
+            questNameText.text = questGiver.questInfo.questName;
+            questObjectiveText.text = questGiver.questInfo.questDescription;
+
+            acceptButton.onClick.AddListener(questGiver.Accept);
+            acceptButton.onClick.AddListener(HideQuestUI);
+
+            declineButton.onClick.AddListener(questGiver.Decline);
+            declineButton.onClick.AddListener(HideQuestUI);
+
+            for (int i = 0; i < rewardItemSlots.Count; i++)
+            {
+                if (i < questGiver.questInfo.rewardItems.Count)
+                {
+                    rewardItemSlots[i].SettingQuestItem(
+                        item: questGiver.questInfo.rewardItems[i].targetItem,
+                        itemCount: questGiver.questInfo.rewardItems[i].itemCount);
+                }
+                else
+                {
+                    rewardItemSlots[i].Clear();
+                }
+            }
+        }
+        public void HideQuestUI()
+        {
+            canvasGroup.alpha = 0f;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
+
+            acceptButton.onClick.RemoveAllListeners();
+            declineButton.onClick.RemoveAllListeners();
+        }
+        private void Awake()
+        {
+            Instance = this;
+        }
     }
 }

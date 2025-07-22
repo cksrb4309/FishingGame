@@ -35,7 +35,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
         itemIconImage.sprite = item.itemIcon;
         itemIconImage.color = Color.white;
-        countText.text = item.itemCount.ToString();
+        countText.text = item.ItemCount.ToString();
 
         baitSelectImage.SetActive(item.isUsedAsBait);
 

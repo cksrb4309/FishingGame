@@ -1,11 +1,18 @@
 using UnityEngine;
 
-[System.Serializable]
-public class PreviousQuestCompletedCondition : QuestCondition
+namespace Quest
 {
-    [SerializeField] QuestInfo previousQuest;
-    public override bool IsMet()
+    [CreateAssetMenu(fileName = "PreviousQuestCompletedCondition", menuName = "Quest/Condition/PreviousQuestCompleted")]
+    public class PreviousQuestCompletedCondition : QuestCondition
     {
-        return previousQuest.isComplete;
+        public QuestInfo previousQuest;
+        public override bool IsMet()
+        {
+            return previousQuest.isComplete;
+        }
+        public override void Register(QuestInfo questInfo)
+        {
+            QuestUnlockConditionManager.Instance.RegisterQuestCompleteCondition(previousQuest.questId, questInfo);
+        }
     }
 }

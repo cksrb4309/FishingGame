@@ -1,10 +1,27 @@
-﻿using UnityEngine;
+﻿using Dialogue;
+using System.Collections.Generic;
+using UnityEngine;
 
-[CreateAssetMenu(fileName = "NpcData", menuName = "Npc/NpcData")]
-public class NpcData : ScriptableObject
+namespace Npc
 {
-    public int npcId;
-    public string npcName;
+    [CreateAssetMenu(fileName = "NpcData", menuName = "Npc/NpcData")]
+    public class NpcData : ScriptableObject
+    {
+        [Header("기본 정보")]
+        public NpcName npcNameType;
+        public string npcName;
+        [TextArea, SerializeField] string description;
 
-    public NpcAffinityTracker affinityTracker; // 호감도 이벤트 데이터
+        [Header("호감도 관리")]
+        public NpcAffinityTracker affinityTracker;  // 호감도 증가 / 이벤트 정의
+
+        [Header("대사 시스템")]
+        public ConditionalDialogueManager dialogueManager; // 대화 조건/트리 관리
+
+        [Header("퀘스트 연동")]
+        public List<int> linkedQuestIds;            // 이 NPC가 담당하는 퀘스트 ID 목록
+
+        [Header("기타 설정")]
+        public Sprite npcPortrait;                  // UI에서 쓸 NPC 초상화
+    }
 }

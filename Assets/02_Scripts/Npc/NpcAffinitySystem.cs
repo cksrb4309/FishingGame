@@ -1,26 +1,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class NpcAffinitySystem
+namespace Npc
 {
-    private static Dictionary<int, int> affinityData = new Dictionary<int, int>();
-
-    public static int GetAffinity(int npcId)
+    public static class NpcAffinitySystem
     {
-        if (!affinityData.TryGetValue(npcId, out int value)) affinityData[npcId] = 0; // 기본값 0
+        private static Dictionary<NpcName, int> affinityData = new Dictionary<NpcName, int>();
 
-        return affinityData[npcId];
-    }
+        public static int GetAffinity(NpcName npcName)
+        {
+            if (!affinityData.TryGetValue(npcName, out int value)) affinityData[npcName] = 0; // 기본값 0
 
-    public static void AddAffinity(int npcId, int amount)
-    {
-        int current = GetAffinity(npcId);
+            return affinityData[npcName];
+        }
 
-        affinityData[npcId] = Mathf.Clamp(current + amount, 0, 100); // 호감도 0~100 제한
-    }
+        public static void AddAffinity(NpcName npcName, int amount)
+        {
+            int current = GetAffinity(npcName);
 
-    public static void SetAffinity(int npcId, int value)
-    {
-        affinityData[npcId] = Mathf.Clamp(value, 0, 100);
+            affinityData[npcName] = Mathf.Clamp(current + amount, 0, 100); // 호감도 0~100 제한
+        }
+
+        public static void SetAffinity(NpcName npcName, int value)
+        {
+            affinityData[npcName] = Mathf.Clamp(value, 0, 100);
+        }
     }
 }

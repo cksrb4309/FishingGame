@@ -1,6 +1,9 @@
-public enum QuestConditionType
+namespace Quest
 {
-    Affinity,
-    HasItem,
-    PreviousQuestCompleted,
+    public enum QuestConditionType
+    {
+        Affinity,
+        HasItem,
+        PreviousQuestCompleted,
+    }
 }

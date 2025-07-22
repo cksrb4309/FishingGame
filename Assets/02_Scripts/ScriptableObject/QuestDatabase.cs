@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "QuestDatabase", menuName = "Quest/QuestDatabase")]
-public class QuestDatabase : ScriptableObject, IEnumerable<QuestInfo>
+namespace Quest
 {
-    [SerializeField] List<QuestInfo> questInfos;
-    public IEnumerator<QuestInfo> GetEnumerator()
+
+    [CreateAssetMenu(fileName = "QuestDatabase", menuName = "Quest/QuestDatabase")]
+    public class QuestDatabase : ScriptableObject, IEnumerable<QuestInfo>
     {
-        foreach (var quest in questInfos) yield return quest;
+        [SerializeField] List<QuestInfo> questInfos;
+        public IEnumerator<QuestInfo> GetEnumerator()
+        {
+            foreach (var quest in questInfos) yield return quest;
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+        public QuestInfo GetQuestById(int id) => questInfos.Where(q => q.questId == id).First();
     }
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-    public QuestInfo GetQuestById(int id) => questInfos.Where(q => q.questId == id).First();
 }

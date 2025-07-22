@@ -1,21 +1,25 @@
-using UnityEngine;
+using Dialogue;
 using System.Collections.Generic;
+using UnityEngine;
 
-[System.Serializable]
-public class NpcAffinityTracker
+namespace Npc
 {
-    [SerializeField] List<AffinityThresholdEvent> thresholdEvents;
-
-    public void CheckAffinityEvents(Npc npc)
+    [System.Serializable]
+    public class NpcAffinityTracker
     {
-        int affinity = npc.Affinity;
+        [SerializeField] List<AffinityThresholdEvent> thresholdEvents;
 
-        foreach (var evt in thresholdEvents)
+        public void CheckAffinityEvents(NpcObj npc)
         {
-            if (!evt.triggered && affinity >= evt.threshold)
+            int affinity = npc.GetAffinity();
+
+            foreach (var evt in thresholdEvents)
             {
-                evt.triggered = true;
-                evt.onThresholdReached?.Invoke();
+                if (!evt.triggered && affinity >= evt.threshold)
+                {
+                    evt.triggered = true;
+                    evt.onThresholdReached?.Invoke();
+                }
             }
         }
     }

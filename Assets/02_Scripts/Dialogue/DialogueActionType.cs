@@ -1,7 +1,11 @@
-public enum DialogueActionType
+namespace Dialogue
 {
-    None,
-    OpenShop,
-    GiveGift,
-    StartQuest,
+    public enum DialogueActionType
+    {
+        None,
+        OpenShop,
+        GiveGift,
+        StartQuest,
+        IncreaseAffinity,
+    }
 }
