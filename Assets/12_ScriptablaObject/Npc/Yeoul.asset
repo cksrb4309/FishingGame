@@ -20,5 +20,5 @@ MonoBehaviour:
     thresholdEvents: []
   dialogueManager:
     conditionSets: []
-  linkedQuestIds: 
+  linkedQuestIds: 01000000
   npcPortrait: {fileID: 696345895, guid: 197c65dcc317249d2ab4899aa65696ba, type: 3}

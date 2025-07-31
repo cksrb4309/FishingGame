@@ -4,6 +4,7 @@ public class Fishing_Game : MonoBehaviour, IFishingSystem
 {
     public static Fishing_Game fishing_Game = null;
     RenderMaterialController renderMaterialController;
+    public CursorController cursorController;
     protected CanvasGroup game123 = null;
     protected CanvasGroup game4 = null;
     protected CanvasGroup game5 = null;
@@ -21,6 +22,8 @@ public class Fishing_Game : MonoBehaviour, IFishingSystem
     public virtual void StartFishing()
     {
         renderMaterialController.Fade(1f, 0.5f);
+
+        CursorController.CursorControllerRegister(cursorController);
 
         fishing_Game = this;
     }

@@ -121,7 +121,7 @@ namespace Quest
             {
                 if (quest.giverNpcName == npcName)
                 {
-                    questDialogueTree = quest.questDialogueTree;
+                    questDialogueTree = quest.startQuestDialogueTree;
 
                     QuestUIController.quest = quest;
 

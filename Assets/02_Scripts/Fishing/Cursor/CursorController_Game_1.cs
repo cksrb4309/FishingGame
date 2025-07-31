@@ -2,45 +2,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class CursorController_Game_1 : MonoBehaviour
+public class CursorController_Game_1 : CursorController
 {
     [SerializeField] Transform maskTransform;
 
     [SerializeField] SpriteRenderer cursor;
 
-    InputActionReference clickInput = null;
-    InputActionReference mousePositionInput = null;
-
-    float attackCooldownTime = 0f;
-
-    public void Setting()
-    {
-        cursor.gameObject.SetActive(true);
-        enabled = true;
-    }
-    private void Update()
-    {
-        if (clickInput.action.WasPressedThisFrame())
-        {
-            if (attackCooldownTime <= 0f)
-            {
-                Attack();
-
-                attackCooldownTime = 0.5f;
-            }
-        }
-        attackCooldownTime -= Time.deltaTime;
-    }
-    private void LateUpdate()
+    void LateUpdate()
     {
         cursor.transform.position = Camera.main.ScreenToWorldPoint(mousePositionInput.action.ReadValue<Vector2>());
     }
-    public void Cancel()
-    {
-        cursor.gameObject.SetActive(false);
-        enabled = false;
-    }
-    void Attack()
+    protected override void Shoot()
     {
         AttackAreaCircle attackArea = PoolManager.GetObj<AttackAreaCircle>(ObjectPoolID.AttackArea);
         attackArea.gameObject.SetActive(true);
@@ -49,16 +21,10 @@ public class CursorController_Game_1 : MonoBehaviour
         attackArea.transform.SetAsLastSibling();
         attackArea.Setting(cursor.transform.position);
     }
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        clickInput = InputManager.GetInputAction(InputType.FishingClick);
-        mousePositionInput = InputManager.GetInputAction(InputType.MousePoint);
+        base.OnEnable();
 
         cursor.size = Vector2.one * FishingData.MiniGame_1_Data.AttackRange * 2f;
-    }
-    private void OnDisable()
-    {
-        InputManager.Release(InputType.FishingClick);
-        InputManager.Release(InputType.MousePoint);
     }
 }

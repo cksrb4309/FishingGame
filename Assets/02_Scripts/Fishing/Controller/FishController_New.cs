@@ -304,7 +304,7 @@ public class FishController_New : MonoBehaviour
 
         if (!isAlive) return;
 
-        CursorController_Game_5.Instance.SetMode(false);
+        CursorController.Instance.SetMode(false);
 
         stunHandle = DOVirtual.Int(0, maxSp, PlayerStat.Stat.stunDuration, value =>
         {
@@ -315,7 +315,7 @@ public class FishController_New : MonoBehaviour
 
             stunHandle = null;
 
-            CursorController_Game_5.Instance.SetMode(true);
+            CursorController.Instance.SetMode(true);
             
          }).SetEase(Ease.Linear);
     }

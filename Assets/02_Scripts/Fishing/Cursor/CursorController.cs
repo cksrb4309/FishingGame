@@ -1,69 +1,52 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CursorController : MonoBehaviour
+public abstract class CursorController : MonoBehaviour
 {
-    public static CursorController_Game_5 Instance { get; private set; } = null;
-    [SerializeField] Transform targetPosition;
-    [SerializeField] Transform offsetPosition;
+    public static CursorController Instance { get; private set; } = null;
 
-    InputActionReference mousePositionInput = null;
-    InputActionReference attackInput = null;
+    protected InputActionReference mousePositionInput = null;
+    protected InputActionReference attackInput = null;
 
     bool isShoot = true;
     bool canShoot = true;
-    bool canCatch = false;
+
     public void Setting()
     {
         gameObject.SetActive(true);
 
-        isShoot = true;
-
-        canShoot = true;
-        canCatch = false;
-
         enabled = true;
-    }
-    private void Update()
-    {
-        if (isShoot && attackInput.action.WasPressedThisFrame())
-        {
-            if (canShoot) Shoot();
 
-            if (canCatch) Catch();
-        }
-    }
-    void Shoot()
-    {
-        AttackProjectile_New projectile = PoolManager.GetObj<AttackProjectile_New>(ObjectPoolID.AttackProjectile_5_1);
-
-        projectile.transform.SetParent(transform.parent);
-
-        projectile.transform.position = offsetPosition.position;
-
-        float angle = LookAtMouseUtils2D.GetLookAtMouseAngle(Camera.main.WorldToScreenPoint(offsetPosition.position));
-
-        projectile.transform.rotation = Quaternion.Euler(0, 0, angle);
-
-        projectile.Setting();
-    }
-    void Catch()
-    {
-        FishController_New.Instance.ModifyCp(PlayerStat.Stat.catchGaugeGain);
+        isShoot = true;
+        canShoot = true;
     }
     public void SetMode(bool canShoot, bool isShoot = true)
     {
         this.canShoot = canShoot;
-        canCatch = !canShoot;
 
         this.isShoot = isShoot;
     }
     public void Cancel()
     {
-        offsetPosition.gameObject.SetActive(false);
+        gameObject.SetActive(false);
         enabled = false;
     }
-    private void OnEnable()
+    private void Update()
+    {
+        if (isShoot && attackInput.action.WasPressedThisFrame())
+        {
+            if (canShoot)
+                Shoot();
+
+            else
+                Catch();
+        }
+    }
+    void Catch()
+    {
+        FishController_New.Instance.ModifyCp(PlayerStat.Stat.catchGaugeGain);
+    }
+    protected virtual void OnEnable()
     {
         mousePositionInput = InputManager.GetInputAction(InputType.MousePoint);
         attackInput = InputManager.GetInputAction(InputType.FishingClick);
@@ -73,10 +56,6 @@ public class CursorController : MonoBehaviour
         InputManager.Release(InputType.MousePoint);
         InputManager.Release(InputType.FishingClick);
     }
-    void Awake()
-    {
-        Instance = this;
-
-        PoolManager.CreatePool<AttackProjectile_New>(ObjectPoolID.AttackProjectile_5_1, 5);
-    }
+    public static void CursorControllerRegister(CursorController controller) => Instance = controller;
+    protected abstract void Shoot();
 }
