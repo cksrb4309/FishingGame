@@ -170,6 +170,53 @@ public class FishController_New : MonoBehaviour
         isAlive = true;
         isStunned = false;
 
+        GlobalStateObserver.NotifyFishingStateChanged(true);
+
+        if (moveCoroutine != null) StopCoroutine(moveCoroutine);
+        if (rotateCoroutine != null) StopCoroutine(rotateCoroutine);
+
+        moveCoroutine = StartCoroutine(MoveCoroutine());
+        rotateCoroutine = StartCoroutine(RotateCoroutine());
+        completeCoroutine = StartCoroutine(CompleteCoroutine());
+    }
+    public void Setting(FishingMethodData_Game_1 fishData, float hpMultiplier = 1f)
+    {
+        gameObject.SetActive(true);
+
+        maxHp = fishData.maxHp;
+        Hp = (int)(fishData.maxHp * hpMultiplier);
+
+        maxSp = fishData.maxSp;
+        Sp = maxSp;
+
+        maxCp = fishData.maxCp;
+        Cp = fishData.maxCp * 0.2f;
+
+        speed = fishData.speed;
+
+        lowHpCpMultiplier = fishData.lowHpCpMultiplier;
+
+        minRotateDelay = fishData.minRotateDelay;
+        maxRotateDelay = fishData.maxRotateDelay;
+        balanceRotateDelay = fishData.balanceRotateDelay;
+
+        rotateCount = 0;
+        rotateDelayHap = 0;
+
+        // 초기 방향 및 회전값 설정
+        float angle = Random.Range(0f, 360f);
+        direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)).normalized;
+
+        // 초기 회전값 적용
+        currentAngle = angle;
+        targetAngle = angle;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        isAlive = true;
+        isStunned = false;
+
+        GlobalStateObserver.NotifyFishingStateChanged(true);
+
         if (moveCoroutine != null) StopCoroutine(moveCoroutine);
         if (rotateCoroutine != null) StopCoroutine(rotateCoroutine);
 
@@ -284,8 +331,6 @@ public class FishController_New : MonoBehaviour
     }
     public void Cancel()
     {
-        Debug.Log("캔슬");
-
         if (moveCoroutine != null) StopCoroutine(moveCoroutine);
         if (rotateCoroutine != null) StopCoroutine(rotateCoroutine);
         if (completeCoroutine != null) StopCoroutine(completeCoroutine);
@@ -293,6 +338,8 @@ public class FishController_New : MonoBehaviour
         if (stunHandle != null && stunHandle.IsActive() && stunHandle.IsPlaying()) stunHandle.Kill();
 
         Fishing_Game.fishing_Game.CancelFishing();
+
+        GlobalStateObserver.NotifyFishingStateChanged(false);
 
         DOVirtual.DelayedCall(0.5f, () => { gameObject.SetActive(false); });
     }

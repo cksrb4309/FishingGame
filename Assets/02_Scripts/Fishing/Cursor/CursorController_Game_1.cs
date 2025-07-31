@@ -11,7 +11,7 @@ public class CursorController_Game_1 : MonoBehaviour
     InputActionReference clickInput = null;
     InputActionReference mousePositionInput = null;
 
-    float attackCooldownTime = 1f;
+    float attackCooldownTime = 0f;
 
     public void Setting()
     {
@@ -26,7 +26,7 @@ public class CursorController_Game_1 : MonoBehaviour
             {
                 Attack();
 
-                attackCooldownTime = FishingData.MiniGame_1_Data.AttackInterval;
+                attackCooldownTime = 0.5f;
             }
         }
         attackCooldownTime -= Time.deltaTime;

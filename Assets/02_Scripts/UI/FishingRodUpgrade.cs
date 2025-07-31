@@ -31,8 +31,6 @@ public class FishingRodUpgrade : UIPanel, IInteractable
         canvasGroup_2.blocksRaycasts = false;
 
         isShow = false;
-
-        PlayerFishingManager.Instance.DisableFishing();
     }
     public override void Show(bool trigger = true)
     {
@@ -45,8 +43,6 @@ public class FishingRodUpgrade : UIPanel, IInteractable
         isShow = true;
 
         SetButton();
-
-        PlayerFishingManager.Instance.EnableFishing();
     }
     public void Interact()
     {
@@ -79,7 +75,6 @@ public class FishingRodUpgrade : UIPanel, IInteractable
             isShow = false;
             canvasGroup_2.interactable = false;
             canvasGroup_2.blocksRaycasts = false;
-            PlayerFishingManager.Instance.EnableFishing();
 
             canvasGroup_2.DOFade(0f, 0.2f);
         }

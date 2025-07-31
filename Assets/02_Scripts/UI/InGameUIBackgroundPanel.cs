@@ -24,8 +24,6 @@ public class InGameUIBackgroundPanel : UIPanel
     void BackgroundSetting(bool isShow)
     {
         Debug.Log("BackgroundSetting : " + isShow.ToString());
-        if (isShow) PlayerFishingManager.Instance.DisableFishing();
-        else PlayerFishingManager.Instance.EnableFishing();
 
         canvasGroup.DOKill();
         blurImage.material.DOKill();

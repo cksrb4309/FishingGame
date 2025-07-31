@@ -14,6 +14,7 @@ public class PlayerStat
     public float biteFrequency = 0; // 입질 빈도 (입질에 영향)
     public float highGradeFishChance = 0; // 높은 등급의 물고기 잡힐 확률 증가
 
+    public float attackInterval = 0; // 미니게임1 어택 간격
 
     public void Apply(params PlayerStat[] stats)
     {

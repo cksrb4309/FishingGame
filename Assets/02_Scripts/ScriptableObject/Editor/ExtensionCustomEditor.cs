@@ -1,5 +1,6 @@
-using UnityEngine;
+using System;
 using UnityEditor;
+using UnityEngine;
 
 public static class ExtensionCustomEditor
 {
@@ -97,6 +98,13 @@ public static class ExtensionCustomEditor
             case CustomEditorStyle.Title: SetTitleStyle(ref style); break;
             case CustomEditorStyle.Label: SetLabelStyle(ref style); break;
         }
+    }
+    public static void DrawEnumPopup<T>(string label, ref T enumValue, GUIStyle labelStyle) where T : Enum
+    {
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField(label, labelStyle, GUILayout.Width(150));
+        enumValue = (T)EditorGUILayout.EnumPopup(enumValue);
+        EditorGUILayout.EndHorizontal();
     }
 }
 public enum CustomEditorStyle

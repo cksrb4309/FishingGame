@@ -9,6 +9,9 @@ public class PlayerMove : MonoBehaviour
 {
     public static PlayerMove Instance { get; private set; } = null;
 
+    [Header("필요 컴포넌트")]
+    [SerializeField] PlayerAnimator playerAnimator;
+
     [Header("가속")]
     [SerializeField] float defaultAcceleration;
     [SerializeField] float boostAcceleration;
@@ -72,13 +75,16 @@ public class PlayerMove : MonoBehaviour
 
         Vector2 moveValue = Vector2.zero;
 
-        if (canMove)
+        if (canMove && !UIManager.IsUIOpen)
         {
             moveValue.x += rightInputActionReference.action.IsPressed() ? 1f : 0f;
             moveValue.x += leftInputActionReference.action.IsPressed() ? -1f : 0f;
             moveValue.y += upInputActionReference.action.IsPressed() ? 1f : 0f;
             moveValue.y += downInputActionReference.action.IsPressed() ? -1f : 0f;
         }
+
+        if (moveValue.magnitude > 0.1f) playerAnimator.SetMoveSpeed(1f);
+        else playerAnimator.SetMoveSpeed(0f);
 
         if (boostInputActionReference.action.IsPressed()) // 부스트 입력 시
         {
@@ -178,7 +184,6 @@ public class PlayerMove : MonoBehaviour
         if (applyBoostMaxSpeedCoroutine != null) StopCoroutine(applyBoostMaxSpeedCoroutine);
         applyBoostMaxSpeedCoroutine = StartCoroutine(ApplyBoostMaxSpeedCoroutine(isBoost));
     }
-    
     private void OnEnable()
     {
         boostInputActionReference = InputManager.GetInputAction(InputType.PlayerBoost);

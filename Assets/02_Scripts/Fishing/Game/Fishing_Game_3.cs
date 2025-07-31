@@ -3,6 +3,7 @@ public class Fishing_Game_3 : Fishing_Game
     CursorController_Game_3 cursorController;
     protected override void Awake()
     {
+        base.Awake();
         cursorController = GetComponentInChildren<CursorController_Game_3>(true);
     }
     private void Start()

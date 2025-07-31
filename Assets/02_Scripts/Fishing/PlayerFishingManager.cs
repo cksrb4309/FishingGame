@@ -34,11 +34,9 @@ public class PlayerFishingManager : MonoBehaviour
 
     Item baitItem = null;
 
-    bool canFishing = true;
-
     void Update()
     {
-        if (!canFishing) return;
+        if (UIManager.IsUIOpen) return;
 
         switch (currentState)
         {
@@ -165,20 +163,20 @@ public class PlayerFishingManager : MonoBehaviour
 
         currentCoroutine = StartCoroutine(CastCoroutine(mousePositionAction.action.ReadValue<Vector2>()));
     }
-    void FishingCancel()
+    public void FishingCancel()
     {
         PlayerFishingLineController.Instance.DisableLine();
 
         currentState = FishingState.None;
 
-        if (currentFishingStyle != FishingStyle.None)
-        {
-            IFishingSystem fishingSystem = fishingSystems[currentFishingStyle].GetComponent<IFishingSystem>();
+        //if (currentFishingStyle != FishingStyle.None)
+        //{
+        //    IFishingSystem fishingSystem = fishingSystems[currentFishingStyle].GetComponent<IFishingSystem>();
 
-            fishingSystem.CancelFishing();
+        //    fishingSystem.CancelFishing();
 
-            currentFishingStyle = FishingStyle.None;
-        }
+        //    currentFishingStyle = FishingStyle.None;
+        //}
 
         PlayerMove.Instance.EnableMove();
         DirectionManager.Instance.EnableDirection();
@@ -193,8 +191,6 @@ public class PlayerFishingManager : MonoBehaviour
 
         FishingCancel();
     }
-    public void EnableFishing() => canFishing = true;
-    public void DisableFishing() => canFishing = false;
     public void SelectBait(Item item)
     {
         baitItem = item;

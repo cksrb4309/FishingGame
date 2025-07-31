@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "FishingMethodData", menuName = "FishingMethod/FishingMethodData")]
 public class FishingMethodData : ScriptableObject
 {
-    [SerializeField] FishingStyle style;
+    public FishingStyle style;
     [SerializeField] float minBiteWaitTime;
     [SerializeField] float maxBiteWaitTime;
 

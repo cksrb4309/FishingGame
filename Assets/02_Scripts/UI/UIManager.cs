@@ -4,6 +4,10 @@ using System.Collections.Generic;
 public class UIManager
 {
     static UIManager instance = new();
+    public static bool IsUIOpen
+    {
+        get => instance.activePanels.Count > 0;
+    }
 
     List<UIPanel> activePanels = new();
 
