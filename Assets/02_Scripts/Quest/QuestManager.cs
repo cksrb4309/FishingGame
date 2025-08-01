@@ -21,6 +21,8 @@ namespace Quest
 
         Dictionary<Item, List<QuestInfo>> itemToQuests = new();
 
+        public static QuestInfo completeQuest = null;
+        public static int questPriority = -1;
         private void Start()
         {
             Instance = this;
@@ -73,6 +75,12 @@ namespace Quest
 
             SetQuestGiverState(questInfo, QuestState.Completed);
         }
+        public void CompleteQuest()
+        {
+            questPriority = -1;
+
+            CompleteQuest(completeQuest);
+        }
         void AddTargetQuest(QuestInfo questInfo)
         {
             // 퀘스트 아이템 리스트 가져오기
@@ -98,7 +106,7 @@ namespace Quest
         }
         void SetQuestGiverState(QuestInfo questInfo, QuestState questState)
         {
-            questGivers[questInfo.questId].GetComponent<IQuestGiver>().SetQuestState(questState);
+            questGivers[questInfo.questId].GetComponent<IQuestGiver>().SetQuestState(questInfo, questState);
         }
         public void CheckCompletableQuest(Item item)
         {

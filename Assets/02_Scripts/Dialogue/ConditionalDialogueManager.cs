@@ -15,8 +15,8 @@ namespace Dialogue
             
                 return questDialogue;
             
-
             DialogueConditionSet selectedSet = null;
+
             int highestPriority = int.MinValue;
 
             foreach (var conditionSet in conditionSets)
@@ -24,6 +24,7 @@ namespace Dialogue
                 if (conditionSet.AreConditionsMet(npc) && conditionSet.priority > highestPriority)
                 {
                     selectedSet = conditionSet;
+
                     highestPriority = conditionSet.priority;
                 }
             }

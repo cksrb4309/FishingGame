@@ -49,36 +49,6 @@ namespace Quest
                 }
             }
         }
-        public void ShowQuestUI(QuestGiver questGiver)
-        {
-            canvasGroup.alpha = 1f;
-
-            canvasGroup.interactable = true;
-            canvasGroup.blocksRaycasts = true;
-
-            questNameText.text = questGiver.questInfo.questName;
-            questObjectiveText.text = questGiver.questInfo.questDescription;
-
-            acceptButton.onClick.AddListener(questGiver.Accept);
-            acceptButton.onClick.AddListener(HideQuestUI);
-
-            declineButton.onClick.AddListener(questGiver.Decline);
-            declineButton.onClick.AddListener(HideQuestUI);
-
-            for (int i = 0; i < rewardItemSlots.Count; i++)
-            {
-                if (i < questGiver.questInfo.rewardItems.Count)
-                {
-                    rewardItemSlots[i].SettingQuestItem(
-                        item: questGiver.questInfo.rewardItems[i].targetItem,
-                        itemCount: questGiver.questInfo.rewardItems[i].itemCount);
-                }
-                else
-                {
-                    rewardItemSlots[i].Clear();
-                }
-            }
-        }
         public void HideQuestUI()
         {
             canvasGroup.alpha = 0f;

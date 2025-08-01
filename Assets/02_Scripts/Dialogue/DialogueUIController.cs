@@ -135,6 +135,10 @@ namespace Dialogue
                 case DialogueActionType.OpenShop:
                     Debug.Log("상점 열기");
                     PlayerInventory.Instance.ShowShop(); break;
+
+                case DialogueActionType.CompleteQuest:
+                    Debug.Log("퀘스트 완료");
+                    QuestManager.Instance.CompleteQuest(); break;
             }
         }
 

@@ -7,5 +7,6 @@ namespace Dialogue
         GiveGift,
         StartQuest,
         IncreaseAffinity,
+        CompleteQuest,
     }
 }

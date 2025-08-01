@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Fishing_Game_1 : Fishing_Game
 {
-    CursorController_Game_1 cursorController;
     protected override void Awake()
     {
         base.Awake();

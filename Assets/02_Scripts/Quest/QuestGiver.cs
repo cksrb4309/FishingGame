@@ -1,4 +1,7 @@
+using Quest;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -6,8 +9,6 @@ namespace Quest
 {
     public class QuestGiver : MonoBehaviour, IQuestGiver
     {
-        public QuestInfo questInfo;
-
         [Header("UI 아이콘")]
         [SerializeField] private SpriteRenderer questAvailableIcon;
         [SerializeField] private SpriteRenderer questInProgressIcon;
@@ -15,17 +16,38 @@ namespace Quest
 
         [NonSerialized] public QuestState currentState = QuestState.Inactive;
 
-        public void SetQuest(QuestInfo quest)
+        [SerializeField] private List<QuestStatePair> currentQuestStates = new();
+
+        public void SetQuestState(QuestInfo questInfo, QuestState questState)
         {
-            questInfo = quest;
+            QuestStatePair selectQuestState = currentQuestStates.Find(statePair => statePair.questInfo == questInfo);
+
+            // 해당 NPC에게 퀘스트 데이터가 이미 있는 경우
+            if (selectQuestState != null)
+                selectQuestState.questState = questState;
+
+            else
+                currentQuestStates.Add(new QuestStatePair(questInfo, questState));
+
+            bool F(QuestState questState)
+            {
+                if (currentQuestStates.Any(statePair => statePair.questState == questState))
+                {
+                    SetState(questState);
+
+                    return true;
+                }
+                return false;
+            }
+
+            if (F(QuestState.Completable)) return;
+            if (F(QuestState.Accepted)) return;
+            if (F(QuestState.Active)) return;
+            if (F(QuestState.Inactive)) return;
         }
-
-        public void SetQuestState(QuestState nextState)
+        private void SetState(QuestState questState)
         {
-            Debug.Log($"퀘스트 상태 갱신: {nextState}");
-            currentState = nextState;
-
-            switch (nextState)
+            switch (questState)
             {
                 case QuestState.Inactive: SetIcon(false, false, false); break;
                 case QuestState.Active: SetIcon(true, false, false); break;
@@ -34,16 +56,6 @@ namespace Quest
                 case QuestState.Completed: SetIcon(false, false, false); break;
             }
         }
-        public void Accept()
-        {
-            QuestManager.Instance.AcceptQuest(questInfo);
-        }
-
-        public void Decline()
-        {
-            Debug.Log($"퀘스트 거절: {questInfo.questName}");
-        }
-
         private void SetIcon(bool available, bool inProgress, bool completable)
         {
             questAvailableIcon.gameObject.SetActive(available);
@@ -53,3 +65,14 @@ namespace Quest
     }
 }
 
+public class QuestStatePair
+{
+    public QuestInfo questInfo;
+    public QuestState questState;
+
+    public QuestStatePair(QuestInfo questInfo, QuestState questState)
+    {
+        this.questInfo = questInfo;
+        this.questState = questState;
+    }
+}

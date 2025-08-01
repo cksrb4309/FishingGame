@@ -311,7 +311,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "Player_Back_Walk - \uBCF5\uC0AC\uBCF8_0": -2161532977226115764
+      "Player_Back_Walk - \uBCF5\uC0AC\uBCF8_1": -7137915154262970100
+      "Player_Back_Walk - \uBCF5\uC0AC\uBCF8_2": -4148367960213823884
+      "Player_Back_Walk - \uBCF5\uC0AC\uBCF8_3": 6480215558551780745
+      "Player_Back_Walk - \uBCF5\uC0AC\uBCF8_4": 4143504782439447644
+      "Player_Back_Walk - \uBCF5\uC0AC\uBCF8_5": -8424535316718691856
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
