@@ -22,7 +22,6 @@ namespace Quest
         public QuestCondition acceptCondition;
 
         public DialogueTree startQuestDialogueTree;
-        public DialogueTree endQuestDialogueTree;
 
         [NonSerialized] public bool isComplete = false;
 

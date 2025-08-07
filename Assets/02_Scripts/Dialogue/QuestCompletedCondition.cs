@@ -4,10 +4,10 @@ namespace Dialogue
 {
     public class QuestCompletedCondition : DialogueCondition
     {
-        public int questId;
+        public Quest.QuestInfo quest;
         public override bool IsMet(NpcObj npc)
         {
-            return Quest.QuestManager.Instance.IsQuestCompleted(questId);
+            return Quest.QuestManager.Instance.IsQuestCompleted(quest.questId);
         }
     }
 }

@@ -170,8 +170,6 @@ public class FishController_New : MonoBehaviour
         isAlive = true;
         isStunned = false;
 
-        GlobalStateObserver.NotifyFishingStateChanged(true);
-
         if (moveCoroutine != null) StopCoroutine(moveCoroutine);
         if (rotateCoroutine != null) StopCoroutine(rotateCoroutine);
 
@@ -214,8 +212,6 @@ public class FishController_New : MonoBehaviour
 
         isAlive = true;
         isStunned = false;
-
-        GlobalStateObserver.NotifyFishingStateChanged(true);
 
         if (moveCoroutine != null) StopCoroutine(moveCoroutine);
         if (rotateCoroutine != null) StopCoroutine(rotateCoroutine);
@@ -338,8 +334,6 @@ public class FishController_New : MonoBehaviour
         if (stunHandle != null && stunHandle.IsActive() && stunHandle.IsPlaying()) stunHandle.Kill();
 
         Fishing_Game.fishing_Game.CancelFishing();
-
-        GlobalStateObserver.NotifyFishingStateChanged(false);
 
         DOVirtual.DelayedCall(0.5f, () => { gameObject.SetActive(false); });
     }

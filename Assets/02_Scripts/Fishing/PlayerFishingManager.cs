@@ -72,22 +72,29 @@ public class PlayerFishingManager : MonoBehaviour
     {
         bobberTransform.position = rodTipTransform.position;
         position.z = 10f;
-        Vector3 startPos = bobberTransform.position;
+
+        //Vector3 startPos = bobberTransform.position;
         Vector3 endPos = Camera.main.ScreenToWorldPoint(position); endPos.z = 0;
-        float distance = Vector3.Distance(startPos, endPos);
-        Vector3 controlPoint = (startPos + endPos) / 2 + (distance * castHeight * Vector3.up);
-        float t = 0;
-        float speed = Mathf.Lerp(castMinSpeed, castMaxSpeed, Mathf.InverseLerp(0f, 15f, distance));
-        float tt = 0;
-        while (t < 1f) {
 
-            tt = Mathf.Pow(t, castPowMulitplier);
+        float t = 0, tt = 0;
+        //float distance = Vector3.Distance(startPos, endPos);
+        //float speed = Mathf.Lerp(castMinSpeed, castMaxSpeed, Mathf.InverseLerp(0f, 15f, distance));
 
-            Vector3 pos = (Mathf.Pow(1 - tt, 2) * startPos) + (2 * (1 - tt) * tt * controlPoint) + (Mathf.Pow(tt, 2) * endPos);
+        //Vector3 controlPoint = (startPos + endPos) / 2 + (distance * castHeight * Vector3.up);
 
-            bobberTransform.position = pos;
+        while (t < 1f)
+        {
+            //{ // 하던 것
+            //    tt = Mathf.Pow(t, castPowMulitplier);
+            //    Vector3 pos = (Mathf.Pow(1 - tt, 2) * startPos) + (2 * (1 - tt) * tt * controlPoint) + (Mathf.Pow(tt, 2) * endPos);
+            //    bobberTransform.position = pos;
+            //    t += Time.deltaTime * speed; yield return null;
+            //}
 
-            t += Time.deltaTime * speed; yield return null;
+            {
+                t = 1;
+                yield return null;
+            }
         }
 
         bobberTransform.position = endPos;
@@ -99,9 +106,7 @@ public class PlayerFishingManager : MonoBehaviour
 
         if (zoneObj == null)
         {
-            FishingCancel();
-
-            return;
+            FishingCancel(); return;
         }
 
         Item bait = null;
@@ -155,12 +160,18 @@ public class PlayerFishingManager : MonoBehaviour
     }
     void FishingCast()
     {
+        GlobalStateObserver.NotifyFishingStateChanged(true);
+
         currentState = FishingState.Casting;
-        PlayerFishingLineController.Instance.EnableLine();
+        //PlayerFishingLineController.Instance.EnableLine();
 
         PlayerMove.Instance.DisableMove();
         DirectionManager.Instance.DisableDirection();
 
+        PlayerAnimator.Instance.FishingCast();
+    }
+    public void FishingCastEnd()
+    {
         currentCoroutine = StartCoroutine(CastCoroutine(mousePositionAction.action.ReadValue<Vector2>()));
     }
     public void FishingCancel()
@@ -177,9 +188,11 @@ public class PlayerFishingManager : MonoBehaviour
 
         //    currentFishingStyle = FishingStyle.None;
         //}
-
+        Debug.Log("취소 확인");
         PlayerMove.Instance.EnableMove();
         DirectionManager.Instance.EnableDirection();
+        PlayerAnimator.Instance.FishingCancel();
+        GlobalStateObserver.NotifyFishingStateChanged(false);
 
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
     }

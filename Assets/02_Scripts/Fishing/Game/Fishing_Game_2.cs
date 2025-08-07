@@ -1,13 +1,11 @@
 public class Fishing_Game_2 : Fishing_Game
 {
-    CursorController_Game_2 cursorController;
     AttackAreaRectangle attackAreaRectangle;
 
     protected override void Awake()
     {
         base.Awake();
 
-        cursorController = GetComponentInChildren<CursorController_Game_2>(true);
         attackAreaRectangle = GetComponentInChildren<AttackAreaRectangle>(true);
     }
 

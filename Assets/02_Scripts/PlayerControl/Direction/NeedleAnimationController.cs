@@ -37,8 +37,8 @@ public class NeedleAnimationController : MonoBehaviour, IDirectionable
     }
     void SetIsFishing(bool isFishing)
     {
-        lineRenderer.gameObject.SetActive(isFishing);
-        needleRenderer.gameObject.SetActive(isFishing);
+        lineRenderer.gameObject.SetActive(!isFishing);
+        needleRenderer.gameObject.SetActive(!isFishing);
     }
     private void Awake()
     {

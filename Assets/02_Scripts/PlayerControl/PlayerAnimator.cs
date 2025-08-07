@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour, IDirectionable
 {
+    public static PlayerAnimator Instance { get; private set; } = null;
+
     [SerializeField] Animator animator;
     [SerializeField] SpriteRenderer spriteRenderer;
     
@@ -29,6 +31,23 @@ public class PlayerAnimator : MonoBehaviour, IDirectionable
     public void SetMoveSpeed(float speed)
     {
         animator.SetFloat("Move", speed);
+    }
+    public void FishingCast()
+    {
+        animator.SetTrigger("FishingCast");
+    }
+    public void FishingCastEnd()
+    {
+        PlayerFishingLineController.Instance.EnableLine();
+        PlayerFishingManager.Instance.FishingCastEnd();
+    }
+    public void FishingCancel()
+    {
+        animator.SetTrigger("FishingCancel");
+    }
+    private void Awake()
+    {
+        Instance = this;
     }
     private void OnEnable()
     {
