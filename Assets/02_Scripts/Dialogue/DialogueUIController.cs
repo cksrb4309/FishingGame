@@ -83,6 +83,40 @@ namespace Dialogue
             ShowCurrentLine();
         }
 
+        //private void ShowChoices(List<DialogueChoice> choices)
+        //{
+        //    dialogueAdvanceButton.gameObject.SetActive(false);
+
+        //    ClearChoiceButtons();
+
+        //    if (choices == null || choices.Count == 0)
+        //    {
+        //        choiceButtons[0].gameObject.SetActive(true);
+        //        choiceButtons[0].GetComponentInChildren<TMP_Text>().text = "끝내기";
+        //        choiceButtons[0].onClick.RemoveAllListeners();
+        //        choiceButtons[0].onClick.AddListener(() => EndDialogue());
+        //        return;
+        //    }
+
+        //    for (int i = 0; i < choices.Count && i < choiceButtons.Length; i++)
+        //    {
+        //        var choice = choices[i];
+        //        var button = choiceButtons[i];
+
+        //        button.gameObject.SetActive(true);
+        //        button.GetComponentInChildren<TMP_Text>().text = choice.choiceText;
+
+        //        button.onClick.RemoveAllListeners();
+        //        button.onClick.AddListener(() =>
+        //        {
+        //            choice.onChoiceSelected?.Invoke();
+        //            if (choice.nextNode != null)
+        //                ShowNode(choice.nextNode);
+        //            else
+        //                EndDialogue();
+        //        });
+        //    }
+        //}
         private void ShowChoices(List<DialogueChoice> choices)
         {
             dialogueAdvanceButton.gameObject.SetActive(false);
@@ -91,10 +125,7 @@ namespace Dialogue
 
             if (choices == null || choices.Count == 0)
             {
-                choiceButtons[0].gameObject.SetActive(true);
-                choiceButtons[0].GetComponentInChildren<TMP_Text>().text = "끝내기";
-                choiceButtons[0].onClick.RemoveAllListeners();
-                choiceButtons[0].onClick.AddListener(() => EndDialogue());
+                EndDialogue();
                 return;
             }
 
@@ -117,7 +148,6 @@ namespace Dialogue
                 });
             }
         }
-
         private void HandleNodeAction(DialogueActionType actionType)
         {
             switch (actionType)

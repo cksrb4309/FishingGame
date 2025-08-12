@@ -91,4 +91,9 @@ public class FishingRodUpgrade : UIPanel, IInteractable
         SetText();
     }
     public Vector3 GetPosition() => transform.position;
+
+    public void Select()
+    {
+
+    }
 }

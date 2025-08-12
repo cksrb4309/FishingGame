@@ -4,15 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using VInspector;
 
 namespace Quest
 {
     public class QuestGiver : MonoBehaviour, IQuestGiver
     {
-        [Header("UI æ∆¿Ãƒ‹")]
-        [SerializeField] private SpriteRenderer questAvailableIcon;
-        [SerializeField] private SpriteRenderer questInProgressIcon;
-        [SerializeField] private SpriteRenderer questCompletableIcon;
+        private InteractGuideImage guideImage;
+        [SerializeField] private SerializedDictionary<QuestState, Sprite> questStateSprites;
 
         [NonSerialized] public QuestState currentState = QuestState.Inactive;
 
@@ -47,20 +46,21 @@ namespace Quest
         }
         private void SetState(QuestState questState)
         {
-            switch (questState)
-            {
-                case QuestState.Inactive: SetIcon(false, false, false); break;
-                case QuestState.Active: SetIcon(true, false, false); break;
-                case QuestState.Accepted: SetIcon(false, true, false); break;
-                case QuestState.Completable: SetIcon(false, false, true); break;
-                case QuestState.Completed: SetIcon(false, false, false); break;
-            }
+            if (currentState == questState) return;
+
+            if (currentState == QuestState.Active || currentState == QuestState.Accepted || currentState == QuestState.Completable)
+            
+                guideImage.Hide(questStateSprites[currentState]);
+            
+            if (questState == QuestState.Active || questState == QuestState.Accepted || questState == QuestState.Completable)
+            
+                guideImage.Show(questStateSprites[questState]);
+            
+            currentState = questState;
         }
-        private void SetIcon(bool available, bool inProgress, bool completable)
+        private void Start()
         {
-            questAvailableIcon.gameObject.SetActive(available);
-            questInProgressIcon.gameObject.SetActive(inProgress);
-            questCompletableIcon.gameObject.SetActive(completable);
+            guideImage = GetComponent<InteractGuideImage>();
         }
     }
 }

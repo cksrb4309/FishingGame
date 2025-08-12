@@ -17,10 +17,11 @@ MonoBehaviour:
   questItems:
   - targetItem: {fileID: 11400000, guid: 6aecdfde90719e743b11f035a353c434, type: 2}
     itemCount: 5
-  rewardItems: []
+  rewardItems:
+  - targetItem: {fileID: 11400000, guid: 6aecdfde90719e743b11f035a353c434, type: 2}
+    itemCount: 1
   questName: "\uC5EC\uC6B8\uC774\uB97C \uC704\uD55C \uBA78\uCE58 \uC900\uBE44"
   questDescription: "\uC5EC\uC6B8\uC774\uAC00 \uBC30\uAC00 \uACE0\uD508 \uB4EF \uD558\uB2E4...\n\uBA78\uCE58
     5\uB9C8\uB9AC\uB97C \uD1B5\uD574 \uD638\uAC10\uB3C4\uB97C \uC0AC\uBCF4\uC790"
   acceptCondition: {fileID: 0}
   startQuestDialogueTree: {fileID: 11400000, guid: 8c451a9458acbc645b2784dcbefebe39, type: 2}
-  endQuestDialogueTree: {fileID: 11400000, guid: 596aafa1b2552c24e91fd2858e08045f, type: 2}
