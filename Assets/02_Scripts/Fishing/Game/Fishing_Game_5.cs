@@ -1,6 +1,5 @@
 public class Fishing_Game_5 : Fishing_Game
 {
-    CursorController_Game_5 cursorController;
     protected override void Awake()
     {
         base.Awake();

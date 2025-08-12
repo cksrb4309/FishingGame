@@ -6,7 +6,7 @@ public class ItemContextMenu : MonoBehaviour
 
     Item item = null;
     
-    public void Setup(Item item)
+    public virtual void Setup(Item item)
     {
         if ((item.category & category) > 0)
         {

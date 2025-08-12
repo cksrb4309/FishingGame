@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8afa9f30f24de964cb002e33c9cd3fad, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: 
+  npcNameType: 1
+  npcName: "\uC8FC\uC778\uACF5"
+  description: "\uBBF8\uCE5C \uAF2C\uCE04\uC758 \uBCF4\uC720\uC790"
+  affinityTracker:
+    thresholdEvents: []
+  dialogueManager:
+    conditionSets: []
+  linkedQuestIds: 
+  npcPortrait: {fileID: 21300000, guid: a2108d3cb15ed3c48aa39647266f3969, type: 3}

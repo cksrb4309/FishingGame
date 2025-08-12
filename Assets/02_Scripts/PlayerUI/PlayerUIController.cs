@@ -65,7 +65,7 @@ public class PlayerUIController : MonoBehaviour
 
             if (interactables.Count == 1)
             {
-                this.interactable = interactable;
+                SelectInteractable(interactable);
             }
             else
             {
@@ -73,9 +73,23 @@ public class PlayerUIController : MonoBehaviour
             }
         }
     }
+    void SelectInteractable(IInteractable interactable)
+    {
+        this.interactable = interactable;
+
+        interactable.Select();
+
+        for (int i = 0; i < interactables.Count; i++)
+        {
+            if (!interactables[i].Equals(interactable))
+            {
+                interactable.Release();
+            }
+        }
+    }
     void GetClosest()
     {
-        IInteractable next = null;
+        IInteractable next = interactable;
 
         Vector3 a = transform.position;
         float distance = float.PositiveInfinity;
@@ -92,30 +106,27 @@ public class PlayerUIController : MonoBehaviour
             }
         }
 
-        if (interactable != next)
+        if (!next.Equals(interactable))
         {
             if (interactable != null) interactable.Release();
 
-            interactable = next;
+            SelectInteractable(next);
         }
     }
     public void RemoveInteractable(IInteractable interactable)
     {
-        if (interactables.Contains(interactable))
+        if (!interactables.Contains(interactable)) return;
+
+        interactables.Remove(interactable);
+
+        if (interactables.Count == 0 || this.interactable.Equals(interactable))
         {
-            interactables.Remove(interactable);
+            this.interactable.Release();
 
-            if (interactables.Count == 0)
-            {
-                this.interactable.Release();
-
-                this.interactable = null;
-            }
-            else
-            {
-                GetClosest();
-            }
+            this.interactable = null;
         }
+
+        if (interactables.Count > 0) GetClosest();
     }
     private void OnEnable()
     {

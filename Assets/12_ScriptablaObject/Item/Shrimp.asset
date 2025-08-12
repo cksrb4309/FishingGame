@@ -15,6 +15,8 @@ MonoBehaviour:
   category: 1
   itemId: 1
   itemLevel: 1
+  itemPrice: 1
+  giftAffinity: 1
   itemName: "\uBA4D\uCCAD\uD55C \uC0C8\uC6B0"
   itemExplain: "\uBA4D\uCCAD\uD55C \uC0C8\uC6B0\r\n\r\n\uC65C\uC778\uC9C0 \uBAA8\uB974\uAC8C
     \uC544\uBB34 \uBBF8\uB07C\uAC00 \uC5C6\uC5B4\uB3C4 \uB09A\uC2EF\uB300\uC5D0 \uAC78\uB9AC\uB294

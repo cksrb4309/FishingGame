@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : Component
@@ -21,13 +22,16 @@ public class Singleton<T> : MonoBehaviour where T : Component
             GameObject gameObj = new GameObject();
             gameObj.name = typeof(T).Name;
 
-            instance = gameObj.AddComponent<T>();
+            T type = gameObj.AddComponent<T>();
+
+            instance = type;
+
             DontDestroyOnLoad(gameObj);
         }
     }
     protected virtual void Awake()
     {
-        if (instance != this)
+        if (instance != null && instance != this)
         {
             Debug.Log("°ãÄ¡´Â Singleton Á¦°Å : " + typeof(T).Name);
 

@@ -1,9 +1,8 @@
 public class Fishing_Game_3 : Fishing_Game
 {
-    CursorController_Game_3 cursorController;
     protected override void Awake()
     {
-        cursorController = GetComponentInChildren<CursorController_Game_3>(true);
+        base.Awake();
     }
     private void Start()
     {

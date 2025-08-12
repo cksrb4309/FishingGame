@@ -10,6 +10,7 @@ public class PlayerFishingLineController : MonoBehaviour, IDirectionable
     [SerializeField] SerializedDictionary<PlayerDir, Vector3> directionSettings;
 
     [SerializeField] GameObject bobberObject;
+    [SerializeField] Transform bobberTransform = null;
 
     [SerializeField] Transform rodPivotTransform;
     [SerializeField] Transform rodTipTransform;
@@ -18,8 +19,6 @@ public class PlayerFishingLineController : MonoBehaviour, IDirectionable
     [SerializeField] LineRenderer lineRenderer;
 
     [SerializeField] int linePositionCount;
-
-    [SerializeField] Transform targetTransform = null;
 
     Coroutine lineCoroutine = null;
 
@@ -34,13 +33,13 @@ public class PlayerFishingLineController : MonoBehaviour, IDirectionable
         bobberObject.SetActive(true);
         lineRenderer.gameObject.SetActive(true);
 
-        Vector3 tipPosition = targetTransform.position;
+        Vector3 tipPosition = bobberTransform.position;
 
         while (true)
         {
-            while (targetTransform == null) yield return null;
+            while (bobberTransform == null) yield return null;
 
-            Vector3 pivotToTip = targetTransform.position - lineRendererTransform.position;
+            Vector3 pivotToTip = bobberTransform.position - lineRendererTransform.position;
 
             float horizontalRatio = Mathf.Abs(pivotToTip.x) / pivotToTip.magnitude;
             float maxGravityBend = 0.3f;

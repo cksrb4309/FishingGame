@@ -4,6 +4,7 @@ public class Fishing_Game : MonoBehaviour, IFishingSystem
 {
     public static Fishing_Game fishing_Game = null;
     RenderMaterialController renderMaterialController;
+    public CursorController cursorController;
     protected CanvasGroup game123 = null;
     protected CanvasGroup game4 = null;
     protected CanvasGroup game5 = null;
@@ -22,22 +23,26 @@ public class Fishing_Game : MonoBehaviour, IFishingSystem
     {
         renderMaterialController.Fade(1f, 0.5f);
 
+        CursorController.CursorControllerRegister(cursorController);
+
         fishing_Game = this;
     }
     public virtual void CancelFishing()
     {
+        PlayerFishingManager.Instance.FishingCancel();
+
         renderMaterialController.Fade(0, 0.5f);
     }
     public virtual void Complete()
     {
         CancelFishing();
-        Debug.Log("FishingGame Complete");
+
         PlayerFishingManager.Instance.Complete();
     }
     protected void SetCanvas(int gameIndex)
     {
-        game123.alpha = gameIndex > 0 || gameIndex < 4 ? 1 : 0;
+        game123.alpha = gameIndex > 1 || gameIndex < 4 ? 1 : 0;
         game4.alpha = gameIndex == 4 ? 1 : 0;
-        game5.alpha = gameIndex == 5 ? 1 : 0;
+        game5.alpha = gameIndex == 5 || gameIndex == 1 ? 1 : 0;
     }
 }

@@ -17,7 +17,7 @@ public class Recipe : ScriptableObject
         {
             if (inventory.TryGetValue(recipeEntries[i].item.itemId, out Item item)) 
             {
-                if (item.itemCount < recipeEntries[i].count) { ret = false; break; } 
+                if (item.ItemCount < recipeEntries[i].count) { ret = false; break; } 
             }
             else { ret = false; break; }
         }
