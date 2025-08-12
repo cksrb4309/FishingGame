@@ -18,9 +18,6 @@ namespace Npc
         [Header("대사 시스템")]
         public ConditionalDialogueManager dialogueManager; // 대화 조건/트리 관리
 
-        [Header("퀘스트 연동")]
-        public List<int> linkedQuestIds;            // 이 NPC가 담당하는 퀘스트 ID 목록
-
         [Header("기타 설정")]
         public Sprite npcPortrait;                  // UI에서 쓸 NPC 초상화
     }
