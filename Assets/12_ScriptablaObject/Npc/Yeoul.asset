@@ -19,6 +19,8 @@ MonoBehaviour:
   affinityTracker:
     thresholdEvents: []
   dialogueManager:
-    conditionSets: []
-  linkedQuestIds: 01000000
+    conditionSets:
+    - rootCondition: {fileID: 0}
+      dialogueTree: {fileID: 11400000, guid: 3f2f922939fcd814f945b5152925b84c, type: 2}
+      priority: 0
   npcPortrait: {fileID: 696345895, guid: 197c65dcc317249d2ab4899aa65696ba, type: 3}
