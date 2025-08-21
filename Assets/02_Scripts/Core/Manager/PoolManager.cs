@@ -6,13 +6,16 @@ using VInspector;
 public class PoolManager : MonoBehaviour
 {
     static PoolManager instance = null;
+
     [SerializeField] SerializedDictionary<ObjectPoolID, GameObject> objectPoolSetting;
-    Dictionary<ObjectPoolID, object> pools = new Dictionary<ObjectPoolID, object>();
+
+    Dictionary<ObjectPoolID, object> idPools = new Dictionary<ObjectPoolID, object>();
+    Dictionary<int, object> objPools = new Dictionary<int, object>();
     public static void CreatePool<T>(ObjectPoolID id, T prefab, int initialSize = 5) where T : MonoBehaviour
     {
-        if (!instance.pools.ContainsKey(id))
+        if (!instance.idPools.ContainsKey(id))
         {
-            instance.pools[id] = new ObjectPool<T>(prefab, initialSize, instance.transform);
+            instance.idPools[id] = new ObjectPool<T>(prefab, initialSize, instance.transform);
         }
     }
     public static void CreatePool<T>(ObjectPoolID id, int initialSize = 5) where T : Component
@@ -24,28 +27,64 @@ public class PoolManager : MonoBehaviour
         if (!poolManager.objectPoolSetting.ContainsKey(id) || poolManager.objectPoolSetting[id] == null) return;
         
 
-        if (!poolManager.pools.ContainsKey(id))
+        if (!poolManager.idPools.ContainsKey(id))
         {
             var obj = poolManager.objectPoolSetting[id].GetComponent<T>();
 
-            poolManager.pools[id] = new ObjectPool<T>(obj, initialSize, poolManager.transform);
+            poolManager.idPools[id] = new ObjectPool<T>(obj, initialSize, poolManager.transform);
         }
         else
         {
             Debug.Log("[Warning] : 오브젝트 풀 생성되어있음. " + id.ToString());
         }
     }
+    public static void CreatePool<T>(GameObject obj, int initialSize = 5) where T : MonoBehaviour
+    {
+        PoolManager poolManager = instance;
+
+        if (poolManager == null) { Debug.LogError("[Error] : 풀매니저 초기화 오류."); return; }
+
+        if (!poolManager.objPools.ContainsKey(obj.GetInstanceID()))
+        {
+            T t = obj.GetComponent<T>();
+
+            poolManager.objPools[obj.GetInstanceID()] = new ObjectPool<T>(t, initialSize, poolManager.transform);
+        }
+        else
+        {
+            Debug.Log("[Warning] : 오브젝트 풀 생성되어있음. " + obj.name.ToString());
+        }
+    }
     public static T GetObj<T>(ObjectPoolID id) where T : MonoBehaviour
     {
-        if (instance.pools.TryGetValue(id, out object poolObj) && poolObj is ObjectPool<T> pool_1)
-
+        if (instance.idPools.TryGetValue(id, out object poolObj) && poolObj is ObjectPool<T> pool_1)
+        {
             return pool_1.Pop();
-
+        }
         else
         {
             CreatePool<T>(id, 5);
 
-            if (instance.pools.TryGetValue(id, out poolObj) && poolObj is ObjectPool<T> pool_2)
+            if (instance.idPools.TryGetValue(id, out poolObj) && poolObj is ObjectPool<T> pool_2)
+
+                return pool_2.Pop();
+
+            else return null;
+        }
+    }
+    public static T GetObj<T>(GameObject obj) where T : MonoBehaviour
+    {
+        int instanceId = obj.GetInstanceID();
+
+        if (instance.objPools.TryGetValue(instanceId, out object poolObj) && poolObj is ObjectPool<T> pool_1)
+        {
+            return pool_1.Pop();
+        }
+        else
+        {
+            CreatePool<T>(obj, 5);
+
+            if (instance.objPools.TryGetValue(instanceId, out poolObj) && poolObj is ObjectPool<T> pool_2)
 
                 return pool_2.Pop();
 
@@ -54,7 +93,7 @@ public class PoolManager : MonoBehaviour
     }
     public static void ReturnObj<T>(ObjectPoolID id, T obj) where T : MonoBehaviour
     {
-        if (instance.pools.TryGetValue(id, out object poolObj) && poolObj is ObjectPool<T> pool)
+        if (instance.idPools.TryGetValue(id, out object poolObj) && poolObj is ObjectPool<T> pool)
         {
             pool.Push(obj);
         }
@@ -63,11 +102,20 @@ public class PoolManager : MonoBehaviour
             Debug.LogWarning("ReturnObj Error : " + id.ToString());
         }
     }
+    public static void ReturnObj<T>(T obj) where T : MonoBehaviour
+    {
+        if (instance.objPools.TryGetValue(obj.GetInstanceID(), out object poolObj) && poolObj is ObjectPool<T> pool)
+        {
+            pool.Push(obj);
+        }
+        else
+        {
+            Debug.LogWarning("ReturnObj Error : " + obj.name.ToString());
+        }
+    }
     private void Awake()
     {
         instance = this;
-
-        CreatePool<AttackAreaCircle>(ObjectPoolID.AttackArea, 4);
     }
 }
 

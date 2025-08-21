@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7748d27cfe71a419cbf9e22a349aaf, type: 3}
   m_Name: MiniGame_6
   m_EditorClassIdentifier: 
-  style: 7
+  style: 64
   minBiteWaitTime: 0.5
   maxBiteWaitTime: 0.7
   maxHp: 40

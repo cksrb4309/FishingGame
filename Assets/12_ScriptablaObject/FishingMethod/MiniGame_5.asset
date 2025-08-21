@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec0f26a777d785649ae92c0d9c8b00bd, type: 3}
   m_Name: MiniGame_5
   m_EditorClassIdentifier: 
-  style: 6
+  style: 32
   minBiteWaitTime: 1
   maxBiteWaitTime: 2
   maxHp: 40
   maxSp: 10
   maxCp: 20
-  speed: 5
   lowHpCpMultiplier: 3
+  speed: 5
   minRotateDelay: 3
   maxRotateDelay: 5
   balanceRotateDelay: 4

@@ -45,35 +45,7 @@ public static class ExtensionCustomEditor
         value = EditorGUILayout.ObjectField(value, typeof(Sprite), false) as Sprite;
         GUILayout.EndHorizontal();
     }
-    public static void DrawFishingMethodDataField(string label, ref FishingMethodData value, GUIStyle labelStyle)
-    {
-        if (value == null)
-        {
-            value = ScriptableObject.CreateInstance<FishingMethodData>();
-        }
-
-        GUILayout.BeginHorizontal();
-        GUILayout.Label(label, labelStyle, GUILayout.Width(150));
-        EditorGUIUtility.labelWidth = 0;
-        value = EditorGUILayout.ObjectField(value, typeof(FishingMethodData), false) as FishingMethodData;
-        GUILayout.EndHorizontal();
-    }
-    public static void DrawCategoryField(string label, ref ItemCategory value, GUIStyle labelStyle)
-    {
-        GUILayout.BeginHorizontal();
-        GUILayout.Label(label, labelStyle, GUILayout.Width(150));
-        EditorGUIUtility.labelWidth = 0;
-        value = (ItemCategory)EditorGUILayout.EnumPopup(value);
-        GUILayout.EndHorizontal();
-    }
-    public static void DrawBaitLootTableField(string label, ref BaitLootTable value, GUIStyle labelStyle)
-    {
-        GUILayout.BeginHorizontal();
-        GUILayout.Label(label, labelStyle, GUILayout.Width(150));
-        EditorGUIUtility.labelWidth = 0;
-        value = EditorGUILayout.ObjectField(value, typeof(BaitLootTable), false) as BaitLootTable;
-        GUILayout.EndHorizontal();
-    }
+   
     private static void SetTitleStyle(ref GUIStyle style)
     {
         style = new GUIStyle(EditorStyles.label)

@@ -203,27 +203,26 @@ MonoBehaviour:
     - goDatas_byGlobalId:
         keys:
         - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-429588736-0
-        - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-1779937417-0
-        - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-799952244-0
-        - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-879010006-0
+        - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-1254043174-0
+        - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-63803903-0
         - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-1289653250-0
         - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-129547251-0
         - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-470479480-0
         - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-354225359-0
         - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-108230064-0
-        - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-342679353-0
         - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-2033639721-0
         - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-1007280618-0
         - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-848606474-0
         - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-334606739-0
+        - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-754294264-0
+        - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-1639347431-0
+        - globalObjectIdString: GlobalObjectId_V1-2-b1f799699b92ead49b067f59f25f386c-1400719525-0
         values:
         - colorIndex: 9
           iconNameOrGuid: 
-        - colorIndex: 5
+        - colorIndex: 7
           iconNameOrGuid: 
-        - colorIndex: 5
-          iconNameOrGuid: 
-        - colorIndex: 5
+        - colorIndex: 2
           iconNameOrGuid: 
         - colorIndex: 3
           iconNameOrGuid: 
@@ -239,9 +238,13 @@ MonoBehaviour:
           iconNameOrGuid: 
         - colorIndex: 2
           iconNameOrGuid: 
-        - colorIndex: 2
-          iconNameOrGuid: 
         - colorIndex: 1
           iconNameOrGuid: 
         - colorIndex: 8
+          iconNameOrGuid: 
+        - colorIndex: 7
+          iconNameOrGuid: 
+        - colorIndex: 2
+          iconNameOrGuid: 
+        - colorIndex: 2
           iconNameOrGuid: 

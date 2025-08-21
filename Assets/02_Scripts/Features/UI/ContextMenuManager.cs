@@ -13,16 +13,16 @@ public class ContextMenuManager : MonoBehaviour
     {
         Instance = this;
     }
-    public void OpenMenu(Item item, Vector2 screenPosition)
-    {
-        menuCanvasGroup.alpha = 1f;
-        menuCanvasGroup.interactable = true;
-        menuCanvasGroup.blocksRaycasts = true;
+    //public void OpenMenu(Item item, Vector2 screenPosition)
+    //{
+    //    menuCanvasGroup.alpha = 1f;
+    //    menuCanvasGroup.interactable = true;
+    //    menuCanvasGroup.blocksRaycasts = true;
 
-        for (int i = 0; i < contextMenuList.Count; i++) contextMenuList[i].Setup(item);
+    //    for (int i = 0; i < contextMenuList.Count; i++) contextMenuList[i].Setup(item);
 
-        menuRect.transform.position = Camera.main.ScreenToWorldPoint(screenPosition);
-    }
+    //    menuRect.transform.position = Camera.main.ScreenToWorldPoint(screenPosition);
+    //}
     public void CloseMenu()
     {
         menuCanvasGroup.alpha = 0f;
