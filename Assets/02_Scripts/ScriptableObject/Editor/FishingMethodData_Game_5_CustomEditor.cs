@@ -4,6 +4,7 @@ using UnityEditor;
 //[CustomEditor(typeof(FishingMethodData_Game_5))]
 public class FishingMethodData_Game_5_CustomEditor : Editor
 {
+	
     //GUIStyle titleStyle;
     //GUIStyle labelStyle;
 
@@ -16,7 +17,6 @@ public class FishingMethodData_Game_5_CustomEditor : Editor
     //public override void OnInspectorGUI()
     //{
     //    InitStyles();
-
     //    FishingMethodData_Game_5 data = (FishingMethodData_Game_5)target;
     //    ExtensionCustomEditor.DrawEnumPopup("낚시 스타일", ref data.style, labelStyle);
     //    GUILayout.Space(20);

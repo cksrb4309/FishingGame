@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc8051ea14361a84b91b6242af9b86d4, type: 3}
   m_Name: EndDialogueTree
   m_EditorClassIdentifier: 
-  startNode: {fileID: 11400000, guid: 048f1396916ed0144a436b8b916b94c2, type: 2}
+  startNode: {fileID: 11400000, guid: cc00fa97ab0c2564abdb7dc933535f3e, type: 2}

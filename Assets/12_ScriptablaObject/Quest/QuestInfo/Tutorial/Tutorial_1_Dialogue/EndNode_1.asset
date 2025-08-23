@@ -17,4 +17,4 @@ MonoBehaviour:
     position: 1
     speakerNpcId: 2
   choices: []
-  actionType: 0
+  actionType: 5

@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Tutorial_1
   m_EditorClassIdentifier: 
   questId: 1
-  giverNpcName: 2
+  questNpcInfo:
+    giverName: 2
+    receiverName: 2
   questItems:
   - targetItem: {fileID: 11400000, guid: 6aecdfde90719e743b11f035a353c434, type: 2}
     itemCount: 5
