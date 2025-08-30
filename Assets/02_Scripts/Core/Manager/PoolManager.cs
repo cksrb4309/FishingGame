@@ -1,124 +1,140 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using VInspector;
 
-public class PoolManager : MonoBehaviour
+public class PoolManager : Singleton<PoolManager>
 {
-    static PoolManager instance = null;
+    [SerializeField] private Dictionary<ObjectPoolID, GameObject> objectPoolSetting;
 
-    [SerializeField] SerializedDictionary<ObjectPoolID, GameObject> objectPoolSetting;
+    // ID 기반 풀
+    private Dictionary<ObjectPoolID, object> idPools = new Dictionary<ObjectPoolID, object>();
+    // Prefab 기반 풀
+    private Dictionary<GameObject, object> prefabPools = new Dictionary<GameObject, object>();
 
-    Dictionary<ObjectPoolID, object> idPools = new Dictionary<ObjectPoolID, object>();
-    Dictionary<int, object> objPools = new Dictionary<int, object>();
+    #region Create Pool
+
+    // ID 기반 풀 생성 (직접 prefab 제공)
     public static void CreatePool<T>(ObjectPoolID id, T prefab, int initialSize = 5) where T : MonoBehaviour
     {
-        if (!instance.idPools.ContainsKey(id))
+        if (!Instance.idPools.ContainsKey(id))
         {
-            instance.idPools[id] = new ObjectPool<T>(prefab, initialSize, instance.transform);
+            Instance.idPools[id] = new ObjectPool<T>(prefab, initialSize, Instance.transform);
         }
     }
+
+    // ID 기반 풀 생성 (objectPoolSetting 사용)
     public static void CreatePool<T>(ObjectPoolID id, int initialSize = 5) where T : Component
     {
-        PoolManager poolManager = instance;
-
-        if (poolManager == null) { Debug.LogError("[Error] : 풀매니저 초기화 오류."); return; }
-
-        if (!poolManager.objectPoolSetting.ContainsKey(id) || poolManager.objectPoolSetting[id] == null) return;
-        
-
-        if (!poolManager.idPools.ContainsKey(id))
+        if (!Instance.objectPoolSetting.ContainsKey(id) || Instance.objectPoolSetting[id] == null) return;
+        if (!Instance.idPools.ContainsKey(id))
         {
-            var obj = poolManager.objectPoolSetting[id].GetComponent<T>();
-
-            poolManager.idPools[id] = new ObjectPool<T>(obj, initialSize, poolManager.transform);
+            var obj = Instance.objectPoolSetting[id].GetComponent<T>();
+            Instance.idPools[id] = new ObjectPool<T>(obj, initialSize, Instance.transform);
         }
         else
         {
-            Debug.Log("[Warning] : 오브젝트 풀 생성되어있음. " + id.ToString());
+            Debug.Log("[Warning] : 오브젝트 풀 이미 생성됨 - " + id.ToString());
         }
     }
-    public static void CreatePool<T>(GameObject obj, int initialSize = 5) where T : MonoBehaviour
+
+    // Prefab 기반 풀 생성
+    public static void CreatePool<T>(T prefab, int initialSize = 5) where T : MonoBehaviour
     {
-        PoolManager poolManager = instance;
+        if (prefab == null) return;
 
-        if (poolManager == null) { Debug.LogError("[Error] : 풀매니저 초기화 오류."); return; }
-
-        if (!poolManager.objPools.ContainsKey(obj.GetInstanceID()))
+        if (!Instance.prefabPools.ContainsKey(prefab.gameObject))
         {
-            T t = obj.GetComponent<T>();
-
-            poolManager.objPools[obj.GetInstanceID()] = new ObjectPool<T>(t, initialSize, poolManager.transform);
-        }
-        else
-        {
-            Debug.Log("[Warning] : 오브젝트 풀 생성되어있음. " + obj.name.ToString());
+            var pool = new ObjectPool<T>(prefab.gameObject, prefab, initialSize, Instance.transform);
+            Instance.prefabPools[prefab.gameObject] = pool;
         }
     }
+
+    #endregion
+
+    #region Get Object
+
+    // ID 기반 가져오기
     public static T GetObj<T>(ObjectPoolID id) where T : MonoBehaviour
     {
-        if (instance.idPools.TryGetValue(id, out object poolObj) && poolObj is ObjectPool<T> pool_1)
+        if (Instance.idPools.TryGetValue(id, out object poolObj) && poolObj is ObjectPool<T> pool)
         {
-            return pool_1.Pop();
+            return pool.Pop();
         }
         else
         {
             CreatePool<T>(id, 5);
-
-            if (instance.idPools.TryGetValue(id, out poolObj) && poolObj is ObjectPool<T> pool_2)
-
-                return pool_2.Pop();
-
-            else return null;
+            if (Instance.idPools.TryGetValue(id, out poolObj) && poolObj is ObjectPool<T> pool2)
+                return pool2.Pop();
+            return null;
         }
     }
-    public static T GetObj<T>(GameObject obj) where T : MonoBehaviour
-    {
-        int instanceId = obj.GetInstanceID();
 
-        if (instance.objPools.TryGetValue(instanceId, out object poolObj) && poolObj is ObjectPool<T> pool_1)
+    // Prefab 기반 가져오기
+    public static T GetObj<T>(T prefab, int initialSize = 5) where T : MonoBehaviour
+    {
+        if (prefab == null) return null;
+
+        if (Instance.prefabPools.TryGetValue(prefab.gameObject, out object poolObj) && poolObj is ObjectPool<T> pool)
         {
-            return pool_1.Pop();
+            return pool.Pop();
         }
         else
         {
-            CreatePool<T>(obj, 5);
-
-            if (instance.objPools.TryGetValue(instanceId, out poolObj) && poolObj is ObjectPool<T> pool_2)
-
-                return pool_2.Pop();
-
-            else return null;
+            CreatePool(prefab, initialSize);
+            if (Instance.prefabPools.TryGetValue(prefab.gameObject, out poolObj) && poolObj is ObjectPool<T> pool2)
+                return pool2.Pop();
+            return null;
         }
     }
+
+    #endregion
+
+    #region Return Object
+
+    // ID 기반 반환
     public static void ReturnObj<T>(ObjectPoolID id, T obj) where T : MonoBehaviour
     {
-        if (instance.idPools.TryGetValue(id, out object poolObj) && poolObj is ObjectPool<T> pool)
+        if (Instance.idPools.TryGetValue(id, out object poolObj) && poolObj is ObjectPool<T> pool)
         {
             pool.Push(obj);
         }
         else
         {
             Debug.LogWarning("ReturnObj Error : " + id.ToString());
+            Destroy(obj.gameObject);
         }
     }
+
+    // Prefab 기반 반환
     public static void ReturnObj<T>(T obj) where T : MonoBehaviour
     {
-        if (instance.objPools.TryGetValue(obj.GetInstanceID(), out object poolObj) && poolObj is ObjectPool<T> pool)
+        if (obj == null) return;
+
+        var pooled = obj.GetComponent<PooledObject>();
+        if (pooled == null)
+        {
+            Debug.LogWarning("ReturnObj Error: PooledObject 없음, Destroy 처리");
+            Destroy(obj.gameObject);
+            return;
+        }
+
+        if (Instance.prefabPools.TryGetValue(pooled.prefab, out object poolObj) && poolObj is ObjectPool<T> pool)
         {
             pool.Push(obj);
         }
         else
         {
-            Debug.LogWarning("ReturnObj Error : " + obj.name.ToString());
+            Debug.LogWarning("ReturnObj Error: 풀을 찾을 수 없음, Destroy 처리");
+            Destroy(obj.gameObject);
         }
     }
-    private void Awake()
-    {
-        instance = this;
-    }
+
+    #endregion
 }
 
+// ---------------------------------------------
+// ObjectPoolID Enum
+// ---------------------------------------------
 public enum ObjectPoolID
 {
     [InspectorName("1번 미니게임 공격 오브젝트")] AttackArea = 0,
@@ -127,5 +143,4 @@ public enum ObjectPoolID
     [InspectorName("4번 미니게임 회피 2")] FishPattern_2 = 3,
     [InspectorName("5번 미니게임 공격 오브젝트 1")] AttackProjectile_5_1 = 4,
     [InspectorName("6번 미니게임 찌르기 오브젝트")] ThrushSlash = 5,
-    
 }

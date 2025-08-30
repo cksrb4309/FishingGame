@@ -1,0 +1,183 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55772a9cf030a9945b13d6c6d3a7ac10, type: 3}
+  m_Name: TestPattern
+  m_EditorClassIdentifier: 
+  enemyPatterns:
+  - enemyProjectileList:
+      enemyProjectileSets:
+      - enemyProjectile: {fileID: 1074527242489776805, guid: 3995f7eed4f0b324f9324d8f7d501d57, type: 3}
+        projectileLine: {fileID: 4981268415327573871, guid: 459c64a881d043245a77a7beb86e8b48, type: 3}
+        moveAnimationCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        nextAttackDelay: 0.5
+      - enemyProjectile: {fileID: 1074527242489776805, guid: 3995f7eed4f0b324f9324d8f7d501d57, type: 3}
+        projectileLine: {fileID: 2827301353351718487, guid: c1082b79782be634bb281c2a8d05da17, type: 3}
+        moveAnimationCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        nextAttackDelay: 0.5
+      - enemyProjectile: {fileID: 1074527242489776805, guid: 3995f7eed4f0b324f9324d8f7d501d57, type: 3}
+        projectileLine: {fileID: 5137536321574769319, guid: 28f764bcdb48fca48864c62204358a46, type: 3}
+        moveAnimationCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        nextAttackDelay: 0.25
+    patternCondition: {fileID: 11400000, guid: 5797fceb6ecee3e4e970b5217637fcda, type: 2}
+  - enemyProjectileList:
+      enemyProjectileSets:
+      - enemyProjectile: {fileID: 1074527242489776805, guid: 3995f7eed4f0b324f9324d8f7d501d57, type: 3}
+        projectileLine: {fileID: 5137536321574769319, guid: 28f764bcdb48fca48864c62204358a46, type: 3}
+        moveAnimationCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        nextAttackDelay: 0.333
+      - enemyProjectile: {fileID: 1074527242489776805, guid: 3995f7eed4f0b324f9324d8f7d501d57, type: 3}
+        projectileLine: {fileID: 8885083795707065816, guid: 4dc915c9ccb335147a7175cf904af193, type: 3}
+        moveAnimationCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        nextAttackDelay: 0.333
+      - enemyProjectile: {fileID: 1074527242489776805, guid: 3995f7eed4f0b324f9324d8f7d501d57, type: 3}
+        projectileLine: {fileID: 6375134563472168800, guid: e44d83c4d3199384baa5235fcd48dbc0, type: 3}
+        moveAnimationCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        nextAttackDelay: 0.333
+    patternCondition: {fileID: 11400000, guid: 7bf5ce0c6c9e90349a527bdf864d1d68, type: 2}

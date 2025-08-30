@@ -1,17 +1,5 @@
 public enum InputType
 {
-    PlayerMove,
-    PlayerBoost,
-    PlayerDash,
+    Parry,
     MousePoint,
-    Left,
-    Right,
-    Up,
-    Down,
-    PlayerAttack,
-    FishingCast,
-    FishingCancel,
-    Inventory,
-    Interact,
-    FishingClick,
 }
