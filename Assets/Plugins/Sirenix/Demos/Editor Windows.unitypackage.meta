@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 840e479829fb95f46bc17c11a83e804a
+timeCreated: 1488828285
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 89041
+  packageName: Odin Inspector and Serializer
+  packageVersion: 3.3.1.11
+  assetPath: Assets/Plugins/Sirenix/Demos/Editor Windows.unitypackage
+  uploadId: 712389

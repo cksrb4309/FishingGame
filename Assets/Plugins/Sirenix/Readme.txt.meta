@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c3803d94aed7cc2459ea5ca8e5ab1b53
+timeCreated: 1533815770
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 89041
+  packageName: Odin Inspector and Serializer
+  packageVersion: 3.3.1.11
+  assetPath: Assets/Plugins/Sirenix/Readme.txt
+  uploadId: 712389
