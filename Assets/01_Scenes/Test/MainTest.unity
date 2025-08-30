@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c5b4c8d4d2fe1647ab8f0cc03ad4eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 0}
+  enemyData: {fileID: 11400000, guid: 07bfe13b18eb5ba43b88d4202fa83182, type: 2}
 --- !u!212 &939611752
 SpriteRenderer:
   m_ObjectHideFlags: 0
