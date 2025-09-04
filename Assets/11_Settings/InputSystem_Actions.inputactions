@@ -141,24 +141,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "FishingCast",
-                    "type": "Button",
-                    "id": "a233e331-3e4b-4b22-9c54-289db709cf0d",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "FishingCancel",
-                    "type": "Button",
-                    "id": "6fb82d69-e97e-48fe-bd98-f35a43b824b4",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Inventory",
                     "type": "Button",
                     "id": "965c836c-7d24-4f40-99be-3f852a773a0f",
@@ -168,9 +150,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "FishingClick",
+                    "name": "Parry",
                     "type": "Button",
-                    "id": "e1ead6b1-74ca-42dc-bdda-f07082a88be7",
+                    "id": "544f30e1-2df2-41ad-9705-0cc6047e66e6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Insight",
+                    "type": "Button",
+                    "id": "17f53baa-df97-40cb-a286-eed45a3cd5a7",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -631,28 +622,6 @@
                 },
                 {
                     "name": "",
-                    "id": "2f4c18a6-fd95-436f-9c7b-d56e26d05369",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "FishingCast",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b9cfc0cd-b08f-4ed7-93a7-f7c581a4a71f",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "FishingCancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "d0906897-b9bd-49dd-a9f5-64119ee3265b",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
@@ -664,12 +633,23 @@
                 },
                 {
                     "name": "",
-                    "id": "6ee0d62b-8c8c-4462-8c8d-5d6b779bf770",
-                    "path": "<Mouse>/rightButton",
+                    "id": "f03ec127-2f17-4b3a-a9f8-a8f270bd0be9",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FishingClick",
+                    "action": "Parry",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e324f8f-06b4-435a-9ace-d68aa7d890f2",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Insight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

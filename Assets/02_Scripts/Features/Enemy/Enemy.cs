@@ -18,15 +18,11 @@ public class Enemy : MonoBehaviour
     {
         Current = this;
 
-        patternCoroutine = StartCoroutine(PatternCoroutine());
-    }
-    public void Hit(float damage)
-    {
+        enemyData.Init();
 
-    }
-    public float GetHealthRatio()
-    {
-        return 1f;
+        EnemyUI.Instance.Init();
+
+        patternCoroutine = StartCoroutine(PatternCoroutine());
     }
     private IEnumerator PatternCoroutine()
     {
@@ -44,10 +40,12 @@ public class Enemy : MonoBehaviour
 
                 EnemyProjectile projectile = PoolManager.GetObj(enemyProjectileSet.enemyProjectile);
 
+                projectile.transform.position = Vector3.one * 100f;
+
                 projectile.Spawn(enemyProjectileSet.projectileLine.Spline, enemyProjectileSet.moveAnimationCurve);
 
                 if (i < pattern.GetProjectileCount() - 1)
-                    yield return enemyProjectileSet.nextAttackDelay;
+                    yield return new WaitForSeconds(enemyProjectileSet.nextAttackDelay);
             }
 
             yield return new WaitForSeconds(enemyData.attackDelay);

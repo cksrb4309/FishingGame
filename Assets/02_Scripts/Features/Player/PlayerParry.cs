@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,20 +9,27 @@ public class PlayerParry : MonoBehaviour
 {
     public static PlayerParry Instance { get; private set; } = null;
 
-    [SerializeField] Transform pivot;
+    #region 패링--------------------------------------------------------------------------------
 
-    [SerializeField] ParticleSystem[] parryParticles;
+    [SerializeField, TabGroup("패링")] Transform pivot;
 
-    [SerializeField] float interval;
-    [SerializeField] float padding;
+    [SerializeField, TabGroup("패링")] float parryUseSp = 20f;
+    [SerializeField, TabGroup("패링")] float interval;
+    [SerializeField, TabGroup("패링")] float padding;
+
+    [SerializeField, TabGroup("패링")] ParticleSystem[] parryParticles;
 
     float[] ranges = new float[4];
 
     /// <summary>
     /// 투사체 패링 실행
     /// </summary>
-    private void Parry(InputAction.CallbackContext context) 
+    private void Parry(InputAction.CallbackContext context)
     {
+        if (PlayerData.Data.GetSp() < parryUseSp) return;
+
+        PlayerData.Data.ModifySp(-parryUseSp);
+
         // 투사체 매니저에서 패링 가능한 투사체 가져오기
         List<EnemyProjectile> list = ProjectileManager.GetProjectiles(); 
 
@@ -38,18 +46,27 @@ public class PlayerParry : MonoBehaviour
 
         // 만약 -1이라면 바깥쪽에 위치한 것임으로 리턴
         if (parryRangeIndex == -1) return;
+        
+        if (parryRangeIndex >= 3)
+            PlayerData.Data.ModifySp(parryUseSp * 0.5f);
 
-        // 진행 중이던 투사체 이동 두트윈 취소
-        selectProjectile.transform.DOKill();
+        PlayerData.Data.ModifySp(parryUseSp * 0.5f);
 
+        // 투사체 공격 취소
+        selectProjectile.Cancel();
+
+        ParryEffectApply(selectProjectile, parryRangeIndex);
+    }
+    public void ParryEffectApply(EnemyProjectile projectile, int parryRangeIndex = 4)
+    {
         // 이펙트 적용과 공격 로직 시퀀스 생성
         Sequence seq = DOTween.Sequence();
 
         // 이펙트 효과 추가
-        seq.Append(ParryEffect(selectProjectile));
+        seq.Append(ParryEffect(projectile));
 
         // 공격 로직 추가
-        seq.AppendCallback(ParryAttack(selectProjectile, parryRangeIndex));
+        seq.AppendCallback(ParryAttack(projectile, parryRangeIndex));
     }
     private Tween ParryEffect(EnemyProjectile projectile)
     {
@@ -57,7 +74,7 @@ public class PlayerParry : MonoBehaviour
     }
     private TweenCallback ParryAttack(EnemyProjectile projectile, int parryRangeIndex)
     {
-        return () => { Enemy.Current.Hit(parryRangeIndex); projectile.EnemyHit(); };
+        return () => projectile.EnemyHit(parryRangeIndex);
     }
     private int GetParryRangeIndex(float distance)
     {
@@ -73,7 +90,48 @@ public class PlayerParry : MonoBehaviour
 
         return -1;
     }
+    #endregion
+
+    #region 간파--------------------------------------------------------------------------------
+
+    [SerializeField, TabGroup("간파")] float insightUseSp = 20f;
+    [SerializeField, TabGroup("간파")] float insightCooltime = 1f;
+    [SerializeField, TabGroup("간파")] float insightDuration = 0.5f;
+
+    [SerializeField, TabGroup("간파")] GameObject insightObj;
+
+    bool canInsight = true;
+
+    private void Insight(InputAction.CallbackContext context)
+    {
+        if (!canInsight) return;
+
+        if (PlayerData.Data.GetSp() < insightUseSp) return;
+
+        PlayerData.Data.ModifySp(-insightUseSp);
+
+        canInsight = false;
+        insightObj.SetActive(true);
+
+        PlayerData.Data.EnableInsight();
+
+        // 간파 상태 종료 함수 간파 지속시간 후 실행
+        DOVirtual.DelayedCall(insightDuration, () => { PlayerData.Data.DisableInsight(); insightObj.SetActive(false); });
+
+        // 간파사용 쿨타임 적용
+        DOVirtual.DelayedCall(insightCooltime, () => canInsight = true);
+    }
+    public void InsightReturnSp()
+    {
+        PlayerData.Data.ModifySp(insightUseSp);
+    }
+    #endregion
+
     #region Unity Methods
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
         for (int i = 0; i < ranges.Length; i++)
@@ -82,10 +140,12 @@ public class PlayerParry : MonoBehaviour
     private void OnEnable()
     {
         InputManager.GetInputAction(InputType.Parry).action.performed += Parry;
+        InputManager.GetInputAction(InputType.Insight).action.performed += Insight;
     }
     private void OnDisable()
     {
         InputManager.Release(InputType.Parry);
+        InputManager.Release(InputType.Insight);
     }
     private void OnValidate()
     {
