@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b137ca7485813641a85c552d133589f, type: 3}
+  m_Name: EnemyData
+  m_EditorClassIdentifier: 
+  enemyName: "\uC2E4\uD5D8\uBAB9"
+  enemyMaxHp: 500
+  enemySprite: {fileID: -1201874518, guid: 2936a1f1c1486334c93ebd0d29354d9e, type: 3}
+  patternSet: {fileID: 11400000, guid: 6f72b7af4f397e74aa4c886c09e58bb7, type: 2}
+  attackDelay: 1
+  spawnPosition: {x: 0, y: 0, z: 0}
+  maxHp: 0
+  hp: 0

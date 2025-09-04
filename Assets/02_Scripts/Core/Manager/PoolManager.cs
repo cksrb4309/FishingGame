@@ -14,7 +14,7 @@ public class PoolManager : Singleton<PoolManager>
     #region Create Pool
 
     // ID 기반 풀 생성 (직접 prefab 제공)
-    public static void CreatePool<T>(ObjectPoolID id, T prefab, int initialSize = 5) where T : MonoBehaviour
+    public static void CreatePool<T>(ObjectPoolID id, T prefab, int initialSize = 5) where T : Component
     {
         if (!Instance.idPools.ContainsKey(id))
         {
@@ -38,7 +38,7 @@ public class PoolManager : Singleton<PoolManager>
     }
 
     // Prefab 기반 풀 생성
-    public static void CreatePool<T>(T prefab, int initialSize = 5) where T : MonoBehaviour
+    public static void CreatePool<T>(T prefab, int initialSize = 5) where T : Component
     {
         if (prefab == null) return;
 
@@ -54,7 +54,7 @@ public class PoolManager : Singleton<PoolManager>
     #region Get Object
 
     // ID 기반 가져오기
-    public static T GetObj<T>(ObjectPoolID id) where T : MonoBehaviour
+    public static T GetObj<T>(ObjectPoolID id) where T : Component
     {
         if (Instance.idPools.TryGetValue(id, out object poolObj) && poolObj is ObjectPool<T> pool)
         {
@@ -70,7 +70,7 @@ public class PoolManager : Singleton<PoolManager>
     }
 
     // Prefab 기반 가져오기
-    public static T GetObj<T>(T prefab, int initialSize = 5) where T : MonoBehaviour
+    public static T GetObj<T>(T prefab) where T : Component
     {
         if (prefab == null) return null;
 
@@ -80,7 +80,7 @@ public class PoolManager : Singleton<PoolManager>
         }
         else
         {
-            CreatePool(prefab, initialSize);
+            CreatePool(prefab, 5);
             if (Instance.prefabPools.TryGetValue(prefab.gameObject, out poolObj) && poolObj is ObjectPool<T> pool2)
                 return pool2.Pop();
             return null;
@@ -92,7 +92,7 @@ public class PoolManager : Singleton<PoolManager>
     #region Return Object
 
     // ID 기반 반환
-    public static void ReturnObj<T>(ObjectPoolID id, T obj) where T : MonoBehaviour
+    public static void ReturnObj<T>(ObjectPoolID id, T obj) where T : Component
     {
         if (Instance.idPools.TryGetValue(id, out object poolObj) && poolObj is ObjectPool<T> pool)
         {
@@ -106,7 +106,7 @@ public class PoolManager : Singleton<PoolManager>
     }
 
     // Prefab 기반 반환
-    public static void ReturnObj<T>(T obj) where T : MonoBehaviour
+    public static void ReturnObj<T>(T obj) where T : Component
     {
         if (obj == null) return;
 

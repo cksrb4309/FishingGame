@@ -8,7 +8,6 @@ public class EnemyProjectile : MonoBehaviour
 
     [SerializeField] float duration;
     [SerializeField] float baseDamage;
-    [SerializeField] Ease ease;
 
     private Tween moveTween;
 

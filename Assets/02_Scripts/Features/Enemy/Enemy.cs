@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
@@ -33,6 +34,19 @@ public class Enemy : MonoBehaviour
         while (true)
         {
             EnemyPattern pattern = enemyData.patternSet.GetPattern();
+
+            if (pattern.preEffect != null)
+            {
+                ParticleSystem effect = PoolManager.GetObj(pattern.preEffect);
+
+                if (!effect.gameObject.activeSelf) effect.gameObject.SetActive(true);
+
+                effect.transform.position = transform.position;
+
+                DOVirtual.DelayedCall(2f, () => { effect.gameObject.SetActive(false); PoolManager.ReturnObj(effect); });
+            }
+
+            yield return new WaitForSeconds(pattern.preAttackDelay);
 
             for (int i = 0; i < pattern.GetProjectileCount(); i++)
             {
