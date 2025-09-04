@@ -14,4 +14,6 @@ public class DialogueNode : ScriptableObject
     public string rightCharacterName;
 
     public List<DialogueLine> lines = new List<DialogueLine>();
+
+    public List<DialogueChoice> choices = new List<DialogueChoice>();
 }

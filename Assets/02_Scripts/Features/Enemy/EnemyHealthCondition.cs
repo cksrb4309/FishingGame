@@ -12,7 +12,7 @@ public class EnemyHealthCondition : PatternCodition
 
     public override bool IsMet()
     {
-        float healthRatio = Enemy.Current.GetHealthRatio();
+        float healthRatio = EnemyData.Current.GetHpRatio();
 
         switch (comparison)
         {

@@ -41,7 +41,7 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-        nextAttackDelay: 0.5
+        nextAttackDelay: 0.25
       - enemyProjectile: {fileID: 1074527242489776805, guid: 3995f7eed4f0b324f9324d8f7d501d57, type: 3}
         projectileLine: {fileID: 2827301353351718487, guid: c1082b79782be634bb281c2a8d05da17, type: 3}
         moveAnimationCurve:
@@ -68,8 +68,8 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-        nextAttackDelay: 0.5
-      - enemyProjectile: {fileID: 1074527242489776805, guid: 3995f7eed4f0b324f9324d8f7d501d57, type: 3}
+        nextAttackDelay: 0.25
+      - enemyProjectile: {fileID: 1074527242489776805, guid: b164b1d59cb6ad64698ce68cf70d0a8b, type: 3}
         projectileLine: {fileID: 5137536321574769319, guid: 28f764bcdb48fca48864c62204358a46, type: 3}
         moveAnimationCurve:
           serializedVersion: 2
@@ -95,7 +95,7 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-        nextAttackDelay: 0.25
+        nextAttackDelay: 0
     patternCondition: {fileID: 11400000, guid: 5797fceb6ecee3e4e970b5217637fcda, type: 2}
   - enemyProjectileList:
       enemyProjectileSets:

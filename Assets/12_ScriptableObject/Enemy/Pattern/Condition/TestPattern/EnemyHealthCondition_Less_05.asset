@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EnemyHealthCondition_Less_05
   m_EditorClassIdentifier: 
   healthThreshold: 0.5
-  comparison: 1
+  comparison: 0
