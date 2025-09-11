@@ -44,13 +44,20 @@ public class PlayerParry : MonoBehaviour
         // 가까이 있는 탄환이 어느 범위에 있는 지 확인
         int parryRangeIndex = GetParryRangeIndex(Vector3.Distance(selectProjectile.transform.position, pivot.transform.position));
 
-        // 만약 -1이라면 바깥쪽에 위치한 것임으로 리턴
-        if (parryRangeIndex == -1) return;
+        // 만약 -1이라면 바깥쪽에 위치한 것임으로 리턴과 동시 실패로 판정
+        if (parryRangeIndex == -1)
+        {
+            PlayerParryCombo.Instance?.DecreaseCombo();
+
+            return;
+        }
         
         if (parryRangeIndex >= 3)
             PlayerData.Data.ModifySp(parryUseSp * 0.5f);
 
         PlayerData.Data.ModifySp(parryUseSp * 0.5f);
+
+        PlayerParryCombo.Instance?.IncreaseCombo();
 
         // 투사체 공격 취소
         selectProjectile.Cancel();
@@ -121,9 +128,11 @@ public class PlayerParry : MonoBehaviour
         // 간파사용 쿨타임 적용
         DOVirtual.DelayedCall(insightCooltime, () => canInsight = true);
     }
-    public void InsightReturnSp()
+    public void InsightComplete()
     {
         PlayerData.Data.ModifySp(insightUseSp);
+
+        PlayerParryCombo.Instance?.IncreaseCombo(2);
     }
     #endregion
 

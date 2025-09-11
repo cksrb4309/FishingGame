@@ -40,7 +40,7 @@ public class EnemyProjectile : MonoBehaviour
         {
             moveTween?.Kill();
 
-            PlayerParry.Instance.InsightReturnSp();
+            PlayerParry.Instance.InsightComplete();
 
             PlayerParry.Instance.ParryEffectApply(this);
 
@@ -49,17 +49,15 @@ public class EnemyProjectile : MonoBehaviour
 
         PlayerData.Data.ModifyHp(-baseDamage);
 
+        PlayerParryCombo.Instance?.DecreaseCombo();
+
         Cancel();
 
         ReturnPool();
     }
     public void EnemyHit(int parryRangeIndex)
     {
-        Debug.Log("데미지 : " + (baseDamage * parryRangeIndex).ToString());
-
         EnemyData.Current.ModifyHp(baseDamage * parryRangeIndex * -1f);
-
-        Debug.Log("몹 체력 : " + EnemyData.Current.GetHp().ToString());
 
         Cancel();
 
