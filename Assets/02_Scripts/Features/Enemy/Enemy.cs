@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
 
     public EnemyData enemyData;
 
+    public AudioSource audioSource;
+
     Coroutine patternCoroutine = null;
 
     private void Start()
@@ -46,6 +48,10 @@ public class Enemy : MonoBehaviour
                 DOVirtual.DelayedCall(2f, () => { effect.gameObject.SetActive(false); PoolManager.ReturnObj(effect); });
             }
 
+            yield return new WaitForSeconds(1f);
+
+            yield return PreAttackEffect(pattern);
+
             yield return new WaitForSeconds(pattern.preAttackDelay);
 
             for (int i = 0; i < pattern.GetProjectileCount(); i++)
@@ -63,6 +69,24 @@ public class Enemy : MonoBehaviour
             }
 
             yield return new WaitForSeconds(enemyData.attackDelay);
+        }
+    }
+
+    private IEnumerator PreAttackEffect(EnemyPattern pattern)
+    {
+        for (int i = 0; i < pattern.GetProjectileCount(); i++)
+        {
+            EnemyProjectileSet enemyProjectileSet = pattern.SelectProjectileSet(i);
+
+            ParticleSystem effectParticle = PoolManager.GetObj(enemyProjectileSet.effectParticle);
+
+            if (!effectParticle.gameObject.activeSelf) effectParticle.gameObject.SetActive(true);
+
+            effectParticle.Play();
+
+            audioSource.PlayOneShot(enemyProjectileSet.effectAudio);
+
+            if (i < pattern.GetProjectileCount() - 1) yield return new WaitForSeconds(enemyProjectileSet.nextAttackDelay);
         }
     }
 }
