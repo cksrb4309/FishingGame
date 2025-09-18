@@ -101,5 +101,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isParryable: 1
-  duration: 0.3
+  duration: 1.5
   baseDamage: 1

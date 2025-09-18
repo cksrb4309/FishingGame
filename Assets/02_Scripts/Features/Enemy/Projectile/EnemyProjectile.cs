@@ -75,4 +75,5 @@ public class EnemyProjectile : MonoBehaviour
 
         PoolManager.ReturnObj<EnemyProjectile>(this);
     }
+    public float GetDuration() => duration;
 }

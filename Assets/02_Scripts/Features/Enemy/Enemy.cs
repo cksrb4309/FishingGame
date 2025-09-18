@@ -1,6 +1,7 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -74,19 +75,66 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator PreAttackEffect(EnemyPattern pattern)
     {
+        List<TestA> list = new List<TestA>();
+
+        float value = 0f;
+        float minDelay = float.MaxValue; 
+
         for (int i = 0; i < pattern.GetProjectileCount(); i++)
         {
             EnemyProjectileSet enemyProjectileSet = pattern.SelectProjectileSet(i);
 
-            ParticleSystem effectParticle = PoolManager.GetObj(enemyProjectileSet.effectParticle);
+            float delay = value + enemyProjectileSet.enemyProjectile.GetDuration();
 
-            if (!effectParticle.gameObject.activeSelf) effectParticle.gameObject.SetActive(true);
+            list.Add(new TestA(
+                enemyProjectileSet.effectParticle,
+                enemyProjectileSet.effectAudio,
+                delay
+            ));
+
+            if (delay < minDelay) minDelay = delay; 
+
+            value += enemyProjectileSet.nextAttackDelay;
+        }
+
+        if (minDelay > 0f) foreach (var item in list) item.DecreaseDelay(minDelay);
+            
+        // ✅ delay 기준으로 오름차순 정렬
+        list.Sort((a, b) => a.delay.CompareTo(b.delay));
+
+
+        // ✅ 순차 실행
+        for (int i = 0; i < list.Count; i++)
+        {
+            ParticleSystem effectParticle = PoolManager.GetObj(list[i].effectParticle);
+
+            if (!effectParticle.gameObject.activeSelf)  effectParticle.gameObject.SetActive(true);
 
             effectParticle.Play();
 
-            audioSource.PlayOneShot(enemyProjectileSet.effectAudio);
+            audioSource.PlayOneShot(list[i].effectAudio);
 
-            if (i < pattern.GetProjectileCount() - 1) yield return new WaitForSeconds(enemyProjectileSet.nextAttackDelay);
+            if (i < list.Count - 1)
+                yield return new WaitForSeconds(list[i + 1].delay - list[i].delay);
         }
+    }
+}
+
+
+public class TestA
+{
+    public ParticleSystem effectParticle;
+    public AudioClip effectAudio;
+    public float delay;
+
+    public TestA(ParticleSystem effectParticle, AudioClip effectAudio, float delay)
+    {
+        this.effectParticle = effectParticle;
+        this.effectAudio = effectAudio;
+        this.delay = delay;
+    }
+    public void DecreaseDelay(float amount)
+    {
+        delay -= amount;
     }
 }
