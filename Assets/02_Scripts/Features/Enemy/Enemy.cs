@@ -91,7 +91,7 @@ public class Enemy : MonoBehaviour
     }
     private IEnumerator PreAttackEffectCoroutine(EnemyPattern pattern)
     {
-        List<PreEffectTuple> list = new List<PreEffectTuple>();
+        List<PreEffectTuple> preAttackEffects = new List<PreEffectTuple>();
 
         float value = 0f;
         float minDelay = float.MaxValue; 
@@ -102,7 +102,7 @@ public class Enemy : MonoBehaviour
 
             float delay = value + enemyProjectileSet.enemyProjectile.GetDuration();
 
-            list.Add(new PreEffectTuple(
+            preAttackEffects.Add(new PreEffectTuple(
                 enemyProjectileSet.effectParticle,
                 enemyProjectileSet.effectAudio,
                 delay
@@ -113,25 +113,25 @@ public class Enemy : MonoBehaviour
             value += enemyProjectileSet.nextAttackDelay;
         }
 
-        if (minDelay > 0f) foreach (var item in list) item.DecreaseDelay(minDelay);
+        if (minDelay > 0f) foreach (var item in preAttackEffects) item.DecreaseDelay(minDelay);
             
         // ✅ delay 기준으로 오름차순 정렬
-        list.Sort((a, b) => a.delay.CompareTo(b.delay));
+        preAttackEffects.Sort((a, b) => a.delay.CompareTo(b.delay));
 
 
         // ✅ 순차 실행
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < preAttackEffects.Count; i++)
         {
-            ParticleSystem effectParticle = PoolManager.GetObj(list[i].effectParticle);
+            ParticleSystem effectParticle = PoolManager.GetObj(preAttackEffects[i].effectParticle);
 
             if (!effectParticle.gameObject.activeSelf)  effectParticle.gameObject.SetActive(true);
 
             effectParticle.Play();
 
-            audioSource.PlayOneShot(list[i].effectAudio);
+            audioSource.PlayOneShot(preAttackEffects[i].effectAudio);
 
-            if (i < list.Count - 1)
-                yield return new WaitForSeconds(list[i + 1].delay - list[i].delay);
+            if (i < preAttackEffects.Count - 1)
+                yield return new WaitForSeconds(preAttackEffects[i + 1].delay - preAttackEffects[i].delay);
         }
     }
 }
