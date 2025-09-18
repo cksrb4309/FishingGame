@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3744262105905537875}
   - component: {fileID: 1074527242489776805}
   m_Layer: 0
-  m_Name: EnemyProjectile_Example
+  m_Name: EnemyProjectile_1_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,6 +101,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isParryable: 1
-  duration: 1
+  duration: 1.7
   baseDamage: 1
-  ease: 1

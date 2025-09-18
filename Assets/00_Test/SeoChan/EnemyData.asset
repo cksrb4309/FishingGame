@@ -15,8 +15,8 @@ MonoBehaviour:
   enemyName: "\uC2E4\uD5D8\uBAB9"
   enemyMaxHp: 500
   enemySprite: {fileID: -1201874518, guid: 2936a1f1c1486334c93ebd0d29354d9e, type: 3}
-  patternSet: {fileID: 11400000, guid: 6f72b7af4f397e74aa4c886c09e58bb7, type: 2}
-  attackDelay: 1
+  patternSet: {fileID: 11400000, guid: 032f1981d03ca3d4e9181f1408932250, type: 2}
+  attackDelay: 0.7
   spawnPosition: {x: 0, y: 0, z: 0}
-  maxHp: 0
-  hp: 0
+  maxHp: 500
+  hp: 496
