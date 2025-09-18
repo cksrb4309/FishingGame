@@ -30,52 +30,68 @@ public class Enemy : MonoBehaviour
     }
     private IEnumerator PatternCoroutine()
     {
+        // 적 패턴 초기화
         enemyData.patternSet.Init();
 
+        // 몹 등장 후 기본 1초 대기
         yield return new WaitForSeconds(1f);
 
         while (true)
         {
+            // 적의 패턴을 하나 가져옴
             EnemyPattern pattern = enemyData.patternSet.GetPattern();
 
-            if (pattern.preEffect != null)
-            {
-                ParticleSystem effect = PoolManager.GetObj(pattern.preEffect);
+            // 1차 전조 이펙트 재생
+            PreEffect(pattern);
 
-                if (!effect.gameObject.activeSelf) effect.gameObject.SetActive(true);
-
-                effect.transform.position = transform.position;
-
-                DOVirtual.DelayedCall(2f, () => { effect.gameObject.SetActive(false); PoolManager.ReturnObj(effect); });
-            }
-
+            // 기본 1초의 2차 전조 이펙트 대기시간
             yield return new WaitForSeconds(1f);
 
-            yield return PreAttackEffect(pattern);
+            // 2차 전조 이펙트 재생
+            yield return PreAttackEffectCoroutine(pattern);
 
+            // 전조 이펙트 나오고 나서 등장하는 공격 딜레이 적용
             yield return new WaitForSeconds(pattern.preAttackDelay);
 
-            for (int i = 0; i < pattern.GetProjectileCount(); i++)
-            {
-                EnemyProjectileSet enemyProjectileSet = pattern.SelectProjectileSet(i);
+            // 공격 적용
+            yield return AttackCoroutine(pattern);
 
-                EnemyProjectile projectile = PoolManager.GetObj(enemyProjectileSet.enemyProjectile);
-
-                projectile.transform.position = Vector3.one * 100f;
-
-                projectile.Spawn(enemyProjectileSet.projectileLine.Spline, enemyProjectileSet.moveAnimationCurve);
-
-                if (i < pattern.GetProjectileCount() - 1)
-                    yield return new WaitForSeconds(enemyProjectileSet.nextAttackDelay);
-            }
-
+            // 몹마다 존재하는 (다음 패턴까지의)공격 딜레이 적용
             yield return new WaitForSeconds(enemyData.attackDelay);
         }
     }
-
-    private IEnumerator PreAttackEffect(EnemyPattern pattern)
+    private void PreEffect(EnemyPattern pattern)
     {
-        List<TestA> list = new List<TestA>();
+        if (pattern.preEffect != null)
+        {
+            ParticleSystem effect = PoolManager.GetObj(pattern.preEffect);
+
+            if (!effect.gameObject.activeSelf) effect.gameObject.SetActive(true);
+
+            effect.transform.position = transform.position;
+
+            DOVirtual.DelayedCall(2f, () => { effect.gameObject.SetActive(false); PoolManager.ReturnObj(effect); });
+        }
+    }
+    private IEnumerator AttackCoroutine(EnemyPattern pattern)
+    {
+        for (int i = 0; i < pattern.GetProjectileCount(); i++)
+        {
+            EnemyProjectileSet enemyProjectileSet = pattern.SelectProjectileSet(i);
+
+            EnemyProjectile projectile = PoolManager.GetObj(enemyProjectileSet.enemyProjectile);
+
+            projectile.transform.position = Vector3.one * 100f;
+
+            projectile.Spawn(enemyProjectileSet.projectileLine.Spline, enemyProjectileSet.moveAnimationCurve);
+
+            if (i < pattern.GetProjectileCount() - 1)
+                yield return new WaitForSeconds(enemyProjectileSet.nextAttackDelay);
+        }
+    }
+    private IEnumerator PreAttackEffectCoroutine(EnemyPattern pattern)
+    {
+        List<PreEffectTuple> list = new List<PreEffectTuple>();
 
         float value = 0f;
         float minDelay = float.MaxValue; 
@@ -86,7 +102,7 @@ public class Enemy : MonoBehaviour
 
             float delay = value + enemyProjectileSet.enemyProjectile.GetDuration();
 
-            list.Add(new TestA(
+            list.Add(new PreEffectTuple(
                 enemyProjectileSet.effectParticle,
                 enemyProjectileSet.effectAudio,
                 delay
@@ -121,13 +137,13 @@ public class Enemy : MonoBehaviour
 }
 
 
-public class TestA
+public class PreEffectTuple
 {
     public ParticleSystem effectParticle;
     public AudioClip effectAudio;
     public float delay;
 
-    public TestA(ParticleSystem effectParticle, AudioClip effectAudio, float delay)
+    public PreEffectTuple(ParticleSystem effectParticle, AudioClip effectAudio, float delay)
     {
         this.effectParticle = effectParticle;
         this.effectAudio = effectAudio;

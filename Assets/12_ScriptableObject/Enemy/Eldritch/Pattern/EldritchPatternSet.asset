@@ -17,7 +17,7 @@ MonoBehaviour:
     preAttackDelay: 1
     enemyProjectileList:
       enemyProjectileSets:
-      - enemyProjectile: {fileID: 1074527242489776805, guid: 7e3c95631172af340a547c8798175e1c, type: 3}
+      - enemyProjectile: {fileID: 1074527242489776805, guid: 78bc809d887ac7e4abf59293761999f5, type: 3}
         projectileLine: {fileID: 4634293229729836362, guid: f2292cce08a7c5c4a9cd04e4fb27e291, type: 3}
         moveAnimationCurve:
           serializedVersion: 2
@@ -46,7 +46,7 @@ MonoBehaviour:
         nextAttackDelay: 0.7
         effectAudio: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
         effectParticle: {fileID: 2683397553668888818, guid: 73609d8b38c404e469a2ed1a1a0fd124, type: 3}
-      - enemyProjectile: {fileID: 1074527242489776805, guid: 7e3c95631172af340a547c8798175e1c, type: 3}
+      - enemyProjectile: {fileID: 1074527242489776805, guid: 0f0d16f700c67b94d815be25841c438c, type: 3}
         projectileLine: {fileID: 4634293229729836362, guid: f2292cce08a7c5c4a9cd04e4fb27e291, type: 3}
         moveAnimationCurve:
           serializedVersion: 2
@@ -104,7 +104,7 @@ MonoBehaviour:
         nextAttackDelay: 0.7
         effectAudio: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
         effectParticle: {fileID: 2683397553668888818, guid: fce6f9a05e43a694d9a40c756b32002a, type: 3}
-      - enemyProjectile: {fileID: 1074527242489776805, guid: 7e3c95631172af340a547c8798175e1c, type: 3}
+      - enemyProjectile: {fileID: 1074527242489776805, guid: 78bc809d887ac7e4abf59293761999f5, type: 3}
         projectileLine: {fileID: 4634293229729836362, guid: f2292cce08a7c5c4a9cd04e4fb27e291, type: 3}
         moveAnimationCurve:
           serializedVersion: 2
@@ -133,35 +133,6 @@ MonoBehaviour:
         nextAttackDelay: 0.7
         effectAudio: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
         effectParticle: {fileID: 2683397553668888818, guid: 08a9d89849e86de4abb04899c42120f2, type: 3}
-      - enemyProjectile: {fileID: 1074527242489776805, guid: 7e3c95631172af340a547c8798175e1c, type: 3}
-        projectileLine: {fileID: 4634293229729836362, guid: f2292cce08a7c5c4a9cd04e4fb27e291, type: 3}
-        moveAnimationCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 1
-            outSlope: 1
-            tangentMode: 34
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 1
-            tangentMode: 34
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        nextAttackDelay: 1
-        effectAudio: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
-        effectParticle: {fileID: 2683397553668888818, guid: 3271b4cfa6bf09d47a3a594c4bd9d165, type: 3}
       - enemyProjectile: {fileID: 1074527242489776805, guid: 0f0d16f700c67b94d815be25841c438c, type: 3}
         projectileLine: {fileID: 4634293229729836362, guid: f2292cce08a7c5c4a9cd04e4fb27e291, type: 3}
         moveAnimationCurve:
@@ -188,7 +159,36 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-        nextAttackDelay: 0
+        nextAttackDelay: 0.7
+        effectAudio: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
+        effectParticle: {fileID: 2683397553668888818, guid: 3271b4cfa6bf09d47a3a594c4bd9d165, type: 3}
+      - enemyProjectile: {fileID: 1074527242489776805, guid: 7e3c95631172af340a547c8798175e1c, type: 3}
+        projectileLine: {fileID: 4634293229729836362, guid: f2292cce08a7c5c4a9cd04e4fb27e291, type: 3}
+        moveAnimationCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        nextAttackDelay: 0.7
         effectAudio: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
         effectParticle: {fileID: 2683397553668888818, guid: 10604c277191d144b831d16482cb7d99, type: 3}
     patternCondition: {fileID: 11400000, guid: 5797fceb6ecee3e4e970b5217637fcda, type: 2}
