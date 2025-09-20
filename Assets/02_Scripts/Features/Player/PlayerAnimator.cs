@@ -1,27 +1,27 @@
 using DG.Tweening;
 using UnityEngine;
+using VContainer;
 
 public class PlayerAnimator : MonoBehaviour
 {
     [SerializeField] Animator animator;
-    private void Awake()
-    {
-        if (animator == null)
-            animator = GetComponentInParent<Animator>();
-    }
+    [SerializeField] float combatIdleDuration = 2f;
+
+    [Inject] PlayerEffect playerEffect;
 
     Tween parryResetTween = null;
-    int parryIndex = 0;
+    int parryIndex = 1;
     int ParryIndex
     {
         get
         {
-            int ret = parryIndex;
+            int ret = parryIndex++;
 
-            if (++parryIndex > 2) parryIndex = 0;
+            if (parryIndex == 4)
+                parryIndex = 1;
 
             if (parryResetTween == null)
-                parryResetTween = DOVirtual.DelayedCall(1f, ParryReset).SetAutoKill(false);
+                parryResetTween = DOVirtual.DelayedCall(combatIdleDuration, ParryReset).SetAutoKill(false);
             
             else
                 parryResetTween.Restart();
@@ -31,10 +31,19 @@ public class PlayerAnimator : MonoBehaviour
     }
     public void Parry()
     {
-        animator.SetTrigger("Parry" + ParryIndex.ToString());
+        int parryIndex = ParryIndex;
+        animator.SetTrigger("Parry_" + parryIndex.ToString());
+        playerEffect.Parry(parryIndex);
     }
     void ParryReset()
     {
-        parryIndex = 0;
+        parryIndex = 1;
+
+        animator.SetTrigger("Idle");
+    }
+    private void Awake()
+    {
+        if (animator == null)
+            animator = GetComponentInParent<Animator>();
     }
 }

@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using VContainer;
 
 public class PlayerParry : MonoBehaviour
 {
     public static PlayerParry Instance { get; private set; } = null;
+
+    [Inject] PlayerAnimator playerAnimator;
 
     #region 패링--------------------------------------------------------------------------------
 
@@ -29,6 +32,8 @@ public class PlayerParry : MonoBehaviour
         if (PlayerData.Data.GetSp() < parryUseSp) return;
 
         PlayerData.Data.ModifySp(-parryUseSp);
+
+        playerAnimator.Parry();
 
         // 투사체 매니저에서 패링 가능한 투사체 가져오기
         List<EnemyProjectile> list = ProjectileManager.GetProjectiles(); 

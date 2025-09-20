@@ -19,6 +19,7 @@ MonoBehaviour:
     - fc78cac9fa0639f4b951cf3ff3842e6c
     - 66b3993a5165f0849aed5f7773be4261
     - 03864fe98d1591846be4b16ad9450120
+    - 15c91c5337a04ed46a42eb536a19ee95
     values:
     - iconNameOrGuid: Prefab Icon
       colorIndex: 0
@@ -40,6 +41,10 @@ MonoBehaviour:
       colorIndex: 0
       isIconRecursive: 0
       isColorRecursive: 0
+    - iconNameOrGuid: AnimationClip Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
   bookmarks:
   - guid: e98d88caae54bec43af4e6439fcd2bd1
   - guid: 0220aab0833d04faeb927d84ca6cc40c
@@ -50,3 +55,4 @@ MonoBehaviour:
   - guid: 03864fe98d1591846be4b16ad9450120
   - guid: f2b173d3ee6bad844ace4b7c5a917bca
   - guid: e12d39c977c59ec48bd4abc699bb5931
+  - guid: 15c91c5337a04ed46a42eb536a19ee95
