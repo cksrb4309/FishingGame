@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Splines;
+using UnityEngine.UIElements;
 using VInspector;
 
 public class PoolManager : Singleton<PoolManager>
@@ -127,6 +129,35 @@ public class PoolManager : Singleton<PoolManager>
             Debug.LogWarning("ReturnObj Error: 풀을 찾을 수 없음, Destroy 처리");
             Destroy(obj.gameObject);
         }
+    }
+
+    #endregion
+
+    #region Particle
+
+    public static void ParticlePlay(ParticleSystem particleSystem, Vector3 position)
+    {
+        ParticleSystem ret = GetObj(particleSystem);
+        if (!ret.gameObject.activeSelf) ret.gameObject.SetActive(true);
+        ret.transform.position = position;
+        ret.Play();
+    }
+    public static void ParticlePlay(ParticleSystem particleSystem, Spline spline)
+    {
+        ParticleSystem ret = GetObj(particleSystem);
+        if (!ret.gameObject.activeSelf) ret.gameObject.SetActive(true);
+        ret.transform.position = SplineUtility.EvaluatePosition(spline, 0f);
+        ret.Play();
+    }
+
+    
+
+    public static ParticleSystem GetParticle(ParticleSystem particleSystem)
+    {
+        ParticleSystem ret = GetObj(particleSystem);
+        if (!ret.gameObject.activeSelf) ret.gameObject.SetActive(true);
+
+        return ret;
     }
 
     #endregion

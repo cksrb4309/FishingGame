@@ -11,6 +11,7 @@ public class PlayerParry : MonoBehaviour
     public static PlayerParry Instance { get; private set; } = null;
 
     [Inject] PlayerAnimator playerAnimator;
+    [Inject] PlayerEffect playerEffect;
 
     #region 패링--------------------------------------------------------------------------------
 
@@ -71,6 +72,9 @@ public class PlayerParry : MonoBehaviour
     }
     public void ParryEffectApply(EnemyProjectile projectile, int parryRangeIndex = 4)
     {
+        // 투사체 패링 이펙트
+        playerEffect.ProjectileHit(projectile.transform.position);
+
         // 이펙트 적용과 공격 로직 시퀀스 생성
         Sequence seq = DOTween.Sequence();
 

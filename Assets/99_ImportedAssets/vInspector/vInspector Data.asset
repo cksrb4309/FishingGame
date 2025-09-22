@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: vInspector Data
   m_EditorClassIdentifier: 
   bookmarks:
-  - _obj: {fileID: 2100000, guid: f782b2107cf2da140b633ec579277e21, type: 2}
+  - _obj: {fileID: 11400000, guid: cbd63ca8069b217498861f8fd3617b30, type: 2}
     globalId:
-      globalObjectIdString: GlobalObjectId_V1-3-f782b2107cf2da140b633ec579277e21-2100000-0
+      globalObjectIdString: GlobalObjectId_V1-3-cbd63ca8069b217498861f8fd3617b30-11400000-0
     isSceneGameObject: 0
     isAsset: 1
-    _typeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+    _typeString: EnemyPatternSet, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null

@@ -3,6 +3,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Splines;
 
 public class Enemy : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Enemy : MonoBehaviour
     public EnemyData enemyData;
 
     public AudioSource audioSource;
+
+    public float testWarningDelay = 1f;
 
     Coroutine patternCoroutine = null;
 
@@ -62,9 +65,9 @@ public class Enemy : MonoBehaviour
     }
     private void PreEffect(EnemyPattern pattern)
     {
-        if (pattern.preEffect != null)
+        if (pattern.patternPreParticle != null)
         {
-            ParticleSystem effect = PoolManager.GetObj(pattern.preEffect);
+            ParticleSystem effect = PoolManager.GetObj(pattern.patternPreParticle);
 
             if (!effect.gameObject.activeSelf) effect.gameObject.SetActive(true);
 
@@ -75,16 +78,31 @@ public class Enemy : MonoBehaviour
     }
     private IEnumerator AttackCoroutine(EnemyPattern pattern)
     {
-        for (int i = 0; i < pattern.GetProjectileCount(); i++)
+        // 지연 적용시킬 투사체 발사 부분
+        void Attack(EnemyProjectileSet enemyProjectileSet)
         {
-            EnemyProjectileSet enemyProjectileSet = pattern.SelectProjectileSet(i);
-
-            EnemyProjectile projectile = PoolManager.GetObj(enemyProjectileSet.enemyProjectile);
+            EnemyProjectile projectile = PoolManager.GetObj(enemyProjectileSet.projectileTemplate.enemyProjectile);
 
             projectile.transform.position = Vector3.one * 100f;
 
             projectile.Spawn(enemyProjectileSet.projectileLine.Spline, enemyProjectileSet.moveAnimationCurve);
+            SplineUtility.EvaluatePosition(enemyProjectileSet.projectileLine.Spline, 0f);
 
+            // 발사 이펙트 재생
+            PoolManager.ParticlePlay(enemyProjectileSet.projectileTemplate.shotParticle, enemyProjectileSet.projectileLine.Spline);
+        }
+
+        for (int i = 0; i < pattern.GetProjectileCount(); i++)
+        {
+            EnemyProjectileSet enemyProjectileSet = pattern.SelectProjectileSet(i);
+
+            // 사전 경고 이펙트 재생
+            PoolManager.ParticlePlay(enemyProjectileSet.projectileTemplate.warningParticle, enemyProjectileSet.projectileLine.Spline);
+
+            // 이펙트 재생 후 testWarningDelay만큼 지연 후 투사체 발사
+            DOVirtual.DelayedCall(testWarningDelay, () => Attack(enemyProjectileSet));
+
+            // EnemyProjectileSet의 다음 딜레이 적용
             if (i < pattern.GetProjectileCount() - 1)
                 yield return new WaitForSeconds(enemyProjectileSet.nextAttackDelay);
         }
@@ -100,11 +118,13 @@ public class Enemy : MonoBehaviour
         {
             EnemyProjectileSet enemyProjectileSet = pattern.SelectProjectileSet(i);
 
-            float delay = value + enemyProjectileSet.enemyProjectile.GetDuration();
+            float delay = value + enemyProjectileSet.projectileTemplate.enemyProjectile.GetDuration();
 
             preAttackEffects.Add(new PreEffectTuple(
-                enemyProjectileSet.effectParticle,
-                enemyProjectileSet.effectAudio,
+                enemyProjectileSet.projectileTemplate.preParticles.Count > i ?
+                enemyProjectileSet.projectileTemplate.preParticles[i] :
+                enemyProjectileSet.projectileTemplate.preParticles[0],
+                enemyProjectileSet.projectileTemplate.preAudio,
                 delay
             ));
 

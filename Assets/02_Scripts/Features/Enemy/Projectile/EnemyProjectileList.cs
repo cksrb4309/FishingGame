@@ -8,15 +8,3 @@ public class EnemyProjectileList
 {
     public List<EnemyProjectileSet> enemyProjectileSets;
 }
-
-[Serializable]
-public class EnemyProjectileSet
-{
-    public EnemyProjectile enemyProjectile;     // 투사체 Prefab
-    public SplineContainer projectileLine;      // 투사체 궤적
-    public AnimationCurve moveAnimationCurve;   // 투사체 
-    public float nextAttackDelay;               // 다음 공격 지연
-
-    public AudioClip effectAudio;               // 효과음
-    public ParticleSystem effectParticle;       // 효과 이펙트
-}
