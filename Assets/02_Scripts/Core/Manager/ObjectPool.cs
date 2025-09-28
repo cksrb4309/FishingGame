@@ -1,36 +1,52 @@
 using System.Collections.Generic;
 using UnityEngine;
+using VContainer.Unity;
 
 public class ObjectPool<T> where T : Component
 {
     private Queue<T> pool = new Queue<T>();
     private Transform parent;
     private T prefab;
+    private bool isInjectedPrefab;
 
 
-
-    public ObjectPool(T prefab, int initialSize, Transform parent = null)
+    public ObjectPool(T prefab, int initialSize, Transform parent = null, bool isInjectedPrefab = false)
     {
         this.prefab = prefab;
         this.parent = parent;
 
         for (int i = 0; i < initialSize; i++)
         {
-            T obj = GameObject.Instantiate(prefab, parent);
+            T obj = null;
+
+            if (isInjectedPrefab)
+                obj = GameLifetimeScope.ObjectResolver.Instantiate(prefab, parent);
+            
+            else
+                obj = GameObject.Instantiate(prefab, parent);
 
             obj.gameObject.SetActive(false);
             pool.Enqueue(obj);
         }
+
+        this.isInjectedPrefab = isInjectedPrefab;
     }
 
-    public ObjectPool(GameObject prefab_1, T prefab_2, int initialSize, Transform parent = null)
+    public ObjectPool(GameObject prefab_1, T prefab_2, int initialSize, Transform parent = null, bool isInjectedPrefab = false)
     {
         prefab = prefab_2;
         this.parent = parent;
 
         for (int i = 0; i < initialSize; i++)
         {
-            T obj = GameObject.Instantiate(prefab_2, parent);
+            T obj = null;
+
+            if (isInjectedPrefab)
+                obj = GameLifetimeScope.ObjectResolver.Instantiate(prefab, parent);
+
+            else
+                obj = GameObject.Instantiate(prefab, parent);
+
             AttachPooledObject(obj);
             obj.gameObject.SetActive(false);
             pool.Enqueue(obj);
@@ -58,7 +74,14 @@ public class ObjectPool<T> where T : Component
         }
         else
         {
-            obj = GameObject.Instantiate(prefab, parent);
+            obj = null;
+
+            if (isInjectedPrefab)
+                obj = GameLifetimeScope.ObjectResolver.Instantiate(prefab, parent);
+
+            else
+                obj = GameObject.Instantiate(prefab, parent);
+
             AttachPooledObject(obj);
         }
 

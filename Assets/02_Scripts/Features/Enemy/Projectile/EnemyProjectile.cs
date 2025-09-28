@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Splines;
+using VContainer;
 
 public class EnemyProjectile : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class EnemyProjectile : MonoBehaviour
 
     [SerializeField] float duration;
     [SerializeField] float baseDamage;
+
+    [Inject] PlayerEffect playerEffect;
 
     private Tween moveTween;
 
@@ -51,12 +54,16 @@ public class EnemyProjectile : MonoBehaviour
 
         PlayerParryCombo.Instance?.DecreaseCombo();
 
+        playerEffect.PlayHitParticle();
+
         Cancel();
 
         ReturnPool();
     }
     public void EnemyHit(int parryRangeIndex)
     {
+        Enemy.Current.PlayHitParticle();
+
         EnemyData.Current.ModifyHp(baseDamage * parryRangeIndex * -1f);
 
         Cancel();

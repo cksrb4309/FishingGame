@@ -6,6 +6,8 @@ public class PlayerEffect : SerializedMonoBehaviour
 {
     [SerializeField] Dictionary<int, ParticleSystem> parryParticleDict;
     [SerializeField] ParticleSystem projectileHitParticle;
+    [SerializeField] ParticleSystem playerHitParticle;
+
     public void Parry(int index)
     {
         parryParticleDict[index].Play();
@@ -19,5 +21,9 @@ public class PlayerEffect : SerializedMonoBehaviour
         particle.transform.position = position;
 
         particle.Play();
+    }
+    public void PlayHitParticle()
+    {
+        PoolManager.ParticlePlay(playerHitParticle, transform.position);
     }
 }

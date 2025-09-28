@@ -1485,6 +1485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 02a47d9161ce30c49a164eea4c3b1f78, type: 2}
   audioSource: {fileID: 396276913}
+  enemyHitParticle: {fileID: 3784506846207845847, guid: 4bc65ddae843a8543ae710021da91f9d, type: 3}
   testWarningDelay: 1
 --- !u!212 &939611752
 SpriteRenderer:
@@ -2584,6 +2585,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   projectileHitParticle: {fileID: 8559771517084324472, guid: 23fb9ecb31bbfec4cbf69b0d21dfb68a, type: 3}
+  playerHitParticle: {fileID: 8535637897903655390, guid: f6711787f7d6c4d419bc05a33157e5ef, type: 3}
 --- !u!1 &1536263700
 GameObject:
   m_ObjectHideFlags: 0

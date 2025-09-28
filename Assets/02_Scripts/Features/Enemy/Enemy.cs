@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
 
     public AudioSource audioSource;
 
+    public ParticleSystem enemyHitParticle;
+
     public float testWarningDelay = 1f;
 
     Coroutine patternCoroutine = null;
@@ -67,13 +69,7 @@ public class Enemy : MonoBehaviour
     {
         if (pattern.patternPreParticle != null)
         {
-            ParticleSystem effect = PoolManager.GetObj(pattern.patternPreParticle);
-
-            if (!effect.gameObject.activeSelf) effect.gameObject.SetActive(true);
-
-            effect.transform.position = transform.position;
-
-            DOVirtual.DelayedCall(2f, () => { effect.gameObject.SetActive(false); PoolManager.ReturnObj(effect); });
+            PoolManager.ParticlePlay(pattern.patternPreParticle, transform.position);
         }
     }
     private IEnumerator AttackCoroutine(EnemyPattern pattern)
@@ -81,7 +77,7 @@ public class Enemy : MonoBehaviour
         // 지연 적용시킬 투사체 발사 부분
         void Attack(EnemyProjectileSet enemyProjectileSet)
         {
-            EnemyProjectile projectile = PoolManager.GetObj(enemyProjectileSet.projectileTemplate.enemyProjectile);
+            EnemyProjectile projectile = PoolManager.GetObj(enemyProjectileSet.projectileTemplate.enemyProjectile, true);
 
             projectile.transform.position = Vector3.one * 100f;
 
@@ -153,6 +149,10 @@ public class Enemy : MonoBehaviour
             if (i < preAttackEffects.Count - 1)
                 yield return new WaitForSeconds(preAttackEffects[i + 1].delay - preAttackEffects[i].delay);
         }
+    }
+    public void PlayHitParticle()
+    {
+        PoolManager.ParticlePlay(enemyHitParticle, transform.position);
     }
 }
 

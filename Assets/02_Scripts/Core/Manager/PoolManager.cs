@@ -40,13 +40,14 @@ public class PoolManager : Singleton<PoolManager>
     }
 
     // Prefab 기반 풀 생성
-    public static void CreatePool<T>(T prefab, int initialSize = 5) where T : Component
+    public static void CreatePool<T>(T prefab, int initialSize = 5, bool isInjectedPrefab = false) where T : Component
     {
         if (prefab == null) return;
 
         if (!Instance.prefabPools.ContainsKey(prefab.gameObject))
         {
-            var pool = new ObjectPool<T>(prefab.gameObject, prefab, initialSize, Instance.transform);
+            var pool = new ObjectPool<T>(prefab.gameObject, prefab, initialSize, Instance.transform, isInjectedPrefab);
+
             Instance.prefabPools[prefab.gameObject] = pool;
         }
     }
@@ -83,6 +84,27 @@ public class PoolManager : Singleton<PoolManager>
         else
         {
             CreatePool(prefab, 5);
+            if (Instance.prefabPools.TryGetValue(prefab.gameObject, out poolObj) && poolObj is ObjectPool<T> pool2)
+                return pool2.Pop();
+            return null;
+        }
+    }
+    public static T GetObj<T>(T prefab, bool isInjectedPrefab = false) where T : Component
+    {
+        if (prefab == null)
+        {
+            Debug.LogWarning("PoolManager : Prefab Null !");
+
+            return null;
+        }
+
+        if (Instance.prefabPools.TryGetValue(prefab.gameObject, out object poolObj) && poolObj is ObjectPool<T> pool)
+        {
+            return pool.Pop();
+        }
+        else
+        {
+            CreatePool(prefab, 5, isInjectedPrefab);
             if (Instance.prefabPools.TryGetValue(prefab.gameObject, out poolObj) && poolObj is ObjectPool<T> pool2)
                 return pool2.Pop();
             return null;
@@ -168,10 +190,5 @@ public class PoolManager : Singleton<PoolManager>
 // ---------------------------------------------
 public enum ObjectPoolID
 {
-    [InspectorName("1번 미니게임 공격 오브젝트")] AttackArea = 0,
-    [InspectorName("3번 미니게임 공격 오브젝트")] AttackProjectile = 1,
-    [InspectorName("4번 미니게임 회피 1")] FishPattern_1 = 2,
-    [InspectorName("4번 미니게임 회피 2")] FishPattern_2 = 3,
-    [InspectorName("5번 미니게임 공격 오브젝트 1")] AttackProjectile_5_1 = 4,
-    [InspectorName("6번 미니게임 찌르기 오브젝트")] ThrushSlash = 5,
+
 }
